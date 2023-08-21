@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvvm/view/login/widgets/input_email_widget.dart';
-import 'package:mvvm/view/login/widgets/input_password_widget.dart';
-import 'package:mvvm/view/login/widgets/login_button_widget.dart';
-import 'package:mvvm/view_models/controller/login/login_controller.dart';
+import 'package:FMS/view/login/widgets/input_email_widget.dart';
+import 'package:FMS/view/login/widgets/input_password_widget.dart';
+import 'package:FMS/view/login/widgets/login_button_widget.dart';
+import 'package:FMS/view_models/controller/login/login_controller.dart';
 
 import '../../res/color/colors.dart';
 

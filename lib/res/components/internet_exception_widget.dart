@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/res/color/colors.dart';
+import 'package:FMS/res/color/colors.dart';
 
 class InternetExceptionWidget extends StatefulWidget {
   final VoidCallback onPress;
@@ -15,7 +15,7 @@ class _InternetExceptionWidgetState extends State<InternetExceptionWidget> {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           const Icon(

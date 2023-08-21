@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:mvvm/res/routes/routes_name.dart';
-import 'package:mvvm/view/home/home.dart';
-import 'package:mvvm/view/login/login_view.dart';
-import 'package:mvvm/view/splash_screen.dart';
+import 'package:FMS/res/routes/routes_name.dart';
+import 'package:FMS/view/home/home.dart';
+import 'package:FMS/view/login/login_view.dart';
+import 'package:FMS/view/splash_screen.dart';
 
 class AppRoutes {
   static appRoutes() => [

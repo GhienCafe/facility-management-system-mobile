@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvvm/res/color/colors.dart';
-import 'package:mvvm/res/routes/routes_name.dart';
-import 'package:mvvm/view/home/widgets/user_list_widget.dart';
-import 'package:mvvm/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
+import 'package:FMS/res/color/colors.dart';
+import 'package:FMS/res/routes/routes_name.dart';
+import 'package:FMS/view/home/widgets/user_list_widget.dart';
+import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 
 import '../../view_models/controller/home/home_controller.dart';
 

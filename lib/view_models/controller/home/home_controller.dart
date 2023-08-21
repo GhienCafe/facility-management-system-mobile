@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:mvvm/models/home/user_list_model.dart';
-import 'package:mvvm/res/repository/home_repository/home_repository.dart';
+import 'package:FMS/models/home/user_list_model.dart';
+import 'package:FMS/res/repository/home_repository/home_repository.dart';
 
-import '../../../data/reponse/status.dart';
+import '../../../data/response/status.dart';
 
 class HomeController extends GetxController {
   final _api = HomeRepository();

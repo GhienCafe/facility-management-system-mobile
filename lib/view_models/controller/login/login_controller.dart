@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:mvvm/models/login/user_model.dart';
-import 'package:mvvm/res/repository/login_repository/login_repository.dart';
-import 'package:mvvm/res/routes/routes_name.dart';
-import 'package:mvvm/utlis/utlis.dart';
-import 'package:mvvm/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
+import 'package:FMS/models/login/user_model.dart';
+import 'package:FMS/res/repository/login_repository/login_repository.dart';
+import 'package:FMS/res/routes/routes_name.dart';
+import 'package:FMS/utlis/utlis.dart';
+import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 
 class LoginViewModel extends GetxController {
   final _api = LoginRepository();

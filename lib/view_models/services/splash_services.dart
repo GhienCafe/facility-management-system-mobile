@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:mvvm/res/routes/routes_name.dart';
-import 'package:mvvm/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
+import 'package:FMS/res/routes/routes_name.dart';
+import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 
 class SplashService {
   UserPreference userPreference = UserPreference();

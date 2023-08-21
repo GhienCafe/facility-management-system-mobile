@@ -1,4 +1,4 @@
-import 'package:mvvm/models/login/user_model.dart';
+import 'package:FMS/models/login/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreference {

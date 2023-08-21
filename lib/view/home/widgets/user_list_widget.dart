@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/reponse/status.dart';
+import '../../../data/response/status.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../view_models/controller/home/home_controller.dart';

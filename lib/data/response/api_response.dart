@@ -1,4 +1,4 @@
-import 'package:FMS/data/reponse/status.dart';
+import 'package:FMS/data/response/status.dart';
 
 class ApiResponse<T> {
   Status? status;

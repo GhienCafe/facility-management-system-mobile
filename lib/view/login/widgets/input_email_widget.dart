@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mvvm/res/color/colors.dart';
+import 'package:FMS/res/color/colors.dart';
 
 import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/login/login_controller.dart';

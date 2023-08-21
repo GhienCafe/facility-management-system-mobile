@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:mvvm/res/color/colors.dart';
+import 'package:FMS/res/color/colors.dart';
 
 class Utlis {
   // we user write the email and sift to password
@@ -26,6 +26,6 @@ class Utlis {
   }
 
   static snackBar(String title, String message) {
-    Get.snackbar(title, message);
+    Get.snackbar(title, message,backgroundColor: Colors.amber,);
   }
 }
