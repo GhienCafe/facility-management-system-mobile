@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "864273680010",
+    "project_id": "facility-management-system-fb",
+    "storage_bucket": "facility-management-system-fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864273680010:android:6ea52033f0c86c45d74f73",
+        "android_client_info": {
+          "package_name": "com.example.facility_management_system_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864273680010-tgbieg9n51ftc6u63u7qdj63reskdl2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYovmcQwmUyEJuMHYGBJtZn5EPd6tbWVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864273680010-g85kt4ra7itbv3u5sckrmv2ru1g8rr80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

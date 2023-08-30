@@ -41,7 +41,6 @@ class LoginViewModel extends GetxController {
             .then((value) => {
                   // for deelte the data from RAM after login
                   Get.delete<LoginViewModel>(),
-
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
                   Utlis.snackBar("Login", "login sucessfully"),
                 })
