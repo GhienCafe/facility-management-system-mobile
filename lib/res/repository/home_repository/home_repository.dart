@@ -6,7 +6,7 @@ class HomeRepository {
   final _apiService = NetworkApiServices();
 
   Future<UserListModel> userListApi() async {
-    dynamic reponse = await _apiService.getApi(AppUrl.userListApi);
-    return UserListModel.fromJson(reponse);
+    dynamic response = await _apiService.getApi(AppUrl.userListApi);
+    return UserListModel.fromJson(response);
   }
 }

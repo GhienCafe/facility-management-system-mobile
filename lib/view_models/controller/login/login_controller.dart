@@ -19,12 +19,13 @@ class LoginViewModel extends GetxController {
 
   RxBool loading = false.obs;
   void loginApi() {
-    print(emailController);
+    //print(emailController);
     loading.value = true;
     Map data = {
       'email': emailController.value.text,
       'password': passwordController.value.text,
     };
+
     _api.loginApi(data).then((value) {
       loading.value = false;
       print(value);

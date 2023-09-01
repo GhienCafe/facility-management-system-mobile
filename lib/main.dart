@@ -1,10 +1,19 @@
 import 'package:FMS/res/getx_localization/language.dart';
+import 'package:FMS/view_models/controller/notification/notification_controller.dart';
+import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:FMS/res/routes/routes.dart';
 import 'package:FMS/view/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize cho Local Notification
+  await NotificationController.initializeLocalNotifications(debug: true);
+  print(AwesomeNotificationsFcm().requestFirebaseAppToken());
+  // Initialize cho Push Notification
+  await NotificationController.initializeRemoteNotifications(debug: true);
   runApp(const MyApp());
 }
 

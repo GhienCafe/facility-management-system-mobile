@@ -9,17 +9,17 @@ class AppRoutes {
         GetPage(
             name: RouteName.splashScreen,
             page: () => SplashScreen(),
-            transitionDuration: Duration(milliseconds: 250),
+            transitionDuration: Duration(milliseconds: 100),
             transition: Transition.leftToRight),
         GetPage(
             name: RouteName.loginScreen,
             page: () => LoginView(),
-            transitionDuration: Duration(milliseconds: 250),
+            transitionDuration: Duration(milliseconds: 100),
             transition: Transition.leftToRight),
         GetPage(
             name: RouteName.homeScreen,
             page: () => Home(),
-            transitionDuration: Duration(milliseconds: 250),
+            transitionDuration: Duration(milliseconds: 100),
             transition: Transition.leftToRight),
       ];
 }
