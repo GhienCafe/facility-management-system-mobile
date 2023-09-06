@@ -70,7 +70,7 @@ class NotificationController {
 
   // Hàm gọi Local notification khi nhấn nút Send notification trên ứng dụng
   Future<void> localNotification() async {
-    String timezom = await AwesomeNotifications().getLocalTimeZoneIdentifier();
+    String timezone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 1,

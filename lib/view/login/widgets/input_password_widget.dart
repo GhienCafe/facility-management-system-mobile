@@ -25,9 +25,11 @@ class _InputPasswordWidgetState extends State<InputPasswordWidget> {
       focusNode: loginVM.passwordFocusNode.value,
       obscuringCharacter: '*',
       // obscureText: true,
-      validator: (Value) {
-        if (Value!.isEmpty) {
-          Utlis.toastMessage("Enter password and email");
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Mật khẩu không được để trống";
+        } else if (value.length <= 5) {
+          return "Mật khẩu tối thiểu 5 kí tự";
         }
         return null;
       },
@@ -43,7 +45,7 @@ class _InputPasswordWidgetState extends State<InputPasswordWidget> {
             color: AppColor.primaryColor,
           ),
         ),
-        hintText: "Password",
+        hintText: "Mật khẩu",
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 17, vertical: 17),
         border: OutlineInputBorder(

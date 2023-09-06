@@ -8,4 +8,8 @@ class LoginRepository {
     dynamic response = await _apiService.postApi(data, AppUrl.loginApi);
     return response;
   }
+  Future<dynamic> loginApiToken(var token) async {
+    dynamic response = await _apiService.postApi(token, AppUrl.loginApi);
+    return response;
+  }
 }

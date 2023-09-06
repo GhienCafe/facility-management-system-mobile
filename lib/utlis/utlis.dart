@@ -26,6 +26,6 @@ class Utlis {
   }
 
   static snackBar(String title, String message) {
-    Get.snackbar(title, message,backgroundColor: Colors.amber,);
+    Get.snackbar(title, message,backgroundColor: Colors.orangeAccent,colorText: Colors.white);
   }
 }

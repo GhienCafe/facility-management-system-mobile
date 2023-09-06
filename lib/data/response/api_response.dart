@@ -13,6 +13,6 @@ class ApiResponse<T> {
 
   @override
   String toString() {
-    return "Status : $status \n MEssage : $message \n Data: $data";
+    return "Status : $status \n Message : $message \n Data: $data";
   }
 }

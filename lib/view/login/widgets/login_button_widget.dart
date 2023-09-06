@@ -16,10 +16,10 @@ class LoginButton extends StatelessWidget {
         loading: loginVM.loading.value,
         onPress: () {
           if (formKey.currentState!.validate()) {
-            loginVM.loginApi();
+            loginVM.loginApiMailPassword();
           }
         },
-        title: "Login",
+        title: "Đăng Nhập",
         width: 500,
       ),
     );

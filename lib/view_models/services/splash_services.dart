@@ -11,7 +11,7 @@ class SplashService {
     userPreference.getUser().then(
       (value) {
         // it value print the token
-        print("is loadind value $isLogin");
+        print("is loading value $isLogin");
         print("here is my token $value");
         // if (value.token?.isEmpty || value.token.toString() == "null") {
         //   Timer(const Duration(seconds: 3),

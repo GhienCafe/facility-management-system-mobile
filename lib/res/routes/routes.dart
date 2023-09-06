@@ -10,7 +10,7 @@ class AppRoutes {
             name: RouteName.splashScreen,
             page: () => SplashScreen(),
             transitionDuration: Duration(milliseconds: 100),
-            transition: Transition.leftToRight),
+            transition: Transition.zoom),
         GetPage(
             name: RouteName.loginScreen,
             page: () => LoginView(),

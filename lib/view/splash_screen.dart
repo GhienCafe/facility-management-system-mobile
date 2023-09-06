@@ -48,13 +48,13 @@ class _SplashScreenState extends State<SplashScreen> {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
+                    fontSize: 20.0,
                   ),
                 ),
               ],
             ),
 
-            CircularProgressIndicator(
+            const CircularProgressIndicator(
               valueColor:  AlwaysStoppedAnimation<Color>(Colors.orange),
             ),
           ],

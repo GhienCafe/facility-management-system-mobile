@@ -1,3 +1,4 @@
+import 'package:FMS/view/login/widgets/login_google_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:FMS/view/login/widgets/input_email_widget.dart';
@@ -14,6 +15,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final controller = Get.put(LoginViewModel());
   final loginVM = Get.put(LoginViewModel());
   final _formKey = GlobalKey<FormState>();
 
@@ -21,16 +23,16 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          backgroundColor: AppColor.primaryColor,
-          title: const Text(
-            "Login Screen",
-            style: TextStyle(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-        ),
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   centerTitle: true,
+        //   backgroundColor: AppColor.primaryColor,
+        //   title: const Text(
+        //     "Login Screen",
+        //     style: TextStyle(
+        //         color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+        //   ),
+        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -38,14 +40,21 @@ class _LoginViewState extends State<LoginView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "Login Now!",
+                "Đăng Nhập",
                 style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 35),
               ),
+              const Text(
+                "FPT Facility Management System",
+                style: TextStyle(
+                    color: AppColor.primaryColor,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20),
+              ),
               const SizedBox(
-                height: 80,
+                height: 60,
               ),
               Form(
                 key: _formKey,
@@ -65,6 +74,19 @@ class _LoginViewState extends State<LoginView> {
               LoginButton(
                 formKey: _formKey,
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: AppColor.primaryColor,
+                thickness: 2,
+                indent: 50,
+                endIndent: 50,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              LoginGoogleButton(),
             ],
           ),
         ),
