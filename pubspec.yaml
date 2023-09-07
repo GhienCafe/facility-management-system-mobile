@@ -44,6 +44,7 @@ dependencies:
   google_sign_in: ^6.1.5
   awesome_notifications: ^0.7.4+1
   awesome_notifications_fcm: ^0.7.4+1
+  curved_labeled_navigation_bar: ^2.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

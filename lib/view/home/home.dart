@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:FMS/view/widget/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:FMS/res/color/colors.dart';
-import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/home/widgets/user_list_widget.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../view_models/controller/home/home_controller.dart';
 
@@ -16,6 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final RxInt currentIndex = 0.obs;
   final homeController = Get.put(HomeController());
   UserPreference userPreference = UserPreference();
   @override
@@ -24,14 +23,6 @@ class _HomeState extends State<Home> {
     homeController.userListApi();
 
   }
-  //final FirebaseAuth auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  Future<void> signOutGoogle() async {
-    await FirebaseAuth.instance.signOut();
-    await googleSignIn.signOut();
-    print("User now: ${FirebaseAuth.instance.currentUser!.email}");
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,26 +31,24 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          backgroundColor: AppColor.primaryColor,
+          backgroundColor: AppColor.whiteColor,
           title: const Text(
-            "Home screen",
-            style: TextStyle(color: Colors.white),
+            "FPT FMS",
+            style: TextStyle(color: AppColor.primaryColor),
           ),
           actions: [
             IconButton(
-                onPressed: () async {
-                  userPreference.removeUser().then((value) => {
-                        Get.toNamed(RouteName.loginScreen),
-                      });
+                onPressed: () {
                 },
                 icon: const Icon(
-                  Icons.logout,
-                  color: Colors.white,
+                  Icons.add_alert,
+                  color: AppColor.primaryColor,
                   size: 25,
                 ))
           ],
         ),
         body: UserListWidget(),
+        bottomNavigationBar: BottomBar(currentIndex),
       ),
     );
   }

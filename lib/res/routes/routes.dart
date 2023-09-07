@@ -1,3 +1,5 @@
+import 'package:FMS/view/profile/profile.dart';
+import 'package:FMS/view/task/task.dart';
 import 'package:get/get.dart';
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/home/home.dart';
@@ -9,17 +11,30 @@ class AppRoutes {
         GetPage(
             name: RouteName.splashScreen,
             page: () => SplashScreen(),
-            transitionDuration: Duration(milliseconds: 100),
+            transitionDuration: const Duration(milliseconds: 100),
             transition: Transition.zoom),
         GetPage(
             name: RouteName.loginScreen,
             page: () => LoginView(),
-            transitionDuration: Duration(milliseconds: 100),
+            transitionDuration: const Duration(milliseconds: 100),
             transition: Transition.leftToRight),
         GetPage(
-            name: RouteName.homeScreen,
-            page: () => Home(),
-            transitionDuration: Duration(milliseconds: 100),
-            transition: Transition.leftToRight),
+          name: RouteName.homeScreen,
+          page: () => Home(),
+          transitionDuration: const Duration(milliseconds: 100),
+          transition: Transition.leftToRight
+        ),
+        GetPage(
+          name: RouteName.taskScreen,
+          page: () => Task(),
+          transitionDuration: const Duration(milliseconds: 100),
+          transition: Transition.leftToRight
+        ),
+        GetPage(
+          name: RouteName.profileScreen,
+          page: () => Profile(),
+          transitionDuration: const Duration(milliseconds: 100),
+          transition: Transition.leftToRight
+        ),
       ];
 }
