@@ -28,13 +28,14 @@ class _SplashScreenState extends State<SplashScreen> {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-
-              colors: [Color(0xFFFF800B),Color(0xFFCE1010),]
-          ),
+              colors: [
+                Color(0xFFECC74B),
+                Color(0xFFD23939),
+              ]),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               children: [
@@ -43,24 +44,27 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 300.0,
                   width: 300.0,
                 ),
-                const SizedBox(height: 20),
-                const Text("Welcome to FFMS\n FPT Facility Management System",textAlign:TextAlign.center,
+                const Text(
+                  "FFMS\n FPT Facility Management System",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+                    color: Color(0xFFE0D3B3),
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 25.0,
                   ),
                 ),
               ],
             ),
-
+            const SizedBox(
+              height: 30,
+            ),
             const CircularProgressIndicator(
-              valueColor:  AlwaysStoppedAnimation<Color>(Colors.orange),
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
             ),
           ],
         ),
       ),
     );
-
   }
 }

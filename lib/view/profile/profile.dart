@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
@@ -17,10 +19,11 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final RxInt currentIndex = 2.obs;
   UserPreference userPreference = UserPreference();
-  //final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+
   Future<void> signOutGoogle() async {
     await FirebaseAuth.instance.signOut();
+    await googleSignIn.disconnect();
     await googleSignIn.signOut();
     print("User now: ${FirebaseAuth.instance.currentUser!.email}");
   }
@@ -39,11 +42,10 @@ class _ProfileState extends State<Profile> {
             ),
             actions: [
               IconButton(
-                  onPressed: () async {
-                    userPreference.removeUser().then((value) => {
-                          signOutGoogle(),
-                          Get.toNamed(RouteName.loginScreen),
-                        });
+                  onPressed: () {
+                    userPreference.removeUser();
+                    signOutGoogle();
+                    Get.toNamed(RouteName.loginScreen);
                   },
                   icon: const Icon(
                     Icons.logout,

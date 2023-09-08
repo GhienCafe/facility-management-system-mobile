@@ -1,7 +1,7 @@
+import 'package:FMS/models/login/users_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:FMS/models/login/user_model.dart';
 import 'package:FMS/res/repository/login_repository/login_repository.dart';
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/utlis/utlis.dart';
@@ -22,6 +22,7 @@ class LoginViewModel extends GetxController {
   Future<void> signOutGoogle() async {
     await googleSignIn.signOut();
   }
+
   RxBool loading = false.obs;
   void loginApiMailPassword() {
     //print(emailController);
@@ -30,20 +31,17 @@ class LoginViewModel extends GetxController {
       'email': emailController.value.text,
       'password': passwordController.value.text,
     };
-
     _api.loginApi(data).then((value) {
-      loading.value = false;
       print(value);
-      if (value['error'] == 'user not found') {
-        Utlis.snackBar('Something wrong', value['error']);
+      loading.value = false;
+      //print(value);
+      if (value['status-code'] == 400 || value['status-code'] == 404) {
+        Utlis.snackBar('Something wrong!!!', value['status-code']);
       } else {
-        UserModel userModel = UserModel(
-          token: value['token'],
-          isLogin: true,
-        );
+        UsersModel userModel = UsersModel.fromJson(value);
         // we will this model in sharedprefences
         userPrefrence
-            .saveUser(userModel)
+            .saveUserInfoPreferences(userModel)
             .then((value) => {
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
@@ -56,20 +54,23 @@ class LoginViewModel extends GetxController {
       Utlis.snackBar('Something wrong: ', error.toString());
     });
   }
+
   Future<User?> handleSignIn() async {
     try {
       googleSignIn.signOut();
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final String email = googleSignInAccount.email;
         if (email.endsWith("@fpt.edu.vn")) {
           final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
+              await googleSignInAccount.authentication;
           final AuthCredential credential = GoogleAuthProvider.credential(
             accessToken: googleSignInAuthentication.accessToken,
             idToken: googleSignInAuthentication.idToken,
           );
-          final UserCredential authResult = await _auth.signInWithCredential(credential);
+          final UserCredential authResult =
+              await _auth.signInWithCredential(credential);
           final User? user = authResult.user;
           return user;
         } else {
@@ -85,12 +86,13 @@ class LoginViewModel extends GetxController {
       return null;
     }
   }
+
   loginWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
-      await googleSignIn.signIn();
+          await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount!.authentication;
+          await googleSignInAccount!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
@@ -101,15 +103,17 @@ class LoginViewModel extends GetxController {
       assert(await user?.getIdToken() != null);
       final User? currentUser = _auth.currentUser;
       assert(user?.uid == currentUser?.uid);
-      Get.toNamed('/homeView'); // navigate to your wanted page
+      Get.toNamed(RouteName.homeScreen); // navigate to your wanted page
       return;
     } catch (e) {
+      Get.toNamed(RouteName.loginScreen);
       throw (e);
     }
   }
 
   Future<void> logoutGoogle() async {
     await googleSignIn.signOut();
-    Get.back(); // navigate to your wanted page after logout.
+    Get.toNamed(
+        RouteName.loginScreen); // navigate to your wanted page after logout.
   }
 }
