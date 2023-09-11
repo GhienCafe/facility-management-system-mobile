@@ -45,6 +45,7 @@ dependencies:
   awesome_notifications: ^0.7.4+1
   awesome_notifications_fcm: ^0.7.4+1
   curved_labeled_navigation_bar: ^2.0.2
+  persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:
   flutter_test:

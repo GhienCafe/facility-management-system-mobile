@@ -35,10 +35,10 @@ class _ProfileState extends State<Profile> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             centerTitle: true,
-            backgroundColor: AppColor.primaryColor,
+            backgroundColor: AppColor.whiteColor,
             title: const Text(
-              "Profile screen",
-              style: TextStyle(color: Colors.white),
+              "Profile",
+              style: TextStyle(color: AppColor.primaryColor),
             ),
             actions: [
               IconButton(
@@ -49,12 +49,12 @@ class _ProfileState extends State<Profile> {
                   },
                   icon: const Icon(
                     Icons.logout,
-                    color: Colors.white,
+                    color: AppColor.primaryColor,
                     size: 25,
                   ))
             ],
           ),
-          body: Center(
+          body: const Center(
             child: Text('Profile Page'),
           ),
           bottomNavigationBar: BottomBar(currentIndex),

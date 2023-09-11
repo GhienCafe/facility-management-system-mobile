@@ -19,11 +19,19 @@ class SplashService {
 
       if (value['status_code'] != 200) {
         userPreference.removeUser();
-        Timer(const Duration(seconds: 3),
-            () => Get.toNamed(RouteName.loginScreen));
+        Timer(
+            const Duration(seconds: 3),
+            () => {
+                  Utlis.snackBar("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
+                  Get.toNamed(RouteName.loginScreen)
+                });
       } else {
-        Timer(const Duration(seconds: 3),
-            () => Get.toNamed(RouteName.homeScreen));
+        Timer(
+            const Duration(seconds: 3),
+            () => {
+                  Utlis.snackBar("Xin chào", "Chúc Một Ngày Tốt Lành"),
+                  Get.toNamed(RouteName.homeScreen)
+                });
       }
     }).onError((error, stackTrace) {
       Utlis.snackBar('Something wrong: ', error.toString());

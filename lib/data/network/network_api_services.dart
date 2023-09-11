@@ -62,11 +62,11 @@ class NetworkApiServices extends BaseApiService {
         return responseJson;
       case 400:
         dynamic responseJson = jsonDecode(response.body);
-        Utlis.snackBar("Đăng nhập thất bại: ", "Sai mật khẩu");
+        //Utlis.snackBar("Đăng nhập thất bại: ", "Sai mật khẩu");
         return responseJson;
       case 404:
         dynamic responseJson = jsonDecode(response.body);
-        Utlis.snackBar("Đăng nhập thất bại: ", "Tài khoản không tồn tại");
+        //Utlis.snackBar("Đăng nhập thất bại: ", "Tài khoản không tồn tại");
         return responseJson;
       default:
         throw FetchDataException(

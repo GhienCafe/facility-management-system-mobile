@@ -1,3 +1,4 @@
+import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,12 +16,26 @@ class _TaskState extends State<Task> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Home screen",
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      // ),
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            backgroundColor: AppColor.whiteColor,
+            title: const Text(
+              "Working Task",
+              style: TextStyle(color: AppColor.primaryColor),
+            ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+
+                  },
+                  icon: const Icon(
+                    Icons.filter_alt_outlined,
+                    color: AppColor.primaryColor,
+                    size: 25,
+                  ))
+            ],
+          ),
           body: Center(
             child: Text('Task Page'),
           ),

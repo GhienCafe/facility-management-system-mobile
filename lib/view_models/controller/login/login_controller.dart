@@ -55,7 +55,7 @@ class LoginViewModel extends GetxController {
     });
   }
 
-  Future<User?> handleSignIn() async {
+  Future<void> handleSignIn() async {
     try {
       googleSignIn.signOut();
       final GoogleSignInAccount? googleSignInAccount =
@@ -65,26 +65,50 @@ class LoginViewModel extends GetxController {
         if (email.endsWith("@fpt.edu.vn")) {
           final GoogleSignInAuthentication googleSignInAuthentication =
               await googleSignInAccount.authentication;
-          final AuthCredential credential = GoogleAuthProvider.credential(
-            accessToken: googleSignInAuthentication.accessToken,
-            idToken: googleSignInAuthentication.idToken,
-          );
-          final UserCredential authResult =
-              await _auth.signInWithCredential(credential);
-          final User? user = authResult.user;
-          return user;
+          // final AuthCredential credential = GoogleAuthProvider.credential(
+          //   accessToken: googleSignInAuthentication.accessToken,
+          //   idToken: googleSignInAuthentication.idToken,
+          // );
+          print("token User ID: ${googleSignInAuthentication.idToken}");
+          checkTokenGoogle(googleSignInAuthentication.idToken);
         } else {
           // Show an error message or handle unauthorized domain here
           print("Email not valid (...@fpt.edu.vn)");
-          await signOutGoogle(); // Sign out the user
-          return null;
+          await signOutGoogle();
         }
       }
     } catch (error) {
       print("Google Sign-In Error: $error");
-      // await signOutGoogle(); // Sign out the user on error
-      return null;
     }
+  }
+
+  checkTokenGoogle(String? token) async {
+    loading.value = true;
+    Map data = {
+      'access_token': token,
+    };
+    _api.loginApiToken(data).then((value) {
+      print(value);
+      loading.value = false;
+      if (value['status-code'] == 400 || value['status-code'] == 404) {
+        Utlis.snackBar("Đăng nhập không hợp lệ", "Hãy thử lại");
+        Get.toNamed(RouteName.loginScreen);
+      } else {
+        UsersModel userModel = UsersModel.fromJson(value);
+        // we will this model in sharedprefences
+        userPrefrence
+            .saveUserInfoPreferences(userModel)
+            .then((value) => {
+          Get.delete<LoginViewModel>(),
+          Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
+          Utlis.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+        })
+            .onError((error, stackTrace) => {});
+      }
+    }).onError((error, stackTrace) {
+      loading.value = false;
+      Utlis.snackBar('Something wrong: ', error.toString());
+    });
   }
 
   loginWithGoogle() async {
@@ -98,12 +122,7 @@ class LoginViewModel extends GetxController {
         idToken: googleSignInAuthentication.idToken,
       );
       final authResult = await _auth!.signInWithCredential(credential);
-
-      final User? user = authResult.user;
-      assert(await user?.getIdToken() != null);
-      final User? currentUser = _auth.currentUser;
-      assert(user?.uid == currentUser?.uid);
-      Get.toNamed(RouteName.homeScreen); // navigate to your wanted page
+      checkTokenGoogle(googleSignInAuthentication.idToken); // navigate to your wanted page
       return;
     } catch (e) {
       Get.toNamed(RouteName.loginScreen);

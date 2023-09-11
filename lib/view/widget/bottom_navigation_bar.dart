@@ -45,7 +45,7 @@ class _BottomBarState extends State<BottomBar> {
           buttonBackgroundColor: Colors.white,
           backgroundColor: AppColor.primaryColor,
           animationCurve: Curves.linearToEaseOut,
-          animationDuration: const Duration(milliseconds: 500),
+          animationDuration: const Duration(milliseconds: 100),
           onTap: (index) {
             widget.currentIndex.value = index;
             switch (index) {
