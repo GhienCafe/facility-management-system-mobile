@@ -1,4 +1,6 @@
 import 'package:FMS/models/login/users_model.dart';
+import 'package:FMS/view_models/controller/notification/notification_controller.dart';
+import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -51,7 +53,7 @@ class LoginViewModel extends GetxController {
       }
     }).onError((error, stackTrace) {
       loading.value = false;
-      Utlis.snackBar('Something wrong: ', error.toString());
+      Utlis.snackBar('Có lỗi xảy ra: ', "Email hoặc mật khẩu không chính xác");
     });
   }
 
@@ -65,15 +67,18 @@ class LoginViewModel extends GetxController {
         if (email.endsWith("@fpt.edu.vn")) {
           final GoogleSignInAuthentication googleSignInAuthentication =
               await googleSignInAccount.authentication;
-          // final AuthCredential credential = GoogleAuthProvider.credential(
-          //   accessToken: googleSignInAuthentication.accessToken,
-          //   idToken: googleSignInAuthentication.idToken,
-          // );
-          print("token User ID: ${googleSignInAuthentication.idToken}");
+          final AuthCredential credential = GoogleAuthProvider.credential(
+            accessToken: googleSignInAuthentication.accessToken,
+            idToken: googleSignInAuthentication.idToken,
+          );
+          FirebaseAuth.instance.signInWithCredential(credential);
+          final token = await AwesomeNotificationsFcm().requestFirebaseAppToken();
+          //print("TOKEN FCM: $token");
+          //print("token User ID: ${googleSignInAuthentication.idToken}");
           checkTokenGoogle(googleSignInAuthentication.idToken);
         } else {
           // Show an error message or handle unauthorized domain here
-          print("Email not valid (...@fpt.edu.vn)");
+          Utlis.snackBar("Bạn Không Có Quyền Truy Cập","Email not valid (...@fpt.edu.vn)");
           await signOutGoogle();
         }
       }
@@ -90,7 +95,7 @@ class LoginViewModel extends GetxController {
     _api.loginApiToken(data).then((value) {
       print(value);
       loading.value = false;
-      if (value['status-code'] == 400 || value['status-code'] == 404) {
+      if (value['status_code'] != 200) {
         Utlis.snackBar("Đăng nhập không hợp lệ", "Hãy thử lại");
         Get.toNamed(RouteName.loginScreen);
       } else {
@@ -121,7 +126,7 @@ class LoginViewModel extends GetxController {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      final authResult = await _auth!.signInWithCredential(credential);
+      FirebaseAuth.instance.signInWithCredential(credential);
       checkTokenGoogle(googleSignInAuthentication.idToken); // navigate to your wanted page
       return;
     } catch (e) {

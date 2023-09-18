@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:FMS/utlis/utlis.dart';
+import 'package:FMS/models/login/users_model.dart';
+import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:FMS/data/app_exceptions.dart';
@@ -22,6 +23,29 @@ class NetworkApiServices extends BaseApiService {
       throw RequestTimeOUt();
     }
 
+    return responseJson;
+  }
+
+  Future<dynamic> getApiAuthor(String url) async {
+    dynamic responseJson;
+    try {
+      UserPreference userPreference = UserPreference();
+      UsersModel userInfo = await userPreference.getUserInfo();
+      String? accessToken = userInfo.data?.accessToken;
+      final response = await http.get(
+        Uri.parse(url),
+        headers: <String, String>{
+          "content-type": "application/json",
+          "accept": "application/json",
+          'Authorization': 'Bearer $accessToken',
+        },
+      ).timeout(const Duration(seconds: 10));
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOUt {
+      throw RequestTimeOUt();
+    }
     return responseJson;
   }
 
@@ -54,23 +78,55 @@ class NetworkApiServices extends BaseApiService {
     return responseJson;
   }
 
+  Future<dynamic> postApiAuthor(var data, String url) async {
+    if (kDebugMode) {
+      print(url);
+      print(data);
+    }
+    dynamic responseJson;
+
+    try {
+      UserPreference userPreference = UserPreference();
+      userPreference.getUserInfo().then((value) async {
+        final response = await http
+            .post(Uri.parse(url),
+                headers: <String, String>{
+                  "content-type": "application/json",
+                  "accept": "application/json",
+                  'Authorization': 'Bearer ${value.data?.accessToken}',
+                },
+                body: jsonEncode(data))
+            .timeout(const Duration(seconds: 10));
+        responseJson = returnResponse(response);
+      });
+
+      //responseJson = jsonDecode(response.body);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOUt {
+      throw RequestTimeOUt();
+    }
+    return responseJson;
+  }
+
   dynamic returnResponse(http.Response response) {
-    //print(response.body.toString());
+    print(response.body.toString());
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
       case 400:
         dynamic responseJson = jsonDecode(response.body);
-        //Utlis.snackBar("Đăng nhập thất bại: ", "Sai mật khẩu");
         return responseJson;
       case 404:
         dynamic responseJson = jsonDecode(response.body);
-        //Utlis.snackBar("Đăng nhập thất bại: ", "Tài khoản không tồn tại");
+        return responseJson;
+      case 401:
+        dynamic responseJson = jsonDecode(response.body);
         return responseJson;
       default:
         throw FetchDataException(
-            'error while communication ' + response.statusCode.toString());
+            'error while communication: ${response.statusCode}');
     }
   }
 }

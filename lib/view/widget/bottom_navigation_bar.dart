@@ -1,7 +1,6 @@
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/res/routes/routes_name.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,55 +12,47 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return CurvedNavigationBar(
-          index: widget.currentIndex.value, // Sử dụng giá trị _page từ GetX
-          items: const [
-            CurvedNavigationBarItem(
-              child: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            CurvedNavigationBarItem(
-              child: Icon(Icons.task_outlined),
-              label: 'Task',
-            ),
-            // CurvedNavigationBarItem(
-            //   child: Icon(Icons.chat_bubble_outline),
-            //   label: 'Chat',
-            // ),
-            // CurvedNavigationBarItem(
-            //   child: Icon(Icons.newspaper),
-            //   label: 'Feed',
-            // ),
-            CurvedNavigationBarItem(
-              child: Icon(Icons.perm_identity),
-              label: 'Personal',
-            ),
-          ],
-          color: AppColor.whiteColor,
-          buttonBackgroundColor: Colors.white,
-          backgroundColor: AppColor.primaryColor,
-          animationCurve: Curves.linearToEaseOut,
-          animationDuration: const Duration(milliseconds: 100),
-          onTap: (index) {
-            widget.currentIndex.value = index;
-            switch (index) {
-              case 0:
-                Get.toNamed(RouteName.homeScreen);
-                break;
-              case 1:
-                Get.toNamed(RouteName.taskScreen);
-                break;
-              case 2:
-                Get.toNamed(RouteName.profileScreen);
-                break;
-            }
-          },
-          letIndexChange: (index) => true,
-        );
+      return ConvexAppBar(
+        initialActiveIndex: widget.currentIndex.value, // Use the current index from GetX
+        items: const [
+          TabItem(
+            icon: Icon(Icons.home_outlined, color: AppColor.whiteColor),
+            activeIcon: Icon(Icons.home_outlined, color: AppColor.primaryColor),
+            title: 'Home',
+          ),
+          TabItem(
+            icon: Icon(Icons.task_outlined, color: AppColor.whiteColor),
+            activeIcon: Icon(Icons.task_outlined, color: AppColor.primaryColor),
+            title: 'Task',
+          ),
+          TabItem(
+            icon: Icon(Icons.reorder, color: AppColor.whiteColor),
+            activeIcon: Icon(Icons.reorder, color: AppColor.primaryColor),
+            title: 'More',
+          ),
+        ],
+        shadowColor: AppColor.blackColor,
+        color: AppColor.whiteColor,
+        backgroundColor: AppColor.primaryColor,
+        style: TabStyle.reactCircle,
+        onTap: (index) {
+          widget.currentIndex.value = index;
+          switch (index) {
+            case 0:
+              Get.toNamed(RouteName.homeScreen);
+              break;
+            case 1:
+              Get.toNamed(RouteName.taskScreen);
+              break;
+            case 2:
+              Get.toNamed(RouteName.profileScreen);
+              break;
+          }
+        },
+      );
     });
   }
 }

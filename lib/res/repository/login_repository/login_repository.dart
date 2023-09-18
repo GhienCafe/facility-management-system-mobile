@@ -12,4 +12,8 @@ class LoginRepository {
     dynamic response = await _apiService.postApi(token, AppUrl.loginApiToken);
     return response;
   }
+  Future<dynamic> checkAccessToken() async {
+    dynamic response = await _apiService.getApiAuthor(AppUrl.getUserInfo);
+    return response;
+  }
 }

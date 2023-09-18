@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "864273680010-b80lfr2l2f3l0jaj3sirrmu0bddvts4h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.facility_management_system_mobile",
+            "certificate_hash": "62906a7fcea4c297c62eada742babb3f21a8feef"
+          }
+        },
+        {
           "client_id": "864273680010-tgbieg9n51ftc6u63u7qdj63reskdl2i.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "864273680010-g85kt4ra7itbv3u5sckrmv2ru1g8rr80.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "864273680010-9uckkel4sdbqm7mj4i8dk9r1312qgc61.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.facilityManagementSystemMobile"
+              }
             }
           ]
         }

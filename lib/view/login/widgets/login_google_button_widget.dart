@@ -40,7 +40,8 @@ class LoginGoogleButton extends StatelessWidget {
         onPress: () async {
           await loginVM.handleSignIn();
         },
-        title: "Đăng Nhập Với Google",
+
+        title: "Đăng Nhập Với Google" ,
         width: 500,
       ),
     );

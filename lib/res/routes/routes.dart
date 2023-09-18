@@ -17,24 +17,24 @@ class AppRoutes {
             name: RouteName.loginScreen,
             page: () => LoginView(),
             transitionDuration: const Duration(milliseconds: 100),
-            transition: Transition.leftToRight),
+            transition: Transition.zoom),
         GetPage(
           name: RouteName.homeScreen,
           page: () => Home(),
-          transitionDuration: const Duration(milliseconds: 100),
-          transition: Transition.leftToRight
+          transitionDuration: const Duration(milliseconds: 0),
+          transition: Transition.zoom
         ),
         GetPage(
           name: RouteName.taskScreen,
           page: () => Task(),
-          transitionDuration: const Duration(milliseconds: 100),
-          transition: Transition.leftToRight
+          transitionDuration: const Duration(milliseconds: 0),
+          transition: Transition.zoom
         ),
         GetPage(
           name: RouteName.profileScreen,
           page: () => Profile(),
-          transitionDuration: const Duration(milliseconds: 100),
-          transition: Transition.leftToRight
+          transitionDuration: const Duration(milliseconds: 0),
+          transition: Transition.zoom
         ),
       ];
 }

@@ -12,11 +12,8 @@ class SplashService {
   final _api = LoginRepository();
   RxBool loading = false.obs;
   UserPreference userPreference = UserPreference();
-  void checkTokenValid(String token) {
-    Map data = {"access_token": token};
-    _api.loginApiToken(data).then((value) {
-      print(value['status_code']);
-
+  void checkTokenValid() async{
+    _api.checkAccessToken().then((value) {
       if (value['status_code'] != 200) {
         userPreference.removeUser();
         Timer(
@@ -34,21 +31,23 @@ class SplashService {
                 });
       }
     }).onError((error, stackTrace) {
-      Utlis.snackBar('Something wrong: ', error.toString());
+      Utlis.snackBar('Something wrong: ', "Please try again");
+      Get.toNamed(RouteName.loginScreen);
     });
   }
 
   void isLogin() {
     userPreference.getUserInfo().then(
       (value) {
-        //print("check ne: ${value.data?.accessToken.toString()}");
+        print("check accessToken: ${value.data?.accessToken.toString()}");
         var token = value.data!.accessToken.toString();
 
         if (token.isEmpty || token == "null") {
           Timer(const Duration(seconds: 3),
               () => Get.toNamed(RouteName.loginScreen));
         } else {
-          checkTokenValid(value.data!.accessToken.toString());
+          //Get.toNamed(RouteName.loginScreen);
+          checkTokenValid();
         }
       },
     );

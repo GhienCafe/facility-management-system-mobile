@@ -40,7 +40,7 @@ class _LoginViewState extends State<LoginView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "Đăng Nhập",
+                "ĐĂNG NHẬP",
                 style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class _LoginViewState extends State<LoginView> {
                 style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.normal,
-                    fontSize: 20),
+                    fontSize: 15),
               ),
               const SizedBox(
                 height: 60,
