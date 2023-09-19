@@ -1,3 +1,4 @@
+import 'package:FMS/res/color/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,7 @@ class UserListWidget extends StatelessWidget {
       switch (homeController.rxRequestStatus.value) {
         case Status.LOADING:
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: AppColor.primaryColor),
           );
         case Status.ERROR:
           if (homeController.error.value == 'No internet') {

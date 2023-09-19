@@ -62,22 +62,22 @@ class _ProfileState extends State<Profile> {
         centerTitle: true,
         backgroundColor: AppColor.whiteColor,
         title: const Text(
-          "Profile",
-          style: TextStyle(color: AppColor.primaryColor),
+          "Menu",
+          style: TextStyle(color: AppColor.primaryColor,letterSpacing: 1),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                userPreference.removeUser();
-                signOutGoogle();
-                Get.toNamed(RouteName.loginScreen);
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: AppColor.primaryColor,
-                size: 25,
-              ))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         userPreference.removeUser();
+        //         signOutGoogle();
+        //         Get.toNamed(RouteName.loginScreen);
+        //       },
+        //       icon: const Icon(
+        //         Icons.logout,
+        //         color: AppColor.primaryColor,
+        //         size: 25,
+        //       ))
+        // ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

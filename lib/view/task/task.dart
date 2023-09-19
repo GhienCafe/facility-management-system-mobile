@@ -17,13 +17,13 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  final TaskController cartController = Get.put(TaskController());
+  final TaskController taskController = Get.put(TaskController());
   final RxInt currentIndex = 1.obs;
   @override
   void initState() {
     super.initState();
     // Fetch cart data when the widget is first initialized
-    cartController.fetchCartData();
+    taskController.fetchCartData();
   }
 
   @override
@@ -42,7 +42,7 @@ class _TaskState extends State<Task> {
             IconButton(
               onPressed: () {
                 // Fetch cart data when the filter button is pressed
-                cartController.fetchCartData();
+                taskController.fetchCartData();
               },
               icon: const Icon(
                 Icons.refresh,
@@ -53,7 +53,7 @@ class _TaskState extends State<Task> {
           ],
         ),
         body: Obx(() {
-          if (cartController.isLoading.value) {
+          if (taskController.isLoading.value) {
             return SafeArea(
               child: DefaultTabController(
                 length: 3,
@@ -64,8 +64,8 @@ class _TaskState extends State<Task> {
                       unselectedBackgroundColor: Colors.grey[300],
                       unselectedLabelStyle:
                       const TextStyle(color: AppColor.blackColor),
-                      height: 50,
-                      buttonMargin: const EdgeInsets.only(left: 20),
+                      height: 40,
+                      buttonMargin: const EdgeInsets.only(left: 10, right: 10),
                       labelStyle: const TextStyle(
                           color: AppColor.whiteColor,
                           fontWeight: FontWeight.bold),
@@ -102,8 +102,8 @@ class _TaskState extends State<Task> {
                       unselectedBackgroundColor: Colors.grey[300],
                       unselectedLabelStyle:
                       const TextStyle(color: AppColor.blackColor),
-                      height: 50,
-                      buttonMargin: const EdgeInsets.only(left: 20),
+                      height: 40,
+                      buttonMargin: const EdgeInsets.only(left: 10, right: 10),
                       labelStyle: const TextStyle(
                           color: AppColor.whiteColor,
                           fontWeight: FontWeight.bold),
@@ -121,17 +121,23 @@ class _TaskState extends State<Task> {
                           text: "Hoàn Thành",
                         ),
                       ],
+                      onTap: (index) {
+                        // Fetch data for the selected tab
+                        if (index == 0) {
+                          taskController.fetchAllData();
+                        } else if (index == 1) {
+                          taskController.fetchProcessingData();
+                        } else if (index == 2) {
+                          taskController.fetchCompletedData();
+                        }
+                      },
                     ),
                     Expanded(
                       child: TabBarView(
                         children: <Widget>[
-                          DataListWidget(cartController.cartItems),
-                          const Center(
-                            child: Icon(Icons.directions_transit),
-                          ),
-                          const Center(
-                            child: Icon(Icons.directions_bike),
-                          ),
+                          DataListWidget(taskController.allItems),
+                          DataListWidget(taskController.processingItems),
+                          DataListWidget(taskController.completedItems),
                         ],
                       ),
                     ),

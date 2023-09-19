@@ -15,7 +15,8 @@ class _GeneralExceptionWidgetState extends State<GeneralExceptionWidget> {
     final h = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
+      child:
+      Column(
         children: [
           const Icon(
             Icons.cloud_off,
@@ -26,7 +27,7 @@ class _GeneralExceptionWidgetState extends State<GeneralExceptionWidget> {
             padding: EdgeInsets.only(top: 30),
             child: Center(
                 child: Text(
-              "we are unable to process your request \n plz try again",
+              "Không Có Kết Quả \n Hãy Thử Lại",
               // style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             )),
