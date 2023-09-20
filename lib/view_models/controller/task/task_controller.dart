@@ -9,8 +9,9 @@ class TaskController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchCartData();
+    fetchAllData();
   }
+
   Future<void> fetchAllData() async {
     isLoading.value = true;
 

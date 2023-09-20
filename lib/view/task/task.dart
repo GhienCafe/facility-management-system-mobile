@@ -5,7 +5,6 @@ import 'package:FMS/view_models/controller/task/task_controller.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
 import 'list_task_data.dart';
 
@@ -19,11 +18,113 @@ class Task extends StatefulWidget {
 class _TaskState extends State<Task> {
   final TaskController taskController = Get.put(TaskController());
   final RxInt currentIndex = 1.obs;
+  int selectedTabIndex = 0;
+
   @override
   void initState() {
     super.initState();
-    // Fetch cart data when the widget is first initialized
-    taskController.fetchCartData();
+  }
+
+  void refreshData() {
+    if (selectedTabIndex == 0) {
+      taskController.fetchAllData();
+    } else if (selectedTabIndex == 1) {
+      taskController.fetchProcessingData();
+    } else if (selectedTabIndex == 2) {
+      taskController.fetchCompletedData();
+    }
+  }
+
+  Widget buildLoadingPage() {
+    return SafeArea(
+      child: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: <Widget>[
+            ButtonsTabBar(
+              backgroundColor: AppColor.primaryColor,
+              unselectedBackgroundColor: Colors.grey[300],
+              unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
+              height: 40,
+              buttonMargin: const EdgeInsets.only(left: 10, right: 10),
+              labelStyle: const TextStyle(
+                  color: AppColor.whiteColor, fontWeight: FontWeight.bold),
+              tabs: const [
+                Tab(
+                  icon: Icon(Icons.format_list_bulleted),
+                  text: "Tất Cả",
+                ),
+                Tab(
+                  icon: Icon(Icons.timer),
+                  text: "Đang Xử Lý",
+                ),
+                Tab(
+                  icon: Icon(Icons.done),
+                  text: "Hoàn Thành",
+                ),
+              ],
+            ),
+            const Expanded(
+              child: LoadingListPage(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildLoadedPage() {
+    return SafeArea(
+      child: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: <Widget>[
+            ButtonsTabBar(
+              backgroundColor: AppColor.primaryColor,
+              unselectedBackgroundColor: Colors.grey[300],
+              unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
+              height: 40,
+              buttonMargin: const EdgeInsets.only(left: 10, right: 10),
+              labelStyle: const TextStyle(
+                  color: AppColor.whiteColor, fontWeight: FontWeight.bold),
+              tabs: const [
+                Tab(
+                  icon: Icon(Icons.format_list_bulleted),
+                  text: "Tất Cả",
+                ),
+                Tab(
+                  icon: Icon(Icons.timer),
+                  text: "Đang Xử Lý",
+                ),
+                Tab(
+                  icon: Icon(Icons.done),
+                  text: "Hoàn Thành",
+                ),
+              ],
+              onTap: (index) {
+                // Fetch data for the selected tab
+                if (index == 0) {
+                  taskController.fetchAllData();
+                } else if (index == 1) {
+                  taskController.fetchProcessingData();
+                } else if (index == 2) {
+                  taskController.fetchCompletedData();
+                }
+              },
+            ),
+            Expanded(
+              child: TabBarView(
+                children: <Widget>[
+                  DataListWidget(taskController.allItems),
+                  DataListWidget(taskController.processingItems),
+                  DataListWidget(taskController.completedItems),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -41,8 +142,7 @@ class _TaskState extends State<Task> {
           actions: [
             IconButton(
               onPressed: () {
-                // Fetch cart data when the filter button is pressed
-                taskController.fetchCartData();
+                refreshData();
               },
               icon: const Icon(
                 Icons.refresh,
@@ -53,103 +153,10 @@ class _TaskState extends State<Task> {
           ],
         ),
         body: Obx(() {
-          if (taskController.isLoading.value) {
-            return SafeArea(
-              child: DefaultTabController(
-                length: 3,
-                child: Column(
-                  children: <Widget>[
-                    ButtonsTabBar(
-                      backgroundColor: AppColor.primaryColor,
-                      unselectedBackgroundColor: Colors.grey[300],
-                      unselectedLabelStyle:
-                      const TextStyle(color: AppColor.blackColor),
-                      height: 40,
-                      buttonMargin: const EdgeInsets.only(left: 10, right: 10),
-                      labelStyle: const TextStyle(
-                          color: AppColor.whiteColor,
-                          fontWeight: FontWeight.bold),
-                      tabs: const [
-                        Tab(
-                          icon: Icon(Icons.format_list_bulleted),
-                          text: "Tất Cả",
-                        ),
-                        Tab(
-                          icon: Icon(Icons.timer),
-                          text: "Đang Xử Lý",
-                        ),
-                        Tab(
-                          icon: Icon(Icons.done),
-                          text: "Hoàn Thành",
-                        ),
-                      ],
-                    ),
-                    const Expanded(
-                      child: LoadingListPage(),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return SafeArea(
-              child: DefaultTabController(
-                length: 3,
-                child: Column(
-                  children: <Widget>[
-                    ButtonsTabBar(
-                      backgroundColor: AppColor.primaryColor,
-                      unselectedBackgroundColor: Colors.grey[300],
-                      unselectedLabelStyle:
-                      const TextStyle(color: AppColor.blackColor),
-                      height: 40,
-                      buttonMargin: const EdgeInsets.only(left: 10, right: 10),
-                      labelStyle: const TextStyle(
-                          color: AppColor.whiteColor,
-                          fontWeight: FontWeight.bold),
-                      tabs: const [
-                        Tab(
-                          icon: Icon(Icons.format_list_bulleted),
-                          text: "Tất Cả",
-                        ),
-                        Tab(
-                          icon: Icon(Icons.timer),
-                          text: "Đang Xử Lý",
-                        ),
-                        Tab(
-                          icon: Icon(Icons.done),
-                          text: "Hoàn Thành",
-                        ),
-                      ],
-                      onTap: (index) {
-                        // Fetch data for the selected tab
-                        if (index == 0) {
-                          taskController.fetchAllData();
-                        } else if (index == 1) {
-                          taskController.fetchProcessingData();
-                        } else if (index == 2) {
-                          taskController.fetchCompletedData();
-                        }
-                      },
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: <Widget>[
-                          DataListWidget(taskController.allItems),
-                          DataListWidget(taskController.processingItems),
-                          DataListWidget(taskController.completedItems),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
+          return taskController.isLoading.value ? buildLoadingPage() : buildLoadedPage();
         }),
         bottomNavigationBar: BottomBar(currentIndex),
       ),
     );
   }
 }
-

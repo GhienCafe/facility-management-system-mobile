@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class TaskCard extends StatefulWidget {
   const TaskCard(String item, {super.key});
-
   @override
   State<TaskCard> createState() => _TaskCardState();
 }
@@ -14,8 +13,8 @@ class _TaskCardState extends State<TaskCard> {
     return Container(
       height: 200,
       width: double.infinity,
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(32),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(30),
       decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -45,15 +44,15 @@ class _TaskCardState extends State<TaskCard> {
                   const Spacer(),
                   Stack(
                     children: List.generate(
-                      2,
+                      1,
                       (index) => Container(
                         margin: EdgeInsets.only(left: (15 * index).toDouble()),
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100)),
-                            color: Colors.white54),
+                            borderRadius: BorderRadius.all(Radius.circular(100)),
+                            color: AppColor.whiteColor),
+                        child: Icon(Icons.task_alt,color: MyColorsSample.green),
                       ),
                     ),
                   ) // Adds a stack of two circular containers to the right of the title
@@ -75,13 +74,6 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 }
-
-class ImgSample {
-  static String get(String name) {
-    return 'assets/images/$name';
-  }
-}
-
 class MyTextSample {
   static TextStyle? display4(BuildContext context) {
     return Theme.of(context).textTheme.displayLarge;
@@ -140,14 +132,4 @@ class MyTextSample {
   static TextStyle? overline(BuildContext context) {
     return Theme.of(context).textTheme.labelSmall;
   }
-}
-
-class MyStringsSample {
-  static const String lorem_ipsum =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin"
-      "\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin";
-  static const String middle_lorem_ipsum =
-      "Flutter is an open-source UI software development kit created by Google. It is used to develop cross-platform applications for Android, iOS, Linux, macOS, Windows, Google Fuchsia, and the web from a single codebase.";
-  static const String card_text =
-      "Cards are surfaces that display content and actions on a single topic.";
 }
