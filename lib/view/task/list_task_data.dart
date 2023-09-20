@@ -1,3 +1,4 @@
+import 'package:FMS/view/task/task_card.dart';
 import 'package:flutter/material.dart';
 
 class DataListWidget extends StatelessWidget {
@@ -7,14 +8,18 @@ class DataListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
-        return ListTile(
-          title: Text(item),
-        );
-      },
+    return Container(
+        margin: EdgeInsets.only(top: 10),
+        child: ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final item = items[index];
+            return TaskCard(item) ;
+            //   ListTile(
+            //   title: Text(item),
+            // );
+          },
+        ),
     );
   }
 }
