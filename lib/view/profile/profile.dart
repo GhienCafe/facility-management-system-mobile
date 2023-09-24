@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:FMS/models/login/users_model.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/res/routes/routes_name.dart';
+import 'package:FMS/view/profile/profile_detail.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -61,7 +62,13 @@ class _ProfileState extends State<Profile> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          backgroundColor: AppColor.whiteColor,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+                )
+            ),
+          ),
           title: const Text(
             "Menu",
             style: TextStyle(
@@ -122,7 +129,9 @@ class _ProfileState extends State<Profile> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     iconColor: AppColor.primaryColor,
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(ProfileDetail());
+                    },
                   ),
                   const Divider(height: 1),
                   ListTile(

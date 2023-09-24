@@ -38,7 +38,7 @@ class LoginViewModel extends GetxController {
       loading.value = false;
       //print(value);
       if (value['status-code'] == 400 || value['status-code'] == 404) {
-        Utlis.snackBar('Something wrong!!!', value['status-code']);
+        Utils.snackBar('Something wrong!!!', value['status-code']);
       } else {
         UsersModel userModel = UsersModel.fromJson(value);
         // we will this model in sharedprefences
@@ -47,13 +47,13 @@ class LoginViewModel extends GetxController {
             .then((value) => {
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-                  Utlis.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+                  Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
                 })
             .onError((error, stackTrace) => {});
       }
     }).onError((error, stackTrace) {
       loading.value = false;
-      Utlis.snackBar('Có lỗi xảy ra: ', "Email hoặc mật khẩu không chính xác");
+      Utils.snackBar('Có lỗi xảy ra: ', "Email hoặc mật khẩu không chính xác");
     });
   }
 
@@ -78,7 +78,7 @@ class LoginViewModel extends GetxController {
           checkTokenGoogle(googleSignInAuthentication.idToken);
         } else {
           // Show an error message or handle unauthorized domain here
-          Utlis.snackBar("Bạn Không Có Quyền Truy Cập","Email not valid (...@fpt.edu.vn)");
+          Utils.snackBar("Bạn Không Có Quyền Truy Cập","Email not valid (...@fpt.edu.vn)");
           await signOutGoogle();
         }
       }
@@ -96,7 +96,7 @@ class LoginViewModel extends GetxController {
       print(value);
       loading.value = false;
       if (value['status_code'] != 200) {
-        Utlis.snackBar("Đăng nhập không hợp lệ", "Hãy thử lại");
+        Utils.snackBar("Đăng nhập không hợp lệ", "Hãy thử lại");
         Get.toNamed(RouteName.loginScreen);
       } else {
         UsersModel userModel = UsersModel.fromJson(value);
@@ -106,13 +106,13 @@ class LoginViewModel extends GetxController {
             .then((value) => {
           Get.delete<LoginViewModel>(),
           Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-          Utlis.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+          Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
         })
             .onError((error, stackTrace) => {});
       }
     }).onError((error, stackTrace) {
       loading.value = false;
-      Utlis.snackBar('Something wrong: ', error.toString());
+      Utils.snackBar('Something wrong: ', error.toString());
     });
   }
 

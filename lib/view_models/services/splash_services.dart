@@ -19,19 +19,19 @@ class SplashService {
         Timer(
             const Duration(seconds: 3),
             () => {
-                  Utlis.snackBar("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
+                  Utils.snackBar("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
                   Get.toNamed(RouteName.loginScreen)
                 });
       } else {
         Timer(
             const Duration(seconds: 3),
             () => {
-                  Utlis.snackBar("Xin chào", "Chúc Một Ngày Tốt Lành"),
+                  Utils.snackBar("Xin chào", "Chúc Một Ngày Tốt Lành"),
                   Get.toNamed(RouteName.homeScreen)
                 });
       }
     }).onError((error, stackTrace) {
-      Utlis.snackBar('Something wrong: ', "Please try again");
+      Utils.snackBar('Something wrong: ', "Please try again");
       Get.toNamed(RouteName.loginScreen);
     });
   }

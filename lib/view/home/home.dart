@@ -8,6 +8,7 @@ import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import '../../view_models/controller/home/home_controller.dart';
 import '../qr_code/qr_scan_code.dart';
+import '../widget/custom_card_info.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,7 +43,12 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          backgroundColor: AppColor.whiteColor,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+            )),
+          ),
           title: const Text(
             "FPT FMS",
             style: TextStyle(color: AppColor.primaryColor),
@@ -50,12 +56,11 @@ class _HomeState extends State<Home> {
           actions: [
             IconButton(
                 onPressed: () => showDialog<void>(
-                  context: context,
-                  builder: (BuildContext context) => Dialog(
-                    child: NotificationPopUp(),
-                  ),
-
-                ),
+                      context: context,
+                      builder: (BuildContext context) => const Dialog(
+                        child: NotificationPopUp(),
+                      ),
+                    ),
                 icon: const Icon(
                   Icons.add_alert,
                   color: AppColor.primaryColor,
@@ -65,40 +70,48 @@ class _HomeState extends State<Home> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(bottom: 40.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.all(10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppColor.primaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Text(
-                        "Xin Chào, ${_user != null ? _user?.data?.fullname ?? "" : ""}",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
-                          color: MyColorsSample.grey_5,
-                        )),
-                    const Text("Bạn có n nhiệm vụ cần xử lý",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.whiteColor,
-                        )),
-                  ],)
+                Stack(
+                  children: [
+                    const BackgroundWave(
+                      height: 200,
+                    ),
+                    Positioned(
+                      top: 32,
+                      left: 16,
+                      right: 16,
+                      child: Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.all(10),
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  "Xin Chào, ${_user != null ? _user?.data?.fullname ?? "" : ""}",
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                    color: AppColor.primaryColor,
+                                  )),
+                              const Text("Bạn có n nhiệm vụ cần xử lý",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.primaryColor,
+                                  )),
+                            ],
+                          )),
+                    ),
+                  ],
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -124,19 +137,24 @@ class _HomeState extends State<Home> {
                         width: 150,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: AppColor.primaryColor,
+                          color: AppColor.whiteColor,
+                          border: Border.all(
+                            color: AppColor.primaryColor,
+                            width: 4,
+                          ),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.task_rounded, color: AppColor.whiteColor, size: 70),
+                            Icon(Icons.task_rounded,
+                                color: AppColor.primaryColor, size: 70),
                             SizedBox(width: 10),
                             Text(
                               "Công Việc",
                               style: TextStyle(
-                                color: AppColor.whiteColor,
+                                color: AppColor.primaryColor,
                                 fontSize: 20,
                               ),
                             ),
@@ -144,7 +162,6 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
                         Get.to(const QRViewExample());
@@ -153,19 +170,24 @@ class _HomeState extends State<Home> {
                         width: 150,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: AppColor.primaryColor,
+                          color: AppColor.whiteColor,
+                          border: Border.all(
+                            color: AppColor.primaryColor,
+                            width: 4,
+                          ),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.camera_alt_sharp, color: AppColor.whiteColor, size: 70),
+                            Icon(Icons.qr_code_scanner,
+                                color: AppColor.primaryColor, size: 70),
                             SizedBox(width: 10),
                             Text(
-                              "Scan QR",
+                              "Quét QR",
                               style: TextStyle(
-                                color: AppColor.whiteColor,
+                                color: AppColor.primaryColor,
                                 fontSize: 20,
                               ),
                             ),
@@ -184,7 +206,11 @@ class _HomeState extends State<Home> {
                       width: 150,
                       height: 200,
                       decoration: BoxDecoration(
-                        color: AppColor.primaryColor,
+                        color: AppColor.whiteColor,
+                        border: Border.all(
+                          color: AppColor.primaryColor,
+                          width: 4,
+                        ),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: const Column(
@@ -192,34 +218,37 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(Icons.search,
-                              color: AppColor.whiteColor, size: 70),
+                              color: AppColor.primaryColor, size: 70),
                           SizedBox(width: 10),
                           Text("Nhiệm Vụ",
                               style: TextStyle(
-                                color: AppColor.whiteColor,
+                                color: AppColor.primaryColor,
                                 fontSize: 20,
                               )),
                         ],
                       ),
                     ),
-                    const SizedBox(width: 10),
                     Container(
                       width: 150,
                       height: 200,
                       decoration: BoxDecoration(
-                        color: AppColor.primaryColor,
+                        color: AppColor.whiteColor,
+                        border: Border.all(
+                          color: AppColor.primaryColor,
+                          width: 4,
+                        ),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.search,
-                              color: AppColor.whiteColor, size: 70),
+                          Icon(Icons.summarize,
+                              color: AppColor.primaryColor, size: 70),
                           SizedBox(width: 10),
-                          Text("Nhiệm Vụ",
+                          Text("Ghi Chú",
                               style: TextStyle(
-                                color: AppColor.whiteColor,
+                                color: AppColor.primaryColor,
                                 fontSize: 20,
                               )),
                         ],
@@ -236,5 +265,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-

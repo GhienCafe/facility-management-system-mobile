@@ -15,7 +15,7 @@ class NotificationPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
+      height: 600,
       padding: const EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: Column(

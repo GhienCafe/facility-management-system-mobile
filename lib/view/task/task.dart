@@ -75,53 +75,57 @@ class _TaskState extends State<Task> {
 
   Widget buildLoadedPage() {
     return SafeArea(
-      child: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: <Widget>[
-            ButtonsTabBar(
-              backgroundColor: AppColor.primaryColor,
-              unselectedBackgroundColor: Colors.grey[300],
-              unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
-              height: 40,
-              buttonMargin: const EdgeInsets.only(left: 10, right: 10),
-              labelStyle: const TextStyle(
-                  color: AppColor.whiteColor, fontWeight: FontWeight.bold),
-              tabs: const [
-                Tab(
-                  icon: Icon(Icons.format_list_bulleted),
-                  text: "Tất Cả",
-                ),
-                Tab(
-                  icon: Icon(Icons.timer),
-                  text: "Đang Xử Lý",
-                ),
-                Tab(
-                  icon: Icon(Icons.done),
-                  text: "Hoàn Thành",
-                ),
-              ],
-              onTap: (index) {
-                // Fetch data for the selected tab
-                if (index == 0) {
-                  taskController.fetchAllData();
-                } else if (index == 1) {
-                  taskController.fetchProcessingData();
-                } else if (index == 2) {
-                  taskController.fetchCompletedData();
-                }
-              },
-            ),
-            Expanded(
-              child: TabBarView(
-                children: <Widget>[
-                  DataListWidget(taskController.allItems),
-                  DataListWidget(taskController.processingItems),
-                  DataListWidget(taskController.completedItems),
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        child: DefaultTabController(
+          length: 3,
+          child:
+          Column(
+            children: <Widget>[
+              ButtonsTabBar(
+                backgroundColor: AppColor.primaryColor,
+                unselectedBackgroundColor: Colors.grey[300],
+                unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
+                height: 40,
+                buttonMargin: const EdgeInsets.only(left: 10, right: 10),
+                labelStyle: const TextStyle(
+                    color: AppColor.whiteColor, fontWeight: FontWeight.bold),
+                tabs: const [
+                  Tab(
+                    icon: Icon(Icons.format_list_bulleted),
+                    text: "Tất Cả",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.timer),
+                    text: "Đang Xử Lý",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.done),
+                    text: "Hoàn Thành",
+                  ),
                 ],
+                onTap: (index) {
+                  // Fetch data for the selected tab
+                  if (index == 0) {
+                    taskController.fetchAllData();
+                  } else if (index == 1) {
+                    taskController.fetchProcessingData();
+                  } else if (index == 2) {
+                    taskController.fetchCompletedData();
+                  }
+                },
               ),
-            ),
-          ],
+              Expanded(
+                child: TabBarView(
+                  children: <Widget>[
+                    DataListWidget(taskController.allItems),
+                    DataListWidget(taskController.processingItems),
+                    DataListWidget(taskController.completedItems),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -134,7 +138,13 @@ class _TaskState extends State<Task> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          backgroundColor: AppColor.whiteColor,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+                )
+            ),
+          ),
           title: const Text(
             "Công Việc",
             style: TextStyle(color: AppColor.primaryColor),

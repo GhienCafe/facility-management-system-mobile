@@ -26,7 +26,7 @@ class InputEmailWidget extends StatelessWidget {
         return null;
       },
       onFieldSubmitted: (value) {
-        Utlis.fieldFocusChange(context, loginVM.emailFocusNode.value,
+        Utils.fieldFocusChange(context, loginVM.emailFocusNode.value,
             loginVM.passwordFocusNode.value);
       },
       decoration: InputDecoration(
