@@ -1,4 +1,5 @@
 import 'package:FMS/res/routes/routes_name.dart';
+import 'package:FMS/view/widget/list_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:FMS/models/login/users_model.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
@@ -48,9 +49,13 @@ class _HomeState extends State<Home> {
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  //showNotificationPopup('Notification Title', 'Notification Description');
-                },
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) => Dialog(
+                    child: NotificationPopUp(),
+                  ),
+
+                ),
                 icon: const Icon(
                   Icons.add_alert,
                   color: AppColor.primaryColor,
@@ -142,7 +147,7 @@ class _HomeState extends State<Home> {
                     const SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
-                        Get.to(QRViewExample());
+                        Get.to(const QRViewExample());
                       },
                       child: Container(
                         width: 150,
@@ -232,59 +237,4 @@ class _HomeState extends State<Home> {
   }
 }
 
-void _showBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (context) {
-      return GestureDetector(
-        onTap: () => Navigator.of(context).pop(),
-        child: Container(
-          color: const Color.fromRGBO(0, 0, 0, 0.001),
-          child: GestureDetector(
-            onTap: () {},
-            child: DraggableScrollableSheet(
-              initialChildSize: 0.4,
-              minChildSize: 0.2,
-              maxChildSize: 0.75,
-              builder: (_, controller) {
-                return Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
-                    ),
-                  ),
-                  child: ListView(
-                    children: <Widget>[
-                      Icon(
-                        Icons.remove,
-                        color: Colors.grey[600],
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          controller: controller,
-                          itemCount: 100,
-                          itemBuilder: (_, index) {
-                            return Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Text("Element at index($index)"),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}
+

@@ -22,7 +22,7 @@ class _QRViewExampleState extends State<QRViewExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Code Result'),
+        title: const Text('QR Code Result'),
       ),
       body: Column(
         children: <Widget>[
