@@ -1,7 +1,7 @@
 import 'package:FMS/models/login/users_model.dart';
-import 'package:FMS/view_models/controller/notification/notification_controller.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:FMS/res/repository/login_repository/login_repository.dart';
@@ -14,7 +14,6 @@ class LoginViewModel extends GetxController {
   final _api = LoginRepository();
 
   UserPreference userPrefrence = UserPreference();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
   final emailFocusNode = FocusNode().obs;
@@ -34,7 +33,6 @@ class LoginViewModel extends GetxController {
       'password': passwordController.value.text,
     };
     _api.loginApi(data).then((value) {
-      print(value);
       loading.value = false;
       //print(value);
       if (value['status-code'] == 400 || value['status-code'] == 404) {
@@ -72,20 +70,25 @@ class LoginViewModel extends GetxController {
             idToken: googleSignInAuthentication.idToken,
           );
           FirebaseAuth.instance.signInWithCredential(credential);
-          final token = await AwesomeNotificationsFcm().requestFirebaseAppToken();
+          final FCMToken =
+              await AwesomeNotificationsFcm().requestFirebaseAppToken();
           //print("TOKEN FCM: $token");
           //print("token User ID: ${googleSignInAuthentication.idToken}");
           checkTokenGoogle(googleSignInAuthentication.idToken);
         } else {
           // Show an error message or handle unauthorized domain here
-          Utils.snackBar("Bạn Không Có Quyền Truy Cập","Email not valid (...@fpt.edu.vn)");
+          Utils.snackBar("Bạn Không Có Quyền Truy Cập",
+              "Email not valid (...@fpt.edu.vn)");
           await signOutGoogle();
         }
       }
     } catch (error) {
-      print("Google Sign-In Error: $error");
+      print("Google Sign In ERROR: ${error.toString()}");
     }
   }
+
+
+
 
   checkTokenGoogle(String? token) async {
     loading.value = true;
@@ -93,7 +96,6 @@ class LoginViewModel extends GetxController {
       'access_token': token,
     };
     _api.loginApiToken(data).then((value) {
-      print(value);
       loading.value = false;
       if (value['status_code'] != 200) {
         Utils.snackBar("Đăng nhập không hợp lệ", "Hãy thử lại");
@@ -104,35 +106,16 @@ class LoginViewModel extends GetxController {
         userPrefrence
             .saveUserInfoPreferences(userModel)
             .then((value) => {
-          Get.delete<LoginViewModel>(),
-          Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-          Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
-        })
+                  Get.delete<LoginViewModel>(),
+                  Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
+                  Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+                })
             .onError((error, stackTrace) => {});
       }
     }).onError((error, stackTrace) {
       loading.value = false;
       Utils.snackBar('Something wrong: ', error.toString());
     });
-  }
-
-  loginWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-      FirebaseAuth.instance.signInWithCredential(credential);
-      checkTokenGoogle(googleSignInAuthentication.idToken); // navigate to your wanted page
-      return;
-    } catch (e) {
-      Get.toNamed(RouteName.loginScreen);
-      throw (e);
-    }
   }
 
   Future<void> logoutGoogle() async {

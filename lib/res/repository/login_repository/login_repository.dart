@@ -16,4 +16,8 @@ class LoginRepository {
     dynamic response = await _apiService.getApiAuthor(AppUrl.getUserInfo);
     return response;
   }
+  Future<dynamic> saveFCMToken(var data) async {
+    dynamic response = await _apiService.postApiAuthor(data, AppUrl.setFCMToken);
+    return response;
+  }
 }

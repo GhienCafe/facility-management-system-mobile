@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../res/color/colors.dart';
-import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/login/login_controller.dart';
 
 class InputPasswordWidget extends StatefulWidget {

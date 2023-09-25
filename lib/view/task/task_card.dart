@@ -22,8 +22,8 @@ class _TaskCardState extends State<TaskCard> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFFEF6C0E),
-                Color(0xFFE17D08),
+                Color(0xFFEE873E),
+                Color(0xFFE8983A),
                 Color(0xFFE8A91E),
                 Colors.purpleAccent,
               ],

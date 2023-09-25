@@ -9,11 +9,12 @@ class QRResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QR Code Result'),
+        title: Text('QR Code Result'),
       ),
       body: Center(
-        child: Text(data),
+        child: Text('Scanned Data: $data'),
       ),
     );
   }
 }
+

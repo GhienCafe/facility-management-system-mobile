@@ -1,6 +1,5 @@
 import 'package:FMS/res/assets/image_assets.dart';
 import 'package:flutter/material.dart';
-import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {

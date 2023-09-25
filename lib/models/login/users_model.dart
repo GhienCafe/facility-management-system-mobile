@@ -1,5 +1,3 @@
-
-
 class UsersModel {
   Data? data;
   int? statusCode;
@@ -15,7 +13,7 @@ class UsersModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
-    if(data != null) {
+    if (data != null) {
       _data["data"] = data?.toJson();
     }
     _data["status_code"] = statusCode;
@@ -35,7 +33,16 @@ class Data {
   String? userId;
   bool? isFirstLogin;
 
-  Data({this.accessToken, this.refreshToken, this.accessExpiredAt, this.refreshExpiredAt, this.email, this.fullname, this.role, this.userId, this.isFirstLogin});
+  Data(
+      {this.accessToken,
+      this.refreshToken,
+      this.accessExpiredAt,
+      this.refreshExpiredAt,
+      this.email,
+      this.fullname,
+      this.role,
+      this.userId,
+      this.isFirstLogin});
 
   Data.fromJson(Map<String, dynamic> json) {
     accessToken = json["access_token"];

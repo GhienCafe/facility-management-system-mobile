@@ -70,13 +70,12 @@ class NotificationController {
 
   // Hàm gọi Local notification khi nhấn nút Send notification trên ứng dụng
   Future<void> localNotification() async {
-    String timezone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
+    //String timezone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 1,
         channelKey: 'alerts',
         title: 'This is Notification',
-        // Thêm cái hình vào nhìn cho vui mắt :v
         bigPicture:
         'https://images.pexels.com/photos/14679216/pexels-photo-14679216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         notificationLayout: NotificationLayout.BigPicture,
@@ -98,7 +97,6 @@ class NotificationController {
 
     print("starting long task");
     await Future.delayed(Duration(seconds: 4));
-    final url = Uri.parse("http://google.com");
     // final re = await http.get(url);
     // print(re.body);
     print("long task done");

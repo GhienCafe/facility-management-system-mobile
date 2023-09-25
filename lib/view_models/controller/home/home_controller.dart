@@ -6,7 +6,6 @@ import '../../../data/response/status.dart';
 
 class HomeController extends GetxController {
   final _api = HomeRepository();
-
   final rxRequestStatus = Status.LOADING.obs;
   final userList = UserListModel().obs;
   // to handle the error
