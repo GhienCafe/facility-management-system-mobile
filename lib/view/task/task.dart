@@ -37,37 +37,40 @@ class _TaskState extends State<Task> {
 
   Widget buildLoadingPage() {
     return SafeArea(
-      child: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: <Widget>[
-            ButtonsTabBar(
-              backgroundColor: AppColor.primaryColor,
-              unselectedBackgroundColor: Colors.grey[300],
-              unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
-              height: 40,
-              buttonMargin: const EdgeInsets.only(left: 10, right: 10),
-              labelStyle: const TextStyle(
-                  color: AppColor.whiteColor, fontWeight: FontWeight.bold),
-              tabs: const [
-                Tab(
-                  icon: Icon(Icons.format_list_bulleted),
-                  text: "Tất Cả",
-                ),
-                Tab(
-                  icon: Icon(Icons.timer),
-                  text: "Đang Xử Lý",
-                ),
-                Tab(
-                  icon: Icon(Icons.done),
-                  text: "Hoàn Thành",
-                ),
-              ],
-            ),
-            const Expanded(
-              child: LoadingListPage(),
-            ),
-          ],
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        child:  DefaultTabController(
+          length: 3,
+          child: Column(
+            children: <Widget>[
+              ButtonsTabBar(
+                backgroundColor: AppColor.primaryColor,
+                unselectedBackgroundColor: Colors.grey[300],
+                unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
+                height: 40,
+                buttonMargin: const EdgeInsets.only(left: 10, right: 10),
+                labelStyle: const TextStyle(
+                    color: AppColor.whiteColor, fontWeight: FontWeight.bold),
+                tabs: const [
+                  Tab(
+                    icon: Icon(Icons.format_list_bulleted),
+                    text: "Tất Cả",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.timer),
+                    text: "Đang Xử Lý",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.done),
+                    text: "Hoàn Thành",
+                  ),
+                ],
+              ),
+              const Expanded(
+                child: LoadingListPage(),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,14 @@
+import 'dart:async';
+
+import 'package:FMS/view/profile/profile_edit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../models/login/users_model.dart';
+import '../../res/color/colors.dart';
+import '../../view_models/controller/user_prefrence/user_prefrence_view_model.dart';
+import '../widget/display_image_profile.dart';
 
 class ProfileDetail extends StatefulWidget {
   const ProfileDetail({super.key});
@@ -8,158 +18,118 @@ class ProfileDetail extends StatefulWidget {
 }
 
 class _ProfileDetailState extends State<ProfileDetail> {
+  UserPreference userPreference = UserPreference();
+  UsersModel? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfo(); // Load user information when the page initializes
+  }
+
+  Future<void> _loadUserInfo() async {
+    UsersModel user = await userPreference.getUserInfo();
+    setState(() {
+      _user = user;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const RoundedAppBar(),
-      body: Container(
-          color: Colors.white,
-          child: Center(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0)),
-              elevation: 10.0,
-              child: Container(
-                width: 300.0,
-                height: 300.0,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    // This will hold the Image in the back ground:
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.pink[100]),
-                    ),
-                    // This is the Custom Shape Container
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      child: Container(
-                        color: Colors.red,
-                        child: CustomPaint(
-                          painter: CustomContainerShapeBorder(
-                            height: 200.0,
-                            width: 300.0,
-                            radius: 50.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    // This Holds the Widgets Inside the the custom Container;
-                    // Positioned(
-                    //   bottom: 10.0,
-                    //   child: Container(
-                    //     height: 80.0,
-                    //     width: 260.0,
-                    //     color: Colors.grey.withOpacity(0.6),
-                    //     child: null,
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ),
-            ),
+      appBar: AppBar(
+        leading: const BackButton(color: AppColor.whiteColor),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
           )),
+        ),
+        title: const Text(
+          "Thông Tin Cá Nhân",
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            letterSpacing: 1,
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          InkWell(
+              onTap: () {
+                //navigateSecondPage(EditImagePage());
+                Get.to(() => ImageUploads());
+              },
+              child: DisplayImage(
+                imagePath:
+                    "https://media.istockphoto.com/id/1144760419/vi/vec-to/avatar-d%E1%BB%8Bch-v%E1%BB%A5-h%E1%BB%97-tr%E1%BB%A3.jpg?s=170667a&w=0&k=20&c=6Zv7ZXrA5kGhlqTRaeFeYvp_ItVEqQMolars12WWE04=",
+                onPressed: () {},
+              )),
+          buildUserInfoDisplay(
+              _user != null ? _user!.data?.fullname ?? "" : "", 'Name'),
+          buildUserInfoDisplay(
+              _user != null
+                  ? _user!.data?.role == 3
+                      ? "Staff"
+                      : _user!.data?.role == 2
+                          ? "Manager"
+                          : ""
+                  : "",
+              'Role'),
+          buildUserInfoDisplay(
+              _user != null ? _user!.data?.email ?? "" : "", 'Email'),
+        ],
+      ),
     ));
   }
-}
 
-class CustomContainerShapeBorder extends CustomPainter {
-  final double height;
-  final double width;
-  final Color fillColor;
-  final double radius;
-
-  CustomContainerShapeBorder({
-    this.height = 400.0,
-    this.width = 300.0,
-    this.fillColor = Colors.white,
-    this.radius = 50.0,
-  });
-  @override
-  void paint(Canvas canvas, Size size) {
-    Path path = Path();
-    path.moveTo(0.0, -radius);
-    path.lineTo(0.0, -(height - radius));
-    path.conicTo(0.0, -height, radius, -height, 1);
-    path.lineTo(width - radius, -height);
-    path.conicTo(width, -height, width, -(height + radius), 1);
-    path.lineTo(width, -(height - radius));
-    path.lineTo(width, -radius);
-
-    path.conicTo(width, 0.0, width - radius, 0.0, 1);
-    path.lineTo(radius, 0.0);
-    path.conicTo(0.0, 0.0, 0.0, -radius, 1);
-    path.close();
-    canvas.drawPath(path, Paint()..color = fillColor);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
-}
-
-class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const RoundedAppBar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.fromSize(
-      size: preferredSize,
-      child: LayoutBuilder(builder: (context, constraint) {
-        final width = constraint.maxWidth * 8;
-        return Stack(
-          children: [
-            ClipRect(
-              child: OverflowBox(
-                maxHeight: double.infinity,
-                maxWidth: double.infinity,
-                child: SizedBox(
-                  width: width,
-                  height: width,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: width / 2 - preferredSize.height / 2),
-                    child: const DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: Colors.orange,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+  // Widget builds the display item with the proper formatting to display the user's info
+  Widget buildUserInfoDisplay(String getValue, String title) => Padding(
+      padding: const EdgeInsets.all(15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: AppColor.primaryColor,
             ),
-            const Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(right: 16.0),
-                child: Row(
-                  //mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BackButton(),
-                    Text(
-                      "Title",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      }),
-    );
+          ),
+          const SizedBox(height: 10),
+          Container(
+              width: double.infinity,
+              height: 40,
+              decoration: const BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                color: AppColor.primaryColor,
+                width: 1,
+              ))),
+              child: Row(children: [
+                Expanded(
+                    child: Text(
+                  getValue,
+                  style: const TextStyle(
+                      fontSize: 20, height: 1.4, fontWeight: FontWeight.w500),
+                )),
+              ]))
+        ],
+      ));
+
+  // Refrshes the Page after updating user info.
+  FutureOr onGoBack(dynamic value) {
+    setState(() {});
   }
 
-  @override
-  Size get preferredSize => const Size.fromHeight(80.0);
+  // Handles navigation and prompts refresh.
+  void navigateSecondPage(Widget editForm) {
+    Route route = MaterialPageRoute(builder: (context) => editForm);
+    Navigator.push(context, route).then(onGoBack);
+  }
 }

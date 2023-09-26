@@ -130,7 +130,7 @@ class _ProfileState extends State<Profile> {
                     trailing: const Icon(Icons.arrow_forward_ios),
                     iconColor: AppColor.primaryColor,
                     onTap: () {
-                      Get.to(ProfileDetail());
+                      Get.to(() => const ProfileDetail());
                     },
                   ),
                   const Divider(height: 1),
