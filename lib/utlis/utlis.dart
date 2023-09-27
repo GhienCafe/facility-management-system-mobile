@@ -28,4 +28,10 @@ class Utils {
   static snackBar(String title, String message) {
     Get.snackbar(title, message,backgroundColor: Colors.grey,colorText: AppColor.whiteColor);
   }
+  static snackBarSuccess(String title, String message) {
+    Get.snackbar(title, message,backgroundColor: Colors.green,colorText: AppColor.whiteColor);
+  }
+  static snackBarError(String title, String message) {
+    Get.snackbar(title, message,backgroundColor: Colors.red,colorText: AppColor.whiteColor);
+  }
 }

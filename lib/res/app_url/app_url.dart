@@ -8,7 +8,7 @@ class AppUrl {
   static const String loginApi = '$baseUrl/auth/sign-in';
   static const String loginApiToken = '$baseUrl/auth/token-sign';
   static const String setFCMToken = '$baseUrl/auth/check-token-device';
-
+  static const String refreshToken = '$baseUrl/auth/refresh-token';
   //User API
   static const String getUserInfo = '$baseUrl/account/infor';
 

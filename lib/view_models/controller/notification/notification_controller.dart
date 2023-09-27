@@ -1,10 +1,50 @@
-
+import 'package:FMS/models/notification/notification_model.dart';
+import 'package:FMS/res/repository/notification_repository/notification_repository.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../data/response/status.dart';
 
 class NotificationController {
+  final _api = NotificationRepository();
+  final rxRequestStatus = Status.LOADING.obs;
+  final notificationList = NotificationListModel().obs;
+  RxString error = ''.obs;
+
+  void setRexRequestStatus(Status _value) => rxRequestStatus.value = _value;
+  void setNotificationList(NotificationListModel _value) =>
+      notificationList.value = _value;
+  void setError(String _value) => error.value = _value;
+
+  void notificationListApi() {
+    _api
+        .notificationListApi()
+        .then((value) => {
+              setRexRequestStatus(Status.COMPLETED),
+              setNotificationList(value),
+            })
+        .onError((error, stackTrace) => {
+              setError(error.toString()),
+              setRexRequestStatus(Status.ERROR),
+            });
+  }
+
+  void refreshApi() {
+    setRexRequestStatus(Status.LOADING);
+    _api
+        .notificationListApi()
+        .then((value) => {
+              setRexRequestStatus(Status.COMPLETED),
+              setNotificationList(value),
+            })
+        .onError((error, stackTrace) => {
+              setError(error.toString()),
+              setRexRequestStatus(Status.ERROR),
+            });
+  }
+
   // Khởi tạo Local Notification ở đây với custom tùy thích
   static Future<void> initializeLocalNotifications(
       {required bool debug}) async {
@@ -29,7 +69,7 @@ class NotificationController {
       {required bool debug}) async {
     await Firebase.initializeApp();
     await AwesomeNotificationsFcm().initialize(
-      // Handle Silent data
+        // Handle Silent data
         onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
         // Method này dùng để phát hiện khi nhận được fcm token mới.
         onFcmTokenHandle: NotificationController.myFcmTokenHandle,
@@ -77,7 +117,7 @@ class NotificationController {
         channelKey: 'alerts',
         title: 'This is Notification',
         bigPicture:
-        'https://images.pexels.com/photos/14679216/pexels-photo-14679216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+            'https://images.pexels.com/photos/14679216/pexels-photo-14679216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         notificationLayout: NotificationLayout.BigPicture,
       ),
     );

@@ -27,12 +27,14 @@ class UserPreference {
   Future<UsersModel> getUserInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('access_token');
+    String? refreshToken = prefs.getString("refresh_token");
     String? email = prefs.getString('email');
     String? fullname = prefs.getString('fullname');
     int? role = prefs.getInt("role");
     return UsersModel(
       data: Data(
         accessToken: token,
+        refreshToken: refreshToken,
         email: email,
         fullname: fullname,
         role: role,

@@ -6,7 +6,7 @@ import 'package:FMS/view/widget/bottom_navigation_bar.dart';
 import 'package:get/get.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
-import '../../view_models/controller/home/home_controller.dart';
+import '../../view_models/controller/notification/notification_controller.dart';
 import '../qr_code/qr_scan_code.dart';
 import '../widget/custom_card_info.dart';
 
@@ -18,13 +18,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final RxInt currentIndex = 0.obs;
-  final homeController = Get.put(HomeController());
+  final notificationController = Get.put(NotificationController());
   UserPreference userPreference = UserPreference();
   UsersModel? _user;
   @override
   void initState() {
     super.initState();
     _loadUserInfo();
+    notificationController.notificationListApi();
     //homeController.userListApi();
   }
 
@@ -57,7 +58,7 @@ class _HomeState extends State<Home> {
             IconButton(
                 onPressed: () => showDialog<void>(
                       context: context,
-                      builder: (BuildContext context) => const Dialog(
+                      builder: (BuildContext context) => Dialog(
                         child: NotificationPopUp(),
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:FMS/models/login/users_model.dart';
 import 'package:FMS/res/repository/login_repository/login_repository.dart';
 import 'package:FMS/utlis/utlis.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
@@ -13,16 +14,10 @@ class SplashService {
 
   RxBool loading = false.obs;
   UserPreference userPreference = UserPreference();
-  void checkTokenValid() async{
+  void checkTokenValid() async {
     _api.checkAccessToken().then((value) {
       if (value['status_code'] != 200) {
-        userPreference.removeUser();
-        Timer(
-            const Duration(seconds: 3),
-            () => {
-                  Utils.snackBar("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
-                  Get.toNamed(RouteName.loginScreen)
-                });
+        refreshToken();
       } else {
         saveFCMToken();
         Timer(
@@ -35,6 +30,32 @@ class SplashService {
     }).onError((error, stackTrace) {
       Utils.snackBar('Something wrong: ', "Please try again");
       Get.toNamed(RouteName.loginScreen);
+    });
+  }
+
+  void refreshToken() async {
+    UsersModel userInfo = await userPreference.getUserInfo();
+    Map data = {"refresh_token": userInfo.data?.refreshToken};
+    _api.refreshToken(data).then((value) {
+      if (value["status_code"] != 200) {
+        userPreference.removeUser();
+        Timer(
+            const Duration(seconds: 1),
+            () => {
+                  Utils.snackBar("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
+                  Get.toNamed(RouteName.loginScreen)
+                });
+      } else {
+        UsersModel userModel = UsersModel.fromJson(value);
+        userPreference.removeUser();
+        userPreference
+            .saveUserInfoPreferences(userModel)
+            .then((value) => {
+                  Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
+                  Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+                })
+            .onError((error, stackTrace) => {});
+      }
     });
   }
 

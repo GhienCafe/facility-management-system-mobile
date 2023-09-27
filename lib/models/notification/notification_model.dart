@@ -7,14 +7,23 @@ class NotificationListModel {
   int? statusCode;
   String? message;
 
-  NotificationListModel({this.totalCount, this.pageSize, this.offset, this.totalPages, this.data, this.statusCode, this.message});
+  NotificationListModel(
+      {this.totalCount,
+      this.pageSize,
+      this.offset,
+      this.totalPages,
+      this.data,
+      this.statusCode,
+      this.message});
 
   NotificationListModel.fromJson(Map<String, dynamic> json) {
     totalCount = json["total_count"];
     pageSize = json["page_size"];
     offset = json["offset"];
     totalPages = json["total_pages"];
-    data = json["data"] == null ? null : (json["data"] as List).map((e) => Data.fromJson(e)).toList();
+    data = json["data"] == null
+        ? null
+        : (json["data"] as List).map((e) => Data.fromJson(e)).toList();
     statusCode = json["status_code"];
     message = json["message"];
   }
@@ -25,7 +34,7 @@ class NotificationListModel {
     _data["page_size"] = pageSize;
     _data["offset"] = offset;
     _data["total_pages"] = totalPages;
-    if(data != null) {
+    if (data != null) {
       _data["data"] = data?.map((e) => e.toJson()).toList();
     }
     _data["status_code"] = statusCode;
@@ -45,7 +54,16 @@ class Data {
   String? createdAt;
   String? editedAt;
 
-  Data({this.title, this.shortContent, this.content, this.isRead, this.type, this.itemId, this.id, this.createdAt, this.editedAt});
+  Data(
+      {this.title,
+      this.shortContent,
+      this.content,
+      this.isRead,
+      this.type,
+      this.itemId,
+      this.id,
+      this.createdAt,
+      this.editedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     title = json["title"];
@@ -65,7 +83,7 @@ class Data {
     _data["short_content"] = shortContent;
     _data["content"] = content;
     _data["is_read"] = isRead;
-    if(type != null) {
+    if (type != null) {
       _data["type"] = type?.toJson();
     }
     _data["item_id"] = itemId;

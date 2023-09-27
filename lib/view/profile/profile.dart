@@ -4,6 +4,7 @@ import 'package:FMS/models/login/users_model.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/profile/profile_detail.dart';
+import 'package:FMS/view/profile/terms_privacy.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -47,10 +48,10 @@ class _ProfileState extends State<Profile> {
   Future<void> _handleLogout() async {
     // Clear SharedPreferences
     await userPreference.removeUser();
-
     // Perform Google logout
-    await signOutGoogle();
-
+     FirebaseAuth.instance.signOut();
+     googleSignIn.disconnect();
+     googleSignIn.signOut();
     // Navigate to the login screen
     Get.toNamed(RouteName.loginScreen);
   }
@@ -141,7 +142,9 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(color: AppColor.primaryColor),
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => AttentionPage());
+                    },
                     iconColor: AppColor.primaryColor,
                     focusColor: AppColor.blackColor,
                   ),

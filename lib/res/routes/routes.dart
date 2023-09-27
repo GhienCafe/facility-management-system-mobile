@@ -10,29 +10,29 @@ class AppRoutes {
   static appRoutes() => [
         GetPage(
             name: RouteName.splashScreen,
-            page: () => SplashScreen(),
+            page: () => const SplashScreen(),
             transitionDuration: const Duration(milliseconds: 100),
             transition: Transition.zoom),
         GetPage(
             name: RouteName.loginScreen,
-            page: () => LoginView(),
+            page: () => const LoginView(),
             transitionDuration: const Duration(milliseconds: 100),
             transition: Transition.zoom),
         GetPage(
           name: RouteName.homeScreen,
-          page: () => Home(),
+          page: () => const Home(),
           transitionDuration: const Duration(milliseconds: 0),
           transition: Transition.zoom
         ),
         GetPage(
           name: RouteName.taskScreen,
-          page: () => Task(),
+          page: () => const Task(),
           transitionDuration: const Duration(milliseconds: 0),
           transition: Transition.zoom
         ),
         GetPage(
           name: RouteName.profileScreen,
-          page: () => Profile(),
+          page: () => const Profile(),
           transitionDuration: const Duration(milliseconds: 0),
           transition: Transition.zoom
         ),

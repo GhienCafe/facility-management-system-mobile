@@ -1,7 +1,5 @@
 import 'package:FMS/models/login/users_model.dart';
-import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:FMS/res/repository/login_repository/login_repository.dart';
@@ -35,8 +33,8 @@ class LoginViewModel extends GetxController {
     _api.loginApi(data).then((value) {
       loading.value = false;
       //print(value);
-      if (value['status-code'] == 400 || value['status-code'] == 404) {
-        Utils.snackBar('Something wrong!!!', value['status-code']);
+      if (value['status_code'] == 400 || value['status_code'] == 404 || value['data']['role'] !=3 ) {
+        Utils.snackBarError('Có lỗi xảy ra: ', "Vui lòng kiểm tra lại tài khoản mật khẩu");
       } else {
         UsersModel userModel = UsersModel.fromJson(value);
         // we will this model in sharedprefences
@@ -45,13 +43,13 @@ class LoginViewModel extends GetxController {
             .then((value) => {
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-                  Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+                  Utils.snackBarSuccess("Chào mừng", "Chúc một ngày mới tốt lành"),
                 })
             .onError((error, stackTrace) => {});
       }
     }).onError((error, stackTrace) {
       loading.value = false;
-      Utils.snackBar('Có lỗi xảy ra: ', "Email hoặc mật khẩu không chính xác");
+      Utils.snackBarError('Có lỗi xảy ra: ', "Email hoặc mật khẩu không chính xác");
     });
   }
 
@@ -70,14 +68,14 @@ class LoginViewModel extends GetxController {
             idToken: googleSignInAuthentication.idToken,
           );
           FirebaseAuth.instance.signInWithCredential(credential);
-          final FCMToken =
-              await AwesomeNotificationsFcm().requestFirebaseAppToken();
+          // final FCMToken =
+          //     await AwesomeNotificationsFcm().requestFirebaseAppToken();
           //print("TOKEN FCM: $token");
           //print("token User ID: ${googleSignInAuthentication.idToken}");
           checkTokenGoogle(googleSignInAuthentication.idToken);
         } else {
           // Show an error message or handle unauthorized domain here
-          Utils.snackBar("Bạn Không Có Quyền Truy Cập",
+          Utils.snackBarError("Bạn Không Có Quyền Truy Cập",
               "Email not valid (...@fpt.edu.vn)");
           await signOutGoogle();
         }
@@ -97,8 +95,8 @@ class LoginViewModel extends GetxController {
     };
     _api.loginApiToken(data).then((value) {
       loading.value = false;
-      if (value['status_code'] != 200) {
-        Utils.snackBar("Đăng nhập không hợp lệ", "Hãy thử lại");
+      if (value['status_code'] != 200 || value['data']['role'] !=3) {
+        Utils.snackBarError("Đăng nhập không hợp lệ", "Hãy thử lại");
         Get.toNamed(RouteName.loginScreen);
       } else {
         UsersModel userModel = UsersModel.fromJson(value);
@@ -108,7 +106,7 @@ class LoginViewModel extends GetxController {
             .then((value) => {
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-                  Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+                  Utils.snackBarSuccess("Chào mừng", "Chúc một ngày mới tốt lành"),
                 })
             .onError((error, stackTrace) => {});
       }

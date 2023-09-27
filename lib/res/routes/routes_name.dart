@@ -4,4 +4,5 @@ class RouteName {
   static const String homeScreen = '/home';
   static const String taskScreen = '/task';
   static const String profileScreen = '/profile';
+  static const String taskDetail = '/taskDetail';
 }

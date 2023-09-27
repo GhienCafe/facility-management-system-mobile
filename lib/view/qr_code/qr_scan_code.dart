@@ -64,7 +64,6 @@ class _QRViewExampleState extends State<QRViewExample> {
                                 } else {
                                   return const Icon(Icons.flash_off);
                                 }
-                                return Text('Flash: ${snapshot.data}');
                               },
                             )),
                       ),
