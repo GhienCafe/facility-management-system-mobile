@@ -68,7 +68,7 @@ class NotificationPopUp extends StatelessWidget {
                               height: 100,
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              margin: const EdgeInsets.all(8),
+                              margin: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
                                 color: isRead
@@ -78,7 +78,7 @@ class NotificationPopUp extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     width: 180,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -96,6 +96,13 @@ class NotificationPopUp extends StatelessWidget {
                                                 fontSize: 15,
                                                 color: AppColor.whiteColor),
                                             maxLines: 2),
+
+                                        Text("ID: ${notification.itemId!.toString()}",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: AppColor.whiteColor),
+                                            maxLines: 1),
                                       ],
                                     ),
                                   ),

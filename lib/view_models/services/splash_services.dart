@@ -11,7 +11,6 @@ import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_mo
 
 class SplashService {
   final _api = LoginRepository();
-
   RxBool loading = false.obs;
   UserPreference userPreference = UserPreference();
   void checkTokenValid() async {
@@ -23,12 +22,12 @@ class SplashService {
         Timer(
             const Duration(seconds: 3),
             () => {
-                  Utils.snackBar("Xin chào", "Chúc Một Ngày Tốt Lành"),
+                  Utils.snackBarSuccess("Xin chào", "Chúc Một Ngày Tốt Lành"),
                   Get.toNamed(RouteName.homeScreen)
                 });
       }
     }).onError((error, stackTrace) {
-      Utils.snackBar('Something wrong: ', "Please try again");
+      Utils.snackBarError("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại");
       Get.toNamed(RouteName.loginScreen);
     });
   }
@@ -42,7 +41,7 @@ class SplashService {
         Timer(
             const Duration(seconds: 1),
             () => {
-                  Utils.snackBar("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
+                  Utils.snackBarError("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
                   Get.toNamed(RouteName.loginScreen)
                 });
       } else {
@@ -52,7 +51,7 @@ class SplashService {
             .saveUserInfoPreferences(userModel)
             .then((value) => {
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-                  Utils.snackBar("Chào mừng", "Chúc một ngày mới tốt lành"),
+                  Utils.snackBarSuccess("Xin chào", "Chúc Một Ngày Tốt Lành"),
                 })
             .onError((error, stackTrace) => {});
       }
@@ -75,9 +74,8 @@ class SplashService {
   void isLogin() {
     userPreference.getUserInfo().then(
       (value) {
-        print("check accessToken: ${value.data?.accessToken.toString()}");
+        //print("check accessToken: ${value.data?.accessToken.toString()}");
         var token = value.data!.accessToken.toString();
-
         if (token.isEmpty || token == "null") {
           Timer(const Duration(seconds: 3),
               () => Get.toNamed(RouteName.loginScreen));

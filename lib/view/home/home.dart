@@ -1,4 +1,5 @@
 import 'package:FMS/res/routes/routes_name.dart';
+import 'package:FMS/view/note/notes.dart';
 import 'package:FMS/view/widget/list_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:FMS/models/login/users_model.dart';
@@ -79,7 +80,7 @@ class _HomeState extends State<Home> {
                 Stack(
                   children: [
                     const BackgroundWave(
-                      height: 200,
+                      height: 190,
                     ),
                     Positioned(
                       top: 32,
@@ -111,24 +112,24 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Row(
-                    children: <Widget>[
-                      Icon(Icons.search),
-                      SizedBox(width: 5),
-                      Text("Search something..."),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
+                // Container(
+                //   margin: const EdgeInsets.all(10),
+                //   padding: const EdgeInsets.all(20),
+                //   decoration: BoxDecoration(
+                //     color: Colors.black12,
+                //     borderRadius: BorderRadius.circular(15),
+                //   ),
+                //   child: const Row(
+                //     children: <Widget>[
+                //       Icon(Icons.search),
+                //       SizedBox(width: 5),
+                //       Text("Search something..."),
+                //     ],
+                //   ),
+                // ),
+                const SizedBox(height: 5),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -198,10 +199,10 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 30),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
                       width: 150,
@@ -220,7 +221,7 @@ class _HomeState extends State<Home> {
                         children: <Widget>[
                           Icon(Icons.search,
                               color: AppColor.primaryColor, size: 70),
-                          SizedBox(width: 10),
+                          SizedBox(width: 20),
                           Text("Nhiệm Vụ",
                               style: TextStyle(
                                 color: AppColor.primaryColor,
@@ -229,32 +230,36 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    Container(
-                      width: 150,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color: AppColor.whiteColor,
-                        border: Border.all(
-                          color: AppColor.primaryColor,
-                          width: 4,
-                        ),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.summarize,
-                              color: AppColor.primaryColor, size: 70),
-                          SizedBox(width: 10),
-                          Text("Ghi Chú",
-                              style: TextStyle(
-                                color: AppColor.primaryColor,
-                                fontSize: 20,
-                              )),
-                        ],
-                      ),
-                    ),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(() => Note());
+                        },
+                        child: Container(
+                          width: 150,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            color: AppColor.whiteColor,
+                            border: Border.all(
+                              color: AppColor.primaryColor,
+                              width: 4,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.summarize,
+                                  color: AppColor.primaryColor, size: 70),
+                              SizedBox(width: 10),
+                              Text("Ghi Chú",
+                                  style: TextStyle(
+                                    color: AppColor.primaryColor,
+                                    fontSize: 20,
+                                  )),
+                            ],
+                          ),
+                        )),
                   ],
                 ),
               ],

@@ -85,9 +85,6 @@ class LoginViewModel extends GetxController {
     }
   }
 
-
-
-
   checkTokenGoogle(String? token) async {
     loading.value = true;
     Map data = {
