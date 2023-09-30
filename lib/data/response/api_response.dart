@@ -1,15 +1,15 @@
 import 'package:FMS/data/response/status.dart';
 
 class ApiResponse<T> {
-  Status? status;
+  StatusAPI? status;
   T? data;
   String? message;
 
   ApiResponse(this.data, this.message, this.status);
 
-  ApiResponse.loading() : status = Status.LOADING;
-  ApiResponse.completed(this.data) : status = Status.COMPLETED;
-  ApiResponse.error(this.message) : status = Status.ERROR;
+  ApiResponse.loading() : status = StatusAPI.LOADING;
+  ApiResponse.completed(this.data) : status = StatusAPI.COMPLETED;
+  ApiResponse.error(this.message) : status = StatusAPI.ERROR;
 
   @override
   String toString() {

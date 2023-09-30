@@ -36,14 +36,14 @@ class NotificationPopUp extends StatelessWidget {
             ),
             Obx(() {
               switch (notificationController.rxRequestStatus.value) {
-                case Status.LOADING:
+                case StatusAPI.LOADING:
                   return Center(
                       child: Container(
                     margin: const EdgeInsets.only(top: 50),
                     child: const CircularProgressIndicator(
                         color: AppColor.primaryColor),
                   ));
-                case Status.COMPLETED:
+                case StatusAPI.COMPLETED:
                   return
                     SizedBox(
                       height: 600,
@@ -55,7 +55,7 @@ class NotificationPopUp extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           final notification = notificationController
                               .notificationList.value.data![index];
-                          final isRead = notification.isRead == true;
+                          final isRead = notification.isRead = false;
                           String? jsonDateString = notification.createdAt;
                           DateTime date = DateTime.parse(jsonDateString!);
                           String formattedDate =
@@ -130,7 +130,7 @@ class NotificationPopUp extends StatelessWidget {
                         },
                       ),
                     );
-                case Status.ERROR:
+                case StatusAPI.ERROR:
                   if (notificationController.error.value == 'No internet') {
                     return InternetExceptionWidget(
                       onPress: () {

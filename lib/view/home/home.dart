@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import '../../view_models/controller/notification/notification_controller.dart';
+import '../../view_models/controller/task/task_controller.dart';
 import '../qr_code/qr_scan_code.dart';
 import '../widget/custom_card_info.dart';
 
@@ -20,6 +21,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final RxInt currentIndex = 0.obs;
   final notificationController = Get.put(NotificationController());
+  final TaskController taskController = Get.put(TaskController());
   UserPreference userPreference = UserPreference();
   UsersModel? _user;
   @override
@@ -27,7 +29,6 @@ class _HomeState extends State<Home> {
     super.initState();
     _loadUserInfo();
     notificationController.notificationListApi();
-    //homeController.userListApi();
   }
 
   void _loadUserInfo() async {
@@ -232,7 +233,7 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          Get.to(() => Note());
+                          Get.to(() => const Note());
                         },
                         child: Container(
                           width: 150,

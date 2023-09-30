@@ -1,3 +1,4 @@
+import 'package:FMS/models/task/tasks_list_model.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
 import 'package:FMS/view/widget/loading_list.dart';
@@ -23,16 +24,17 @@ class _TaskState extends State<Task> {
   @override
   void initState() {
     super.initState();
+    taskController.taskListApi();
   }
 
   void refreshData() {
-    if (selectedTabIndex == 0) {
-      taskController.fetchAllData();
-    } else if (selectedTabIndex == 1) {
-      taskController.fetchProcessingData();
-    } else if (selectedTabIndex == 2) {
-      taskController.fetchCompletedData();
-    }
+    // if (selectedTabIndex == 0) {
+    //   taskController.fetchAllData();
+    // } else if (selectedTabIndex == 1) {
+    //   taskController.fetchProcessingData();
+    // } else if (selectedTabIndex == 2) {
+    //   taskController.fetchCompletedData();
+    // }
   }
 
   Widget buildLoadingPage() {
@@ -110,20 +112,20 @@ class _TaskState extends State<Task> {
                 onTap: (index) {
                   // Fetch data for the selected tab
                   if (index == 0) {
-                    taskController.fetchAllData();
+                    taskController;
                   } else if (index == 1) {
-                    taskController.fetchProcessingData();
+                    taskController;
                   } else if (index == 2) {
-                    taskController.fetchCompletedData();
+                    taskController;
                   }
                 },
               ),
               Expanded(
                 child: TabBarView(
                   children: <Widget>[
-                    DataListWidget(taskController.allItems),
-                    DataListWidget(taskController.processingItems),
-                    DataListWidget(taskController.completedItems),
+                    DataListWidget(),
+                    DataListWidget(),
+                    DataListWidget(),
                   ],
                 ),
               ),
@@ -165,9 +167,7 @@ class _TaskState extends State<Task> {
             )
           ],
         ),
-        body: Obx(() {
-          return taskController.isLoading.value ? buildLoadingPage() : buildLoadedPage();
-        }),
+        body:  buildLoadedPage(),
         bottomNavigationBar: BottomBar(currentIndex),
       ),
     );

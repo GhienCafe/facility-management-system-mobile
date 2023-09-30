@@ -15,11 +15,11 @@ class UserListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       switch (homeController.rxRequestStatus.value) {
-        case Status.LOADING:
+        case StatusAPI.LOADING:
           return const Center(
             child: CircularProgressIndicator(color: AppColor.primaryColor),
           );
-        case Status.ERROR:
+        case StatusAPI.ERROR:
           if (homeController.error.value == 'No internet') {
             return InternetExceptionWidget(
               onPress: () {
@@ -32,7 +32,7 @@ class UserListWidget extends StatelessWidget {
             }); // Return the Text widget
           }
 
-        case Status.COMPLETED:
+        case StatusAPI.COMPLETED:
           return ListView.builder(
               itemCount: homeController.userList.value.data!.length,
               itemBuilder: (context, index) {

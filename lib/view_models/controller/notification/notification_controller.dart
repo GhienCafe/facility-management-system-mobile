@@ -9,11 +9,11 @@ import '../../../data/response/status.dart';
 
 class NotificationController {
   final _api = NotificationRepository();
-  final rxRequestStatus = Status.LOADING.obs;
+  final rxRequestStatus = StatusAPI.LOADING.obs;
   final notificationList = NotificationListModel().obs;
   RxString error = ''.obs;
 
-  void setRexRequestStatus(Status _value) => rxRequestStatus.value = _value;
+  void setRexRequestStatus(StatusAPI _value) => rxRequestStatus.value = _value;
   void setNotificationList(NotificationListModel _value) =>
       notificationList.value = _value;
   void setError(String _value) => error.value = _value;
@@ -22,26 +22,26 @@ class NotificationController {
     _api
         .notificationListApi()
         .then((value) => {
-              setRexRequestStatus(Status.COMPLETED),
+              setRexRequestStatus(StatusAPI.COMPLETED),
               setNotificationList(value),
             })
         .onError((error, stackTrace) => {
               setError(error.toString()),
-              setRexRequestStatus(Status.ERROR),
+              setRexRequestStatus(StatusAPI.ERROR),
             });
   }
 
   void refreshApi() {
-    setRexRequestStatus(Status.LOADING);
+    setRexRequestStatus(StatusAPI.LOADING);
     _api
         .notificationListApi()
         .then((value) => {
-              setRexRequestStatus(Status.COMPLETED),
+              setRexRequestStatus(StatusAPI.COMPLETED),
               setNotificationList(value),
             })
         .onError((error, stackTrace) => {
               setError(error.toString()),
-              setRexRequestStatus(Status.ERROR),
+              setRexRequestStatus(StatusAPI.ERROR),
             });
   }
 

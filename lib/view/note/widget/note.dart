@@ -9,7 +9,7 @@ import 'EditNote.dart';
 
 bool noTitle = false;
 bool noContent = false;
-bool SearchOn = false;
+bool searchOn = false;
 Map<String, int> viewModes = {"Large View": 0, "Long View": 1, "Grid View": 2};
 List<Map> searchedNotes = [];
 final TextEditingController searchC = TextEditingController();
@@ -47,14 +47,14 @@ class _NotePageState extends State<NotePage> {
           IconButton(
             onPressed: () {
               setState(() {
-                SearchOn = !SearchOn;
+                searchOn = !searchOn;
                 searchNotes(searchC.text);
               });
             },
             icon: Icon(
               Icons.search,
               size: 30,
-              color: SearchOn
+              color: searchOn
                   ? const Color(0xffff8b34)
                   : AppColor.primaryColor,
             ),
@@ -465,13 +465,13 @@ class _NotePageState extends State<NotePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map> Notes = SearchOn ? searchedNotes : notesMap;
+    List<Map> Notes = searchOn ? searchedNotes : notesMap;
     return SafeArea(
         child: Scaffold(
       body: ListView(
         children: [
           customAppBar("Ghi Chú", 20, leading()),
-          SearchOn
+          searchOn
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
