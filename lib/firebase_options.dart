@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '864273680010',
     projectId: 'facility-management-system-fb',
     storageBucket: 'facility-management-system-fb.appspot.com',
+    androidClientId: '864273680010-b80lfr2l2f3l0jaj3sirrmu0bddvts4h.apps.googleusercontent.com',
     iosClientId: '864273680010-9uckkel4sdbqm7mj4i8dk9r1312qgc61.apps.googleusercontent.com',
     iosBundleId: 'com.example.facilityManagementSystemMobile',
   );

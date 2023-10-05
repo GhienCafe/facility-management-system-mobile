@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-
 class ProfileController extends GetxController {
   RxString imagePath = ''.obs;
   RxString imageUrl = ''.obs;
@@ -12,7 +11,6 @@ class ProfileController extends GetxController {
   Future<void> selectImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
       imagePath.value = pickedFile.path;
     }
@@ -31,18 +29,15 @@ class ProfileController extends GetxController {
   // Function to upload the image to Firebase Cloud Storage
   Future<void> uploadImage() async {
     final filePath = imagePath.value;
-
     if (filePath.isEmpty) {
       print('No image selected');
       return;
     }
-
     try {
       final image = File(filePath).path.split('/').last;
       final ref = firebase_storage.FirebaseStorage.instance
           .ref()
-          .child('Avatar/$image.jpg');// Define the path to store the image
-
+          .child('Avatar/$image.jpg'); // Define the path to store the image
       await ref.putFile(File(filePath));
 
       // Get the download URL of the uploaded image
@@ -59,6 +54,3 @@ class ProfileController extends GetxController {
     imageUrl.value = '';
   }
 }
-
-
-

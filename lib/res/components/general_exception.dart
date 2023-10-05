@@ -17,6 +17,8 @@ class _GeneralExceptionWidgetState extends State<GeneralExceptionWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child:
       Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(
             Icons.cloud_off,
@@ -24,7 +26,7 @@ class _GeneralExceptionWidgetState extends State<GeneralExceptionWidget> {
             size: 50,
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 30),
+            padding: EdgeInsets.only(top: 10),
             child: Center(
                 child: Text(
               "Không Có Kết Quả \n Hãy Thử Lại",
@@ -33,7 +35,7 @@ class _GeneralExceptionWidgetState extends State<GeneralExceptionWidget> {
             )),
           ),
           SizedBox(
-            height: h * 0.15,
+            height: h * 0.05,
           ),
           InkWell(
             onTap: widget.onPress,

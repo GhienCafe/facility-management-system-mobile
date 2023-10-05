@@ -20,7 +20,7 @@ class DataListWidget extends StatelessWidget {
     return Obx(() {
       switch (taskController.rxRequestStatus.value) {
         case StatusAPI.LOADING:
-          return LoadingListPage();
+          return const LoadingListPage();
         case StatusAPI.COMPLETED:
           return Container(
             margin: const EdgeInsets.only(top: 10),
