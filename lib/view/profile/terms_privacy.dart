@@ -303,7 +303,6 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
     final uploadTask = ref.putFile(file, metaData);
     final taskSnapshot = await uploadTask.whenComplete(() => print("Upload File Success"));
     String url = await taskSnapshot.ref.getDownloadURL();
-    print(url);
     return url;
   }
 

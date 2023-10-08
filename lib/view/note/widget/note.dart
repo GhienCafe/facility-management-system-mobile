@@ -54,9 +54,7 @@ class _NotePageState extends State<NotePage> {
             icon: Icon(
               Icons.search,
               size: 30,
-              color: searchOn
-                  ? const Color(0xffff8b34)
-                  : AppColor.primaryColor,
+              color: searchOn ? const Color(0xffff8b34) : AppColor.primaryColor,
             ),
           ),
           PopupMenuButton<String>(
@@ -422,9 +420,9 @@ class _NotePageState extends State<NotePage> {
                                               : "",
                                           style: const TextStyle(
                                               color: Colors.white38),
-                                        )
+                                        ),
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               )

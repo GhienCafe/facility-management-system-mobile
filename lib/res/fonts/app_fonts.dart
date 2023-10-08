@@ -1,3 +1,3 @@
-// class AppFonts {
-//   static const String schylerRegular = 'Schyler-Regular';
-// }
+class AppFonts {
+  static const String schylerRegular = 'Schyler-Regular';
+}

@@ -14,30 +14,31 @@ class TaskController extends GetxController {
   RxString error = ''.obs;
   RxInt selectedIndex = 0.obs;
   void setRexRequestStatus(StatusAPI value) => rxRequestStatus.value = value;
-  void setTaskList(TaskListModel value) =>
-      taskList.value = value;
+  void setTaskList(TaskListModel value) => taskList.value = value;
   void setError(String value) => error.value = value;
 
   void taskListApi() {
     _api
         .taskListApi()
         .then((value) => {
-      setRexRequestStatus(StatusAPI.COMPLETED),
-      setTaskList(value),
+              setRexRequestStatus(StatusAPI.COMPLETED),
+              setTaskList(value),
 
-      // After getting the data, filter and assign to different lists
-      allItems.assignAll(value.data ?? []), // Assign all items
-      processingItems.assignAll(
-          value.data?.where((item) => item.status?.value == 1).toList() ??
-              []), // Assign items with status.value = 1
-      completedItems.assignAll(
-          value.data?.where((item) => item.status?.value == 2).toList() ??
-              []),
-    })
+              // After getting the data, filter and assign to different lists
+              allItems.assignAll(value.data ?? []), // Assign all items
+              processingItems.assignAll(value.data
+                      ?.where((item) => item.status?.value == 1)
+                      .toList() ??
+                  []), // Assign items with status.value = 1
+              completedItems.assignAll(value.data
+                      ?.where((item) => item.status?.value == 2)
+                      .toList() ??
+                  []),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestStatus(StatusAPI.ERROR),
+            });
   }
 
   void refreshApi() {
@@ -45,13 +46,13 @@ class TaskController extends GetxController {
     _api
         .taskListApi()
         .then((value) => {
-      setRexRequestStatus(StatusAPI.COMPLETED),
-      setTaskList(value),
-    })
+              setRexRequestStatus(StatusAPI.COMPLETED),
+              setTaskList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestStatus(StatusAPI.ERROR),
+            });
   }
 
   // Future<void> fetchAllData() async {
@@ -90,4 +91,3 @@ class TaskController extends GetxController {
   //   isLoading.value = false;
   // }
 }
-

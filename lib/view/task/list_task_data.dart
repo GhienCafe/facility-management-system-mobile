@@ -92,7 +92,7 @@ class DataListWidget extends StatelessWidget {
                                       fontSize: 17,
                                       color: Colors.white,
                                       fontFamily: "monospace")),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Text(formattedDate,
                                   style: const TextStyle(
                                       fontSize: 20, color: Colors.white)),

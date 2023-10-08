@@ -37,13 +37,18 @@ class _EditNoteState extends State<EditNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colors[chosenIndex],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: const BackButton(),
+        title: const Text("Ghi Chú"),
+      ),
       body: SafeArea(
           child: ListView(children: [
-        SizedBox(
-          height: 30,
+        const SizedBox(
+          height: 10,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
               maxLines: 2,
               cursorColor: Colors.white,
@@ -51,32 +56,34 @@ class _EditNoteState extends State<EditNote> {
               controller: titleC,
               style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 36,
+                  fontSize: 35,
                   fontWeight: FontWeight.w500),
-              decoration: InputDecoration(
-                  border: InputBorder.none, hintText: "No Title")),
+              decoration: const InputDecoration(
+                  border: InputBorder.none, hintText: "Tiêu đề")),
         ),
-        SizedBox(
+        const Divider(
+            color: Colors.white, thickness: 2, endIndent: 20, indent: 20),
+        const SizedBox(
           height: 10,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
               cursorColor: Colors.white,
               textInputAction: TextInputAction.done,
               controller: contentC,
               maxLines: 15,
               showCursor: true,
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              style: const TextStyle(color: Colors.white, fontSize: 24),
               decoration: const InputDecoration(
                   border: InputBorder.none,
-                  constraints: BoxConstraints.expand(height: 460, width: 200),
-                  hintText: "Write Your Note Here")),
+                  constraints: BoxConstraints.expand(height: 400, width: 200),
+                  hintText: "Nhập nội dung ở đây...")),
         ),
         FittedBox(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: SizedBox(
               height: 60,
               child: Center(
                 child: ListView.builder(
@@ -112,7 +119,7 @@ class _EditNoteState extends State<EditNote> {
                       chosenIndex != widget.index
                   ? {
                       await editDatabaseItem(
-                          time: "$time",
+                          time: time,
                           content: contentC.text,
                           title: widget.Title,
                           title2: titleC.text,
@@ -121,10 +128,16 @@ class _EditNoteState extends State<EditNote> {
                     }
                   : Navigator.of(context).pop();
             },
-            child: Text(
-              "Done",
-              style: TextStyle(fontSize: 30, color: Colors.white),
-            ),
+            child: Container(
+              width: 150,
+              height: 50,
+              alignment: AlignmentDirectional.center,
+              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(20)),
+              child: Text(
+                "Cập nhật",
+                style: TextStyle(fontSize: 25, color: colors[chosenIndex]),
+              ),
+            )
           ),
         )
       ])),

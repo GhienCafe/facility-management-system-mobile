@@ -113,21 +113,6 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                // Container(
-                //   margin: const EdgeInsets.all(10),
-                //   padding: const EdgeInsets.all(20),
-                //   decoration: BoxDecoration(
-                //     color: Colors.black12,
-                //     borderRadius: BorderRadius.circular(15),
-                //   ),
-                //   child: const Row(
-                //     children: <Widget>[
-                //       Icon(Icons.search),
-                //       SizedBox(width: 5),
-                //       Text("Search something..."),
-                //     ],
-                //   ),
-                // ),
                 const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -232,35 +217,36 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     GestureDetector(
-                        onTap: () {
-                          Get.to(() => const Note());
-                        },
-                        child: Container(
-                          width: 150,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            color: AppColor.whiteColor,
-                            border: Border.all(
-                              color: AppColor.primaryColor,
-                              width: 4,
-                            ),
-                            borderRadius: BorderRadius.circular(15),
+                      onTap: () {
+                        Get.to(() => const Note());
+                      },
+                      child: Container(
+                        width: 150,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: AppColor.whiteColor,
+                          border: Border.all(
+                            color: AppColor.primaryColor,
+                            width: 4,
                           ),
-                          child: const Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.summarize,
-                                  color: AppColor.primaryColor, size: 70),
-                              SizedBox(width: 10),
-                              Text("Ghi Chú",
-                                  style: TextStyle(
-                                    color: AppColor.primaryColor,
-                                    fontSize: 20,
-                                  )),
-                            ],
-                          ),
-                        )),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.summarize,
+                                color: AppColor.primaryColor, size: 70),
+                            SizedBox(width: 10),
+                            Text("Ghi Chú",
+                                style: TextStyle(
+                                  color: AppColor.primaryColor,
+                                  fontSize: 20,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],

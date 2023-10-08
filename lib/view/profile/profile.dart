@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:FMS/models/login/users_model.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/profile/profile_detail.dart';
@@ -13,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../view_models/controller/profile/profile_controller.dart';
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -23,13 +24,13 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final RxInt currentIndex = 2.obs;
   UserPreference userPreference = UserPreference();
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  UsersModel? _user; // UserModel to store user information
+  final profileController = Get.put(ProfileController());
+  final GoogleSignIn googleSignIn = GoogleSignIn(); // UserModel to store user information
 
   @override
   void initState() {
     super.initState();
-    _loadUserInfo(); // Load user information when the page initializes
+    profileController.getCurrentUser();
   }
 
   Future<void> signOutGoogle() async {
@@ -38,26 +39,18 @@ class _ProfileState extends State<Profile> {
     await googleSignIn.signOut();
   }
 
-  Future<void> _loadUserInfo() async {
-    UsersModel user = await userPreference.getUserInfo();
-    setState(() {
-      _user = user;
-    });
-  }
 
   Future<void> _handleLogout() async {
-    // Clear SharedPreferences
     await userPreference.removeUser();
-    // Perform Google logout
-     FirebaseAuth.instance.signOut();
-     googleSignIn.disconnect();
-     googleSignIn.signOut();
-    // Navigate to the login screen
+    FirebaseAuth.instance.signOut();
+    googleSignIn.disconnect();
+    googleSignIn.signOut();
     Get.toNamed(RouteName.loginScreen);
   }
 
   @override
   Widget build(BuildContext context) {
+    final userInfo = profileController.currentUser.value.data;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -66,9 +59,8 @@ class _ProfileState extends State<Profile> {
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
-                )
-            ),
+              colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+            )),
           ),
           title: const Text(
             "Menu",
@@ -85,18 +77,16 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.all(5),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 50,
-                    backgroundImage: NetworkImage(
-                      "https://media.istockphoto.com/id/1144760419/vi/vec-to/avatar-d%E1%BB%8Bch-v%E1%BB%A5-h%E1%BB%97-tr%E1%BB%A3.jpg?s=170667a&w=0&k=20&c=6Zv7ZXrA5kGhlqTRaeFeYvp_ItVEqQMolars12WWE04=",
-                    ),
+                    backgroundImage: NetworkImage(userInfo!.avatar.toString()),
                   ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _user != null ? _user!.data?.fullname ?? "" : "",
+                        userInfo!.fullname.toString(),
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -104,13 +94,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        _user != null
-                            ? _user!.data?.role == 3
-                            ? "Staff"
-                            : _user!.data?.role == 2
-                            ? "Manager"
-                            : ""
-                            : "",
+                        userInfo!.role == 3 ? "Staff" : "",
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],

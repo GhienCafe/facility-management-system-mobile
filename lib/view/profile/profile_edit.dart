@@ -31,7 +31,7 @@ class _ImageUploadsState extends State<ImageUploads> {
                     return const CircleAvatar(
                       radius: 150,
                       backgroundColor: Colors.grey,
-                      child: Text("No Image",
+                      child: Text("Không Tìm Thấy",
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -39,7 +39,6 @@ class _ImageUploadsState extends State<ImageUploads> {
                     );
                   } else {
                     return CircleAvatar(
-                      //backgroundImage: NetworkImage("https://media.istockphoto.com/id/1144760419/vi/vec-to/avatar-d%E1%BB%8Bch-v%E1%BB%A5-h%E1%BB%97-tr%E1%BB%A3.jpg?s=170667a&w=0&k=20&c=6Zv7ZXrA5kGhlqTRaeFeYvp_ItVEqQMolars12WWE04="),
                       radius: 150,
                       child: ClipOval(
                         child: Image.file(

@@ -30,6 +30,10 @@ class LoginViewModel extends GetxController {
       'email': emailController.value.text,
       'password': passwordController.value.text,
     };
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.value.text,
+        password: passwordController.value.text
+    );
     _api.loginApi(data).then((value) {
       loading.value = false;
       //print(value);
@@ -41,6 +45,7 @@ class LoginViewModel extends GetxController {
         userPrefrence
             .saveUserInfoPreferences(userModel)
             .then((value) => {
+
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
                   Utils.snackBarSuccess("Chào mừng", "Chúc một ngày mới tốt lành"),
@@ -56,8 +61,7 @@ class LoginViewModel extends GetxController {
   Future<void> handleSignIn() async {
     try {
       googleSignIn.signOut();
-      final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final String email = googleSignInAccount.email;
         if (email.endsWith("@fpt.edu.vn")) {
@@ -86,7 +90,7 @@ class LoginViewModel extends GetxController {
   }
 
   checkTokenGoogle(String? token) async {
-    loading.value = true;
+    //loading.value = true;
     Map data = {
       'access_token': token,
     };
