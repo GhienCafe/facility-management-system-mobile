@@ -90,16 +90,61 @@ class NetworkApiServices extends BaseApiService {
       String? accessToken = userInfo.data?.accessToken;
       final response = await http
           .post(Uri.parse(url),
-          headers: <String, String>{
-            "content-type": "application/json",
-            "accept": "application/json",
-            'Authorization': 'Bearer $accessToken',
-          },
-          body: jsonEncode(data))
+              headers: <String, String>{
+                "content-type": "application/json",
+                "accept": "application/json",
+                'Authorization': 'Bearer $accessToken',
+              },
+              body: jsonEncode(data))
           .timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
 
       //responseJson = jsonDecode(response.body);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOUt {
+      throw RequestTimeOUt();
+    }
+    return responseJson;
+  }
+
+  @override
+  Future<dynamic> putApi(var data, String url) async {
+    dynamic responseJson;
+    try {
+      final response = await http
+          .put(Uri.parse(url),
+              headers: <String, String>{
+                "content-type": "application/json",
+                "accept": "application/json",
+              },
+              body: jsonEncode(data))
+          .timeout(const Duration(seconds: 10));
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOUt {
+      throw RequestTimeOUt();
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> putApiAuthor(var data, String url) async {
+    dynamic responseJson;
+    try {
+      UserPreference userPreference = UserPreference();
+      UsersModel userInfo = await userPreference.getUserInfo();
+      String? accessToken = userInfo.data?.accessToken;
+      final response = await http
+          .put(Uri.parse(url),
+              headers: <String, String>{
+                "content-type": "application/json",
+                "accept": "application/json",
+                'Authorization': 'Bearer $accessToken',
+              },
+              body: jsonEncode(data))
+          .timeout(const Duration(seconds: 10));
+      responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOUt {

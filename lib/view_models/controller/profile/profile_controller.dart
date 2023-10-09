@@ -7,21 +7,22 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../../res/repository/profile_repository/profile_repository.dart';
 
 class ProfileController extends GetxController {
+  RxString imageUser = ''.obs;
   RxString imagePath = ''.obs;
   RxString imageUrl = ''.obs;
   final _api = ProfileRepository();
   final currentUser = UserModel().obs;
-  void setCurrentUser(UserModel _value) =>
-      currentUser.value = _value;
+  void setCurrentUser(UserModel value) => currentUser.value = value;
   void getCurrentUser() {
     _api
         .getUserInfo()
         .then((value) => {
-      setCurrentUser(value),
-    })
-        .onError((error, stackTrace) => {
-          print("Error at Profile controller: $error")
-    });
+              setCurrentUser(value),
+      imageUser = RxString(currentUser.value.data!.avatar.toString()),
+      print(imageUser)
+            })
+        .onError((error, stackTrace) =>
+            {print("Error at Profile controller: $error")});
   }
 
   // Function to select an image from the device's library
@@ -35,6 +36,7 @@ class ProfileController extends GetxController {
 
   // Function to take a picture using the device's camera
   Future<void> takePicture() async {
+    imageUser.value = '';
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
@@ -45,6 +47,7 @@ class ProfileController extends GetxController {
 
   // Function to upload the image to Firebase Cloud Storage
   Future<void> uploadImage() async {
+    imageUser.value = '';
     final filePath = imagePath.value;
     if (filePath.isEmpty) {
       print('No image selected');
@@ -67,6 +70,7 @@ class ProfileController extends GetxController {
 
   // Function to clear the selected image
   void clearImage() {
+    imageUser.value = '';
     imagePath.value = '';
     imageUrl.value = '';
   }

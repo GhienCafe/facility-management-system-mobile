@@ -15,12 +15,12 @@ class ProfileDetail extends StatefulWidget {
 }
 
 class _ProfileDetailState extends State<ProfileDetail> {
-  final profileController = Get.put(ProfileController());
+  final profileController = Get.find<ProfileController>();
 
   @override
   void initState() {
     super.initState();
-    profileController.getCurrentUser(); // Load user information when the page initializes
+    //profileController.getCurrentUser(); // Load user information when the page initializes
   }
 
   @override

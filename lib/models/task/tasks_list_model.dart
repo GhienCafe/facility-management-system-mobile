@@ -7,14 +7,23 @@ class TaskListModel {
   int? statusCode;
   String? message;
 
-  TaskListModel({this.totalCount, this.pageSize, this.offset, this.totalPages, this.data, this.statusCode, this.message});
+  TaskListModel(
+      {this.totalCount,
+      this.pageSize,
+      this.offset,
+      this.totalPages,
+      this.data,
+      this.statusCode,
+      this.message});
 
   TaskListModel.fromJson(Map<String, dynamic> json) {
     totalCount = json["total_count"];
     pageSize = json["page_size"];
     offset = json["offset"];
     totalPages = json["total_pages"];
-    data = json["data"] == null ? null : (json["data"] as List).map((e) => Data.fromJson(e)).toList();
+    data = json["data"] == null
+        ? null
+        : (json["data"] as List).map((e) => Data.fromJson(e)).toList();
     statusCode = json["status_code"];
     message = json["message"];
   }
@@ -29,7 +38,7 @@ class TaskListModel {
     _data["page_size"] = pageSize;
     _data["offset"] = offset;
     _data["total_pages"] = totalPages;
-    if(data != null) {
+    if (data != null) {
       _data["data"] = data?.map((e) => e.toJson()).toList();
     }
     _data["status_code"] = statusCode;
@@ -45,15 +54,16 @@ class TaskListModel {
     List<Data>? data,
     int? statusCode,
     String? message,
-  }) => TaskListModel(
-    totalCount: totalCount ?? this.totalCount,
-    pageSize: pageSize ?? this.pageSize,
-    offset: offset ?? this.offset,
-    totalPages: totalPages ?? this.totalPages,
-    data: data ?? this.data,
-    statusCode: statusCode ?? this.statusCode,
-    message: message ?? this.message,
-  );
+  }) =>
+      TaskListModel(
+        totalCount: totalCount ?? this.totalCount,
+        pageSize: pageSize ?? this.pageSize,
+        offset: offset ?? this.offset,
+        totalPages: totalPages ?? this.totalPages,
+        data: data ?? this.data,
+        statusCode: statusCode ?? this.statusCode,
+        message: message ?? this.message,
+      );
 }
 
 class Data {
@@ -72,7 +82,21 @@ class Data {
   String? editedAt;
   Creator? creator;
 
-  Data({this.title, this.content, this.notificationDate, this.requestedDate, this.description, this.status, this.type, this.assignedTo, this.assetId, this.location, this.id, this.createdAt, this.editedAt, this.creator});
+  Data(
+      {this.title,
+      this.content,
+      this.notificationDate,
+      this.requestedDate,
+      this.description,
+      this.status,
+      this.type,
+      this.assignedTo,
+      this.assetId,
+      this.location,
+      this.id,
+      this.createdAt,
+      this.editedAt,
+      this.creator});
 
   Data.fromJson(Map<String, dynamic> json) {
     title = json["title"];
@@ -84,11 +108,13 @@ class Data {
     type = json["type"] == null ? null : Type.fromJson(json["type"]);
     assignedTo = json["assigned_to"];
     assetId = json["asset_id"];
-    location = json["location"] == null ? null : Location.fromJson(json["location"]);
+    location =
+        json["location"] == null ? null : Location.fromJson(json["location"]);
     id = json["id"];
     createdAt = json["created_at"];
     editedAt = json["edited_at"];
-    creator = json["creator"] == null ? null : Creator.fromJson(json["creator"]);
+    creator =
+        json["creator"] == null ? null : Creator.fromJson(json["creator"]);
   }
 
   static List<Data> fromList(List<Map<String, dynamic>> list) {
@@ -102,21 +128,21 @@ class Data {
     _data["notification_date"] = notificationDate;
     _data["requested_date"] = requestedDate;
     _data["description"] = description;
-    if(status != null) {
+    if (status != null) {
       _data["status"] = status?.toJson();
     }
-    if(type != null) {
+    if (type != null) {
       _data["type"] = type?.toJson();
     }
     _data["assigned_to"] = assignedTo;
     _data["asset_id"] = assetId;
-    if(location != null) {
+    if (location != null) {
       _data["location"] = location?.toJson();
     }
     _data["id"] = id;
     _data["created_at"] = createdAt;
     _data["edited_at"] = editedAt;
-    if(creator != null) {
+    if (creator != null) {
       _data["creator"] = creator?.toJson();
     }
     return _data;
@@ -137,22 +163,23 @@ class Data {
     String? createdAt,
     String? editedAt,
     Creator? creator,
-  }) => Data(
-    title: title ?? this.title,
-    content: content ?? this.content,
-    notificationDate: notificationDate ?? this.notificationDate,
-    requestedDate: requestedDate ?? this.requestedDate,
-    description: description ?? this.description,
-    status: status ?? this.status,
-    type: type ?? this.type,
-    assignedTo: assignedTo ?? this.assignedTo,
-    assetId: assetId ?? this.assetId,
-    location: location ?? this.location,
-    id: id ?? this.id,
-    createdAt: createdAt ?? this.createdAt,
-    editedAt: editedAt ?? this.editedAt,
-    creator: creator ?? this.creator,
-  );
+  }) =>
+      Data(
+        title: title ?? this.title,
+        content: content ?? this.content,
+        notificationDate: notificationDate ?? this.notificationDate,
+        requestedDate: requestedDate ?? this.requestedDate,
+        description: description ?? this.description,
+        status: status ?? this.status,
+        type: type ?? this.type,
+        assignedTo: assignedTo ?? this.assignedTo,
+        assetId: assetId ?? this.assetId,
+        location: location ?? this.location,
+        id: id ?? this.id,
+        createdAt: createdAt ?? this.createdAt,
+        editedAt: editedAt ?? this.editedAt,
+        creator: creator ?? this.creator,
+      );
 }
 
 class Creator {
@@ -188,12 +215,13 @@ class Creator {
     String? fullname,
     String? email,
     String? phoneNumber,
-  }) => Creator(
-    id: id ?? this.id,
-    fullname: fullname ?? this.fullname,
-    email: email ?? this.email,
-    phoneNumber: phoneNumber ?? this.phoneNumber,
-  );
+  }) =>
+      Creator(
+        id: id ?? this.id,
+        fullname: fullname ?? this.fullname,
+        email: email ?? this.email,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+      );
 }
 
 class Location {
@@ -209,7 +237,18 @@ class Location {
   String? createdAt;
   String? editedAt;
 
-  Location({this.roomName, this.area, this.pathRoom, this.roomCode, this.roomTypeId, this.capacity, this.statusId, this.floorId, this.id, this.createdAt, this.editedAt});
+  Location(
+      {this.roomName,
+      this.area,
+      this.pathRoom,
+      this.roomCode,
+      this.roomTypeId,
+      this.capacity,
+      this.statusId,
+      this.floorId,
+      this.id,
+      this.createdAt,
+      this.editedAt});
 
   Location.fromJson(Map<String, dynamic> json) {
     roomName = json["room_name"];
@@ -257,19 +296,20 @@ class Location {
     String? id,
     String? createdAt,
     String? editedAt,
-  }) => Location(
-    roomName: roomName ?? this.roomName,
-    area: area ?? this.area,
-    pathRoom: pathRoom ?? this.pathRoom,
-    roomCode: roomCode ?? this.roomCode,
-    roomTypeId: roomTypeId ?? this.roomTypeId,
-    capacity: capacity ?? this.capacity,
-    statusId: statusId ?? this.statusId,
-    floorId: floorId ?? this.floorId,
-    id: id ?? this.id,
-    createdAt: createdAt ?? this.createdAt,
-    editedAt: editedAt ?? this.editedAt,
-  );
+  }) =>
+      Location(
+        roomName: roomName ?? this.roomName,
+        area: area ?? this.area,
+        pathRoom: pathRoom ?? this.pathRoom,
+        roomCode: roomCode ?? this.roomCode,
+        roomTypeId: roomTypeId ?? this.roomTypeId,
+        capacity: capacity ?? this.capacity,
+        statusId: statusId ?? this.statusId,
+        floorId: floorId ?? this.floorId,
+        id: id ?? this.id,
+        createdAt: createdAt ?? this.createdAt,
+        editedAt: editedAt ?? this.editedAt,
+      );
 }
 
 class Type {
@@ -301,11 +341,12 @@ class Type {
     int? value,
     String? name,
     String? displayName,
-  }) => Type(
-    value: value ?? this.value,
-    name: name ?? this.name,
-    displayName: displayName ?? this.displayName,
-  );
+  }) =>
+      Type(
+        value: value ?? this.value,
+        name: name ?? this.name,
+        displayName: displayName ?? this.displayName,
+      );
 }
 
 class Status {
@@ -337,9 +378,10 @@ class Status {
     int? value,
     String? name,
     String? displayName,
-  }) => Status(
-    value: value ?? this.value,
-    name: name ?? this.name,
-    displayName: displayName ?? this.displayName,
-  );
+  }) =>
+      Status(
+        value: value ?? this.value,
+        name: name ?? this.name,
+        displayName: displayName ?? this.displayName,
+      );
 }

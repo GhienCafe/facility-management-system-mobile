@@ -28,13 +28,6 @@ class _TaskState extends State<Task> {
   }
 
   void refreshData() {
-    // if (selectedTabIndex == 0) {
-    //   taskController.fetchAllData();
-    // } else if (selectedTabIndex == 1) {
-    //   taskController.fetchProcessingData();
-    // } else if (selectedTabIndex == 2) {
-    //   taskController.fetchCompletedData();
-    // }
   }
 
   Widget buildLoadingPage() {

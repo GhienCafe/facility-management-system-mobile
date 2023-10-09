@@ -4,4 +4,6 @@ abstract class BaseApiService {
 
   // in post data we sen the parameter that's why we use dynamic data
   Future<dynamic> postApi(dynamic data, String url);
+
+  Future<dynamic> putApi(dynamic data, String url);
 }

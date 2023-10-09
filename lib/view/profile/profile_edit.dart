@@ -12,10 +12,10 @@ class ImageUploads extends StatefulWidget {
 }
 
 class _ImageUploadsState extends State<ImageUploads> {
-  final ProfileController controller = Get.put(ProfileController());
-
+  final ProfileController profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
+    final user = profileController.currentUser.value.data;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -27,22 +27,38 @@ class _ImageUploadsState extends State<ImageUploads> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Obx(() {
-                  if (controller.imagePath.value.isEmpty) {
-                    return const CircleAvatar(
-                      radius: 150,
-                      backgroundColor: Colors.grey,
-                      child: Text("Không Tìm Thấy",
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    );
+                  if (profileController.imageUser.value.isEmpty) {
+                    if (profileController.imagePath.value.isEmpty) {
+                      return const CircleAvatar(
+                        radius: 150,
+                        backgroundColor: Colors.grey,
+                        child: Text("Không Tìm Thấy",
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      );
+                    } else {
+                      return CircleAvatar(
+                        radius: 150,
+                        child: ClipOval(
+                          child: ClipOval(
+                            child: Image.file(
+                              File(profileController.imagePath.value),
+                              height: 300,
+                              width: 300,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   } else {
                     return CircleAvatar(
                       radius: 150,
                       child: ClipOval(
-                        child: Image.file(
-                          File(controller.imagePath.value),
+                        child: Image.network(
+                          profileController.imageUser.value,
                           height: 300,
                           width:
                               300, // Set width and height to maintain a circular shape
@@ -58,19 +74,19 @@ class _ImageUploadsState extends State<ImageUploads> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: controller.selectImage,
+                      onPressed: profileController.selectImage,
                       child: const Icon(Icons.collections),
                     ),
                     ElevatedButton(
-                      onPressed: controller.takePicture,
+                      onPressed: profileController.takePicture,
                       child: const Icon(Icons.camera_alt_sharp),
                     ),
                     ElevatedButton(
-                      onPressed: controller.uploadImage,
+                      onPressed: profileController.uploadImage,
                       child: const Icon(Icons.file_upload),
                     ),
                     ElevatedButton(
-                      onPressed: controller.clearImage,
+                      onPressed: profileController.clearImage,
                       child: const Icon(Icons.clear),
                     ),
                   ],

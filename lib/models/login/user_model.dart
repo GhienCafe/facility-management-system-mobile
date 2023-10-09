@@ -1,4 +1,3 @@
-
 class UserModel {
   Data? data;
   int? statusCode;
@@ -18,7 +17,7 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
-    if(data != null) {
+    if (data != null) {
       _data["data"] = data?.toJson();
     }
     _data["status_code"] = statusCode;
@@ -30,11 +29,12 @@ class UserModel {
     Data? data,
     int? statusCode,
     String? message,
-  }) => UserModel(
-    data: data ?? this.data,
-    statusCode: statusCode ?? this.statusCode,
-    message: message ?? this.message,
-  );
+  }) =>
+      UserModel(
+        data: data ?? this.data,
+        statusCode: statusCode ?? this.statusCode,
+        message: message ?? this.message,
+      );
 }
 
 class Data {
@@ -53,7 +53,21 @@ class Data {
   String? createdAt;
   String? editedAt;
 
-  Data({this.userCode, this.fullname, this.role, this.avatar, this.email, this.phoneNumber, this.address, this.gender, this.personalIdentifyNumber, this.dob, this.firstLoginAt, this.id, this.createdAt, this.editedAt});
+  Data(
+      {this.userCode,
+      this.fullname,
+      this.role,
+      this.avatar,
+      this.email,
+      this.phoneNumber,
+      this.address,
+      this.gender,
+      this.personalIdentifyNumber,
+      this.dob,
+      this.firstLoginAt,
+      this.id,
+      this.createdAt,
+      this.editedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     userCode = json["user_code"];
@@ -110,20 +124,22 @@ class Data {
     String? id,
     String? createdAt,
     String? editedAt,
-  }) => Data(
-    userCode: userCode ?? this.userCode,
-    fullname: fullname ?? this.fullname,
-    role: role ?? this.role,
-    avatar: avatar ?? this.avatar,
-    email: email ?? this.email,
-    phoneNumber: phoneNumber ?? this.phoneNumber,
-    address: address ?? this.address,
-    gender: gender ?? this.gender,
-    personalIdentifyNumber: personalIdentifyNumber ?? this.personalIdentifyNumber,
-    dob: dob ?? this.dob,
-    firstLoginAt: firstLoginAt ?? this.firstLoginAt,
-    id: id ?? this.id,
-    createdAt: createdAt ?? this.createdAt,
-    editedAt: editedAt ?? this.editedAt,
-  );
+  }) =>
+      Data(
+        userCode: userCode ?? this.userCode,
+        fullname: fullname ?? this.fullname,
+        role: role ?? this.role,
+        avatar: avatar ?? this.avatar,
+        email: email ?? this.email,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        address: address ?? this.address,
+        gender: gender ?? this.gender,
+        personalIdentifyNumber:
+            personalIdentifyNumber ?? this.personalIdentifyNumber,
+        dob: dob ?? this.dob,
+        firstLoginAt: firstLoginAt ?? this.firstLoginAt,
+        id: id ?? this.id,
+        createdAt: createdAt ?? this.createdAt,
+        editedAt: editedAt ?? this.editedAt,
+      );
 }

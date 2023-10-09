@@ -79,14 +79,14 @@ class _ProfileState extends State<Profile> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: NetworkImage(userInfo!.avatar.toString()),
+                    backgroundImage: NetworkImage(userInfo?.avatar.toString() ?? "https://lordicon.com/icons/wired/gradient/306-avatar-icon-calm.svg"),
                   ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        userInfo!.fullname.toString(),
+                        userInfo?.fullname.toString() ?? "",
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        userInfo!.role == 3 ? "Staff" : "",
+                        userInfo?.role == 3 ? "Staff" : "",
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],

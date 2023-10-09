@@ -23,17 +23,16 @@ class TaskController extends GetxController {
         .then((value) => {
               setRexRequestStatus(StatusAPI.COMPLETED),
               setTaskList(value),
-
               // After getting the data, filter and assign to different lists
-              allItems.assignAll(value.data ?? []), // Assign all items
-              processingItems.assignAll(value.data
-                      ?.where((item) => item.status?.value == 1)
-                      .toList() ??
-                  []), // Assign items with status.value = 1
-              completedItems.assignAll(value.data
-                      ?.where((item) => item.status?.value == 2)
-                      .toList() ??
-                  []),
+              // allItems.assignAll(value.data ?? []), // Assign all items
+              // processingItems.assignAll(value.data
+              //         ?.where((item) => item.status?.value == 1)
+              //         .toList() ??
+              //     []), // Assign items with status.value = 1
+              // completedItems.assignAll(value.data
+              //         ?.where((item) => item.status?.value == 2)
+              //         .toList() ??
+              //     []),
             })
         .onError((error, stackTrace) => {
               setError(error.toString()),
@@ -54,40 +53,4 @@ class TaskController extends GetxController {
               setRexRequestStatus(StatusAPI.ERROR),
             });
   }
-
-  // Future<void> fetchAllData() async {
-  //   isLoading.value = true;
-  //
-  //   // Simulate API call with fake data
-  //   await Future.delayed(const Duration(seconds: 1));
-  //
-  //   // Generate fake data
-  //   allItems
-  //
-  //   isLoading.value = false;
-  // }
-  //
-  // Future<void> fetchProcessingData() async {
-  //   isLoading.value = true;
-  //
-  //   // Simulate API call with fake data
-  //   await Future.delayed(const Duration(seconds: 1));
-  //
-  //   // Generate fake data
-  //   processingItems.assignAll(List.generate(5, (index) => 'Processing Item $index'));
-  //
-  //   isLoading.value = false;
-  // }
-  //
-  // Future<void> fetchCompletedData() async {
-  //   isLoading.value = true;
-  //
-  //   // Simulate API call with fake data
-  //   await Future.delayed(Duration(seconds: 1));
-  //
-  //   // Generate fake data
-  //   completedItems.assignAll(List.generate(3, (index) => 'Completed Item $index'));
-  //
-  //   isLoading.value = false;
-  // }
 }
