@@ -1,27 +1,42 @@
+import 'package:FMS/res/color/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+class QRViewRoom extends StatefulWidget {
+  const QRViewRoom({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _QRViewRoomState();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRViewRoomState extends State<QRViewRoom> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       appBar: AppBar(
-        title: const Text('QR Code'),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+          )),
+        ),
+        title: const Text(
+          "Quét QR Phòng",
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            letterSpacing: 1,
+          ),
+        ),
       ),
       body: Column(
         children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(flex: 3, child: _buildQrView(context)),
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -110,7 +125,7 @@ class _QRViewExampleState extends State<QRViewExample> {
           )
         ],
       ),
-    );
+    ));
   }
 
   Widget _buildQrView(BuildContext context) {

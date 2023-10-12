@@ -1,8 +1,9 @@
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/note/notes.dart';
-import 'package:FMS/view/profile/profile.dart';
+import 'package:FMS/view/qr_code/qr_asset/qr_scan_asset.dart';
 import 'package:FMS/view/widget/list_notification.dart';
 import 'package:FMS/view_models/controller/profile/profile_controller.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:FMS/models/login/users_model.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
@@ -11,7 +12,7 @@ import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import '../../view_models/controller/notification/notification_controller.dart';
 import '../../view_models/controller/task/task_controller.dart';
-import '../qr_code/qr_scan_code.dart';
+import '../qr_code/qr_room/qr_scan_room.dart';
 import '../widget/custom_card_info.dart';
 
 class Home extends StatefulWidget {
@@ -155,7 +156,29 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(const QRViewExample());
+                        //Get.to(const QRViewExample());
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.question,
+                          headerAnimationLoop: true,
+                          animType: AnimType.topSlide,
+                          showCloseIcon: true,
+                          closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                          title: 'Quét Mã QR',
+                          desc: 'Bạn muốn quét loại mã nào ? ',
+                          btnCancelText: "QR Phòng",
+                          btnCancelColor: Colors.blue,
+                          btnCancelOnPress: () {
+                            Get.to(()=> const QRViewRoom());
+                          },
+                          onDismissCallback: (type) {
+                            debugPrint('Dialog Dismiss from callback $type');
+                          },
+                          btnOkText: "QR Thiết Bị",
+                          btnOkOnPress: () {
+                            Get.to(()=> const QRViewAsset());
+                          },
+                        ).show();
                       },
                       child: Container(
                         width: 150,

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+import '../../../res/color/colors.dart';
+
+class QRViewAsset extends StatefulWidget {
+  const QRViewAsset({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _QRViewAssetState();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRViewAssetState extends State<QRViewAsset> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -17,7 +19,20 @@ class _QRViewExampleState extends State<QRViewExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QR Code'),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+              )),
+        ),
+        title: const Text(
+          "Quét QR Thiết Bị",
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            letterSpacing: 1,
+          ),
+        ),
       ),
       body: Column(
         children: <Widget>[
@@ -39,7 +54,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     const Text(
                       'Scan a code',
                       style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -115,7 +130,7 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   Widget _buildQrView(BuildContext context) {
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
+        MediaQuery.of(context).size.height < 400)
         ? 300.0
         : 500.0;
     return QRView(

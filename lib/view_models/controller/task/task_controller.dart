@@ -23,16 +23,6 @@ class TaskController extends GetxController {
         .then((value) => {
               setRexRequestStatus(StatusAPI.COMPLETED),
               setTaskList(value),
-              // After getting the data, filter and assign to different lists
-              // allItems.assignAll(value.data ?? []), // Assign all items
-              // processingItems.assignAll(value.data
-              //         ?.where((item) => item.status?.value == 1)
-              //         .toList() ??
-              //     []), // Assign items with status.value = 1
-              // completedItems.assignAll(value.data
-              //         ?.where((item) => item.status?.value == 2)
-              //         .toList() ??
-              //     []),
             })
         .onError((error, stackTrace) => {
               setError(error.toString()),

@@ -27,6 +27,7 @@ class _TaskState extends State<Task> {
   }
 
   void refreshData() {
+    taskController.refreshApi();
   }
 
   Widget buildLoadingPage() {
@@ -102,7 +103,6 @@ class _TaskState extends State<Task> {
                   ),
                 ],
                 onTap: (index) {
-                  // Fetch data for the selected tab
                   if (index == 0) {
                     taskController;
                   } else if (index == 1) {

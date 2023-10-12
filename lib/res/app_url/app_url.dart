@@ -19,6 +19,8 @@ class AppUrl {
   //Tasks API
   static const String getListTask = '$baseUrl/task';
 
+  //Asset API
+
   // Example
   static const String userListApi =
       'https://webhook.site/f00a7330-d81d-4622-913a-c2058fdaf076';

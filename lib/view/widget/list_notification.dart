@@ -53,7 +53,6 @@ class NotificationPopUp extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final notification = notificationController
                           .notificationList.value.data![index];
-                      //final isRead = notification.isRead = false;
                       String? jsonDateString = notification.createdAt;
                       DateTime date = DateTime.parse(jsonDateString!);
                       String formattedDate =
@@ -63,13 +62,13 @@ class NotificationPopUp extends StatelessWidget {
                           print("TAP! TAP !${notification.itemId}");
                         },
                         child: Container(
-                          height: 100,
+                          height: 110,
                           width: double.infinity,
                           padding: const EdgeInsets.all(10),
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: notification!.isRead!
+                            color: notification.isRead!
                                 ? const Color(0xA6B7AAAA)
                                 : AppColor.primaryColor,
                           ),
@@ -98,7 +97,7 @@ class NotificationPopUp extends StatelessWidget {
                                         "ID: ${notification.id!.toString()}",
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                            fontSize: 15,
+                                            fontSize: 12,
                                             color: AppColor.whiteColor),
                                         maxLines: 1),
                                   ],
@@ -115,7 +114,7 @@ class NotificationPopUp extends StatelessWidget {
                                           fontWeight: FontWeight.w500,
                                           color: AppColor.whiteColor)),
                                   const SizedBox(height: 20),
-                                  if (!notification!.isRead!)
+                                  if (!notification.isRead!)
                                     const Icon(Icons.notification_important,
                                         color: AppColor.whiteColor),
                                 ],

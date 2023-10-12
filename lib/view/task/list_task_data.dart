@@ -1,4 +1,9 @@
 import 'package:FMS/data/response/status.dart';
+import 'package:FMS/view/task/task_detail/check_task.dart';
+import 'package:FMS/view/task/task_detail/maintain_task.dart';
+import 'package:FMS/view/task/task_detail/repair_task.dart';
+import 'package:FMS/view/task/task_detail/replace_task.dart';
+import 'package:FMS/view/task/task_detail/transfer_task.dart';
 import 'package:FMS/view/widget/loading_list.dart';
 import 'package:FMS/view_models/controller/task/task_controller.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +37,13 @@ class DataListWidget extends StatelessWidget {
                 String formattedDate = DateFormat('dd-MM-yyyy').format(date);
                 IconData statusIcon;
                 Color statusColor;
-                switch (task.status?.value) {
+                switch (task.status) {
                   case 1:
                     statusIcon = Icons.insights;
                     statusColor = Colors.orange;
                     break;
                   case 2:
-                    statusIcon = Icons.task;
+                    statusIcon = Icons.work_history;
                     statusColor = Colors.orange;
                     break;
                   case 3:
@@ -50,63 +55,101 @@ class DataListWidget extends StatelessWidget {
                     statusColor = Colors.red;
                 }
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    switch (task.type) {
+                      case 1:
+                        Get.to(() => CheckTask());
+                        break;
+                      case 2:
+                        Get.to(() => MaintainTask());
+                        break;
+                      case 3:
+                        Get.to(() => RepairTask());
+                        break;
+                      case 4:
+                        Get.to(() => ReplaceTask());
+                        break;
+                      case 5:
+                        Get.to(() => TransferTask());
+                        break;
+                      default:
+                        // Handle the default case if needed
+                        break;
+                    }
+                  },
                   child: Container(
                     height: 170,
                     width: double.infinity,
                     margin: const EdgeInsets.all(10),
                     padding: const EdgeInsets.all(25),
                     decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFFEE873E),
-                            Color(0xFFE8983A),
-                            Color(0xFFE8A91E),
-                            Colors.purpleAccent,
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(
-                            15))), // Adds a gradient background and rounded corners to the container
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFFEE873E),
+                          Color(0xFFE8983A),
+                          Color(0xFFE8A91E),
+                          Color(0xFFE1AE3B),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                    ), // Adds a gradient background and rounded corners to the container
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 280,
+                          width: 270,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(task.title.toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontSize: 20,
+                              SizedBox(
+                                height: 30,
+                                child: Text(
+                                    task.typeObj!.displayName.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        wordSpacing: 1,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              SizedBox(
+                                height: 55,
+                                child: Text(task.description.toString(),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 16,
                                       color: Colors.white,
-                                      fontFamily: "monospace")),
-                              Text(task.content.toString(),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.white,
-                                      fontFamily: "monospace")),
+                                    )),
+                              ),
                               const SizedBox(height: 10),
-                              Text(formattedDate,
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white)),
+                              Row(
+                                children: [
+                                  const Icon(Icons.event,
+                                      color: AppColor.whiteColor, size: 15),
+                                  Text(" Ngày yêu cầu: $formattedDate",
+                                      style: const TextStyle(
+                                          fontSize: 17, color: Colors.white)),
+                                ],
+                              ),
                             ],
                           ),
                         ),
-                        const Spacer(),
+                        const VerticalDivider(
+                            thickness: 1, color: AppColor.whiteColor),
                         Stack(
                           children: List.generate(
                             1,
                             (index) => Container(
                               margin: EdgeInsets.only(
-                                  left: (15 * index).toDouble()),
-                              height: 30,
-                              width: 30,
+                                  left: (10 * index).toDouble()),
+                              height: 35,
+                              width: 35,
                               decoration: const BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(100)),
