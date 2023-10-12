@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/profile/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,66 +21,66 @@ class _ProfileDetailState extends State<ProfileDetail> {
   @override
   void initState() {
     super.initState();
-    //profileController.getCurrentUser(); // Load user information when the page initializes
   }
 
   @override
   Widget build(BuildContext context) {
-    final userInfo = profileController.currentUser.value.data;
+    final userInfo = profileController.currentUser.value.data!;
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            leading: const BackButton(color: AppColor.whiteColor),
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
-                  )),
-            ),
-            title: const Text(
-              "Thông Tin Cá Nhân",
-              style: TextStyle(
-                color: AppColor.primaryColor,
-                letterSpacing: 1,
-              ),
-            ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: AppColor.primaryColor,
+          onPressed: () {
+            Get.toNamed(RouteName.profileScreen);
+          },
+        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+          )),
+        ),
+        title: const Text(
+          "Thông Tin Cá Nhân",
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            letterSpacing: 1,
           ),
-          body: Column(
-            children: [
-              const SizedBox(height: 5),
-              InkWell(
-                  onTap: () {
-                    //navigateSecondPage(EditImagePage());
-                    Get.to(() => ImageUploads());
-                  },
-                  child: DisplayImage(
-                    imagePath:
-                    userInfo!.avatar.toString(),
-                    onPressed: () {},
-                  )),
-              buildUserInfoDisplay(
-                  userInfo!.fullname.toString(), 'Họ Tên'),
-              buildUserInfoDisplay(
-                  userInfo!.role == 3
-                      ? "Staff"
-                      : userInfo!.role == 2
+        ),
+      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 5),
+          InkWell(
+              onTap: () {
+                //navigateSecondPage(EditImagePage());
+                Get.to(() => ImageUploads());
+              },
+              child: DisplayImage(
+                imagePath: userInfo.avatar.toString(),
+                onPressed: () {},
+              )),
+          buildUserInfoDisplay(userInfo.fullname.toString(), 'Họ Tên'),
+          buildUserInfoDisplay(
+              userInfo.role == 3
+                  ? "Staff"
+                  : userInfo.role == 2
                       ? "Manager"
                       : "",
-                  'Chức Vụ'),
-              buildUserInfoDisplay(
-                  userInfo!.email.toString(), 'Email'),
-              buildUserInfoDisplay(
-                  userInfo!.phoneNumber.toString(), 'Số Điện Thoại'),
-              buildUserInfoDisplay(
-                  userInfo!.address.toString(), 'Địa Chỉ'),
-            ],
-          ),
-        ));
+              'Chức Vụ'),
+          buildUserInfoDisplay(userInfo.email.toString(), 'Email'),
+          buildUserInfoDisplay(
+              userInfo.phoneNumber.toString(), 'Số Điện Thoại'),
+          buildUserInfoDisplay(userInfo.address.toString(), 'Địa Chỉ'),
+        ],
+      ),
+    ));
   }
 
-  // Widget builds the display item with the proper formatting to display the user's info
   Widget buildUserInfoDisplay(String getValue, String title) => Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -100,26 +101,24 @@ class _ProfileDetailState extends State<ProfileDetail> {
               decoration: const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(
-                        color: AppColor.primaryColor,
-                        width: 1,
-                      ))),
+                color: AppColor.primaryColor,
+                width: 1,
+              ))),
               child: Row(children: [
                 Expanded(
                     child: Text(
-                      getValue,
-                      style: const TextStyle(
-                          fontSize: 20, height: 1.4, fontWeight: FontWeight.w400),
-                    )),
+                  getValue,
+                  style: const TextStyle(
+                      fontSize: 20, height: 1.4, fontWeight: FontWeight.w400),
+                )),
               ]))
         ],
       ));
 
-  // Refrshes the Page after updating user info.
   FutureOr onGoBack(dynamic value) {
     setState(() {});
   }
 
-  // Handles navigation and prompts refresh.
   void navigateSecondPage(Widget editForm) {
     Route route = MaterialPageRoute(builder: (context) => editForm);
     Navigator.push(context, route).then(onGoBack);

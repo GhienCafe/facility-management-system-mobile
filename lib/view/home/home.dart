@@ -1,6 +1,8 @@
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/note/notes.dart';
+import 'package:FMS/view/profile/profile.dart';
 import 'package:FMS/view/widget/list_notification.dart';
+import 'package:FMS/view_models/controller/profile/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:FMS/models/login/users_model.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
@@ -22,6 +24,7 @@ class _HomeState extends State<Home> {
   final RxInt currentIndex = 0.obs;
   final notificationController = Get.put(NotificationController());
   final TaskController taskController = Get.put(TaskController());
+  final profileController = Get.put(ProfileController());
   UserPreference userPreference = UserPreference();
   UsersModel? _user;
   @override

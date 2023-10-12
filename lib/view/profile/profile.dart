@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:FMS/data/response/status.dart';
 import 'package:FMS/res/color/colors.dart';
+import 'package:FMS/res/components/internet_exception_widget.dart';
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/profile/profile_detail.dart';
 import 'package:FMS/view/profile/terms_privacy.dart';
@@ -11,7 +13,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../res/components/general_exception.dart';
 import '../../view_models/controller/profile/profile_controller.dart';
 
 class Profile extends StatefulWidget {
@@ -25,7 +29,7 @@ class _ProfileState extends State<Profile> {
   final RxInt currentIndex = 2.obs;
   UserPreference userPreference = UserPreference();
   final profileController = Get.put(ProfileController());
-  final GoogleSignIn googleSignIn = GoogleSignIn(); // UserModel to store user information
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   @override
   void initState() {
@@ -39,7 +43,6 @@ class _ProfileState extends State<Profile> {
     await googleSignIn.signOut();
   }
 
-
   Future<void> _handleLogout() async {
     await userPreference.removeUser();
     FirebaseAuth.instance.signOut();
@@ -50,7 +53,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    final userInfo = profileController.currentUser.value.data;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -75,32 +77,55 @@ class _ProfileState extends State<Profile> {
           children: [
             Container(
               padding: const EdgeInsets.all(5),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(userInfo?.avatar.toString() ?? "https://lordicon.com/icons/wired/gradient/306-avatar-icon-calm.svg"),
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        userInfo?.fullname.toString() ?? "",
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+              margin: const EdgeInsets.all(5),
+              child: Obx(() {
+                switch (profileController.rxRequestStatus.value) {
+                  case StatusAPI.LOADING:
+                    return loadingAvatar();
+                  case StatusAPI.COMPLETED:
+                    final userInfo = profileController.currentUser.value.data;
+                    return Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: NetworkImage(userInfo?.avatar
+                                  .toString() ??
+                              "https://static.thenounproject.com/png/1519872-200.png"),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        userInfo?.role == 3 ? "Staff" : "",
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              userInfo?.fullname.toString() ?? "",
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              userInfo?.role == 3 ? "Staff" : "",
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  case StatusAPI.ERROR:
+                    if (profileController.error.value == 'No internet') {
+                      return InternetExceptionWidget(
+                        onPress: () {
+                          profileController.refreshApi();
+                        },
+                      );
+                    } else {
+                      return GeneralExceptionWidget(onPress: () {
+                        profileController.refreshApi();
+                      }); // Return the Text widget
+                    }
+                }
+              }),
             ),
             const Divider(height: 1),
             Expanded(
@@ -109,7 +134,7 @@ class _ProfileState extends State<Profile> {
                   ListTile(
                     leading: const Icon(Icons.account_circle),
                     title: const Text(
-                      'Chỉnh sửa thông tin',
+                      'Thông tin nhân viên',
                       style: TextStyle(color: AppColor.primaryColor),
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
@@ -127,7 +152,7 @@ class _ProfileState extends State<Profile> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
-                      Get.to(() => AttentionPage());
+                      Get.to(() => const AttentionPage());
                     },
                     iconColor: AppColor.primaryColor,
                     focusColor: AppColor.blackColor,
@@ -170,4 +195,58 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+}
+Widget loadingAvatar(){
+  return Center(
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.white,
+                  ),
+                  width: 100.0,
+                  height: 100.0,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Padding(
+                        padding:
+                        EdgeInsets.symmetric(vertical: 5.0),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 25.0,
+                        color: Colors.white,
+                      ),
+                      const Padding(
+                        padding:
+                        EdgeInsets.symmetric(vertical: 10.0),
+                      ),
+                      Container(
+                        height: 25.0,
+                        width: 150.0,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ));
 }

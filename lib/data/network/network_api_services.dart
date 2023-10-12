@@ -22,7 +22,6 @@ class NetworkApiServices extends BaseApiService {
     } on RequestTimeOUt {
       throw RequestTimeOUt();
     }
-
     return responseJson;
   }
 
@@ -98,8 +97,6 @@ class NetworkApiServices extends BaseApiService {
               body: jsonEncode(data))
           .timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
-
-      //responseJson = jsonDecode(response.body);
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOUt {
@@ -154,7 +151,7 @@ class NetworkApiServices extends BaseApiService {
   }
 
   dynamic returnResponse(http.Response response) {
-    print(response.body.toString());
+    print("Return status: ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body);

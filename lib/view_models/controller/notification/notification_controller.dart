@@ -12,7 +12,6 @@ class NotificationController {
   final rxRequestStatus = StatusAPI.LOADING.obs;
   final notificationList = NotificationListModel().obs;
   RxString error = ''.obs;
-
   void setRexRequestStatus(StatusAPI _value) => rxRequestStatus.value = _value;
   void setNotificationList(NotificationListModel _value) =>
       notificationList.value = _value;

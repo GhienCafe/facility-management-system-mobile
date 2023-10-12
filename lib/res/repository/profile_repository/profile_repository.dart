@@ -9,4 +9,8 @@ class ProfileRepository {
     dynamic response = await _apiService.getApiAuthor(AppUrl.getUserInfo);
     return UserModel.fromJson(response);
   }
+  Future<dynamic> putUserInfo(var data) async {
+    dynamic response = await _apiService.putApiAuthor(data, AppUrl.putUserInfo);
+    return response;
+  }
 }

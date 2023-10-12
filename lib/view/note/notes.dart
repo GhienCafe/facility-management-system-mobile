@@ -68,21 +68,21 @@ Widget customAppBar(String title, double top, [Widget? leading]) {
             alignment: Alignment.centerLeft,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 5),
+                padding: const EdgeInsets.only(right: 0),
                 child: leading ?? Container(),
               ),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w400,
-                  color: AppColor.primaryColor,
+              Padding(
+                padding: const EdgeInsets.only(left: 50),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.primaryColor,
+                  ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: BackButton()
-              )
+              const BackButton(color: AppColor.primaryColor),
             ],
           ),
         ),

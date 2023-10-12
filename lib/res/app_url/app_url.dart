@@ -11,6 +11,7 @@ class AppUrl {
   static const String refreshToken = '$baseUrl/auth/refresh-token';
   //User API
   static const String getUserInfo = '$baseUrl/account/infor';
+  static const String putUserInfo = '$baseUrl/account';
 
   //Notification API
   static const String getListNotification = '$baseUrl/notification?order_by=created_at%20desc';

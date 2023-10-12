@@ -15,7 +15,6 @@ class _ImageUploadsState extends State<ImageUploads> {
   final ProfileController profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
-    final user = profileController.currentUser.value.data;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
