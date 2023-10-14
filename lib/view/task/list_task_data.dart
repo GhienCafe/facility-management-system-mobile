@@ -15,7 +15,6 @@ import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exception_widget.dart';
 
 class DataListWidget extends StatelessWidget {
-  //final List<TaskListModel> items;
   final taskController = Get.put(TaskController());
   DataListWidget({super.key});
 
@@ -43,12 +42,16 @@ class DataListWidget extends StatelessWidget {
                     statusColor = Colors.orange;
                     break;
                   case 2:
-                    statusIcon = Icons.work_history;
-                    statusColor = Colors.orange;
+                    statusIcon = Icons.schedule_send;
+                    statusColor = Colors.blue;
                     break;
                   case 3:
-                    statusIcon = Icons.check_circle;
+                    statusIcon = Icons.assignment_turned_in;
                     statusColor = Colors.green;
+                    break;
+                  case 4:
+                    statusIcon = Icons.highlight_off;
+                    statusColor = Colors.grey;
                     break;
                   default:
                     statusIcon = Icons.error;
@@ -58,19 +61,24 @@ class DataListWidget extends StatelessWidget {
                   onTap: () {
                     switch (task.type) {
                       case 1:
-                        Get.to(() => CheckTask());
+                        taskController.taskDetailApi(task.id);
+                        Get.to(() => CheckTask(taskId: task.id));
                         break;
                       case 2:
-                        Get.to(() => MaintainTask());
+                        taskController.taskDetailApi(task.id);
+                        Get.to(() => MaintainTask(taskId: task.id));
                         break;
                       case 3:
-                        Get.to(() => RepairTask());
+                        taskController.taskDetailApi(task.id);
+                        Get.to(() => RepairTask(taskId: task.id));
                         break;
                       case 4:
-                        Get.to(() => ReplaceTask());
+                        taskController.taskDetailApi(task.id);
+                        Get.to(() => ReplaceTask(taskId: task.id));
                         break;
                       case 5:
-                        Get.to(() => TransferTask());
+                        taskController.taskDetailApi(task.id);
+                        Get.to(() => TransferTask(taskId: task.id));
                         break;
                       default:
                         // Handle the default case if needed
@@ -120,7 +128,7 @@ class DataListWidget extends StatelessWidget {
                               SizedBox(
                                 height: 55,
                                 child: Text(task.description.toString(),
-                                    maxLines: 3,
+                                    maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       fontSize: 16,
@@ -132,7 +140,11 @@ class DataListWidget extends StatelessWidget {
                                 children: [
                                   const Icon(Icons.event,
                                       color: AppColor.whiteColor, size: 15),
-                                  Text(" Ngày yêu cầu: $formattedDate",
+                                  Text(formattedDate,
+                                      style: const TextStyle(
+                                          fontSize: 17, color: Colors.white)),
+                                  const SizedBox(width: 20),
+                                  Text("ID: ${task.requestCode.toString()}",
                                       style: const TextStyle(
                                           fontSize: 17, color: Colors.white)),
                                 ],

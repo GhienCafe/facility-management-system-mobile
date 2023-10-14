@@ -30,10 +30,10 @@ class LoginViewModel extends GetxController {
       'email': emailController.value.text,
       'password': passwordController.value.text,
     };
-    FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.value.text,
-        password: passwordController.value.text
-    );
+    // FirebaseAuth.instance.signInWithEmailAndPassword(
+    //     email: emailController.value.text,
+    //     password: passwordController.value.text
+    // );
     _api.loginApi(data).then((value) {
       loading.value = false;
       //print(value);
@@ -45,7 +45,6 @@ class LoginViewModel extends GetxController {
         userPrefrence
             .saveUserInfoPreferences(userModel)
             .then((value) => {
-
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
                   Utils.snackBarSuccess("Chào mừng", "Chúc một ngày mới tốt lành"),
@@ -72,10 +71,6 @@ class LoginViewModel extends GetxController {
             idToken: googleSignInAuthentication.idToken,
           );
           FirebaseAuth.instance.signInWithCredential(credential);
-          // final FCMToken =
-          //     await AwesomeNotificationsFcm().requestFirebaseAppToken();
-          //print("TOKEN FCM: $token");
-          //print("token User ID: ${googleSignInAuthentication.idToken}");
           checkTokenGoogle(googleSignInAuthentication.idToken);
         } else {
           // Show an error message or handle unauthorized domain here

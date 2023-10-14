@@ -258,7 +258,6 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                   for (int i = 0; i < images.length; i++) {
                     String url = await uploadFile(images[i]);
                     downloadUrls.add(url);
-
                     if (i == images.length - 1) {
                       storeEntry(downloadUrls, nameController.text);
                     }

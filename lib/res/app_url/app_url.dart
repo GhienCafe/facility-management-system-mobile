@@ -18,6 +18,7 @@ class AppUrl {
 
   //Tasks API
   static const String getListTask = '$baseUrl/task';
+  static const String getDetailTask = '$baseUrl/task';
 
   //Asset API
 

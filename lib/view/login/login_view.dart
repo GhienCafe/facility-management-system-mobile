@@ -23,16 +23,6 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   centerTitle: true,
-        //   backgroundColor: AppColor.primaryColor,
-        //   title: const Text(
-        //     "Login Screen",
-        //     style: TextStyle(
-        //         color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-        //   ),
-        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(

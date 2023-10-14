@@ -106,9 +106,9 @@ class _HomeState extends State<Home> {
                                     fontWeight: FontWeight.w300,
                                     color: AppColor.primaryColor,
                                   )),
-                              const Text("Bạn có n nhiệm vụ cần xử lý",
+                              const Text("Chúc bạn có một ngày mới tốt lành.",
                                   style: TextStyle(
-                                    fontSize: 22,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                     color: AppColor.primaryColor,
                                   )),

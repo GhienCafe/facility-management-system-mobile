@@ -7,6 +7,7 @@ final TextEditingController contentC = TextEditingController();
 late int Index;
 int chosenIndex = 0;
 
+// ignore: must_be_immutable
 class EditNote extends StatefulWidget {
   String Title = "";
   String Content = "";
