@@ -45,12 +45,12 @@ class CheckTask extends StatelessWidget {
           ),
         ),
         body: Obx(() {
-          switch (taskController.rxRequestStatus.value) {
+          switch (taskController.rxRequestDetailStatus.value) {
             case StatusAPI.LOADING:
               return const LoadingTaskPage();
             case StatusAPI.COMPLETED:
               final taskInfo = taskController.taskDetail.value.data;
-              String? jsonDateString = taskInfo?.createdAt;
+              String? jsonDateString = taskInfo?.requestDate;
               String nonNullableString = jsonDateString ?? "2023-09-19T08:53:33.0000694";
               DateTime date = DateTime.parse(nonNullableString);
               String formattedDate = DateFormat('dd-MM-yyyy').format(date);
@@ -126,7 +126,7 @@ class CheckTask extends StatelessWidget {
                                       size:
                                           25),
                                   title: Text(
-                                    'Phòng ${taskInfo?.toRoom?.roomCode}',
+                                    'Phòng ${taskInfo?.currentRoom?.roomCode}',
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors
@@ -178,6 +178,10 @@ class CheckTask extends StatelessWidget {
                                 ),
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                            child: Text("Thông Tin Thiết Bị"),
                           ),
                           SizedBox(
                             height: 30,

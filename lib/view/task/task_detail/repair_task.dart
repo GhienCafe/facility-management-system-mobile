@@ -1,3 +1,4 @@
+import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -46,12 +47,12 @@ class RepairTask extends StatelessWidget {
           ),
         ),
         body: Obx(() {
-          switch (taskController.rxRequestStatus.value) {
+          switch (taskController.rxRequestDetailStatus.value) {
             case StatusAPI.LOADING:
               return const LoadingTaskPage();
             case StatusAPI.COMPLETED:
               final taskInfo = taskController.taskDetail.value.data;
-              String? jsonDateString = taskInfo?.createdAt;
+              String? jsonDateString = taskInfo?.requestDate;
               String nonNullableString = jsonDateString ?? "2023-09-19T08:53:33.0000694";
               DateTime date = DateTime.parse(nonNullableString);
               String formattedDate = DateFormat('dd-MM-yyyy').format(date);
@@ -80,6 +81,8 @@ class RepairTask extends StatelessWidget {
               }
               return SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: const EdgeInsets.all(15),
@@ -127,7 +130,7 @@ class RepairTask extends StatelessWidget {
                                       size:
                                       25),
                                   title: Text(
-                                    'Phòng ${taskInfo?.toRoom?.roomCode}',
+                                    'Phòng ${taskInfo?.currentRoom?.roomCode}',
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors
@@ -199,6 +202,64 @@ class RepairTask extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 12),
+                      child: Text("Thông Tin Thiết Bị:",
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)),
+                    ),
+                    Accordion(
+                      paddingListTop: 0,
+                      paddingListBottom: 0,
+                      maxOpenSections: 1,
+                      headerBackgroundColorOpened: Colors.black54,
+                      headerPadding: const EdgeInsets.symmetric(
+                          vertical: 7, horizontal: 15),
+                      children: [
+                        AccordionSection(
+                          isOpen: false,
+                          leftIcon: const Icon(Icons.compare_rounded,
+                              color: Colors.white),
+                          header: Text('${taskInfo?.asset?.assetCode}',
+                              style: const TextStyle(
+                                  color: AppColor.blackColor)),
+                          headerBackgroundColor: Colors.black38,
+                          headerBackgroundColorOpened: Color(0xFFE78956),
+                          contentBorderColor: Colors.black54,
+                          content: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 8.0,
+                              ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: const Icon(Icons.info,
+                                        color: AppColor.blackColor),
+                                    title: Text(
+                                        "${taskInfo?.asset?.description}",
+                                        style: const TextStyle(
+                                            color: AppColor.blackColor)),
+                                  ),
+                                  ListTile(
+                                    leading: const Icon(Icons.info,
+                                        color: AppColor.blackColor),
+                                    title: Text(
+                                        "${taskInfo?.asset?.statusObj?.displayName}",
+                                        style: const TextStyle(
+                                            color: AppColor.blackColor)),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

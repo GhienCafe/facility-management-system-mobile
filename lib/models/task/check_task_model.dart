@@ -1,3 +1,4 @@
+
 class TaskDetailModel {
   int? statusCode;
   String? message;
@@ -50,6 +51,7 @@ class Data {
   StatusObj? statusObj;
   String? description;
   String? notes;
+  String? result;
   bool? isInternal;
   String? assignedTo;
   String? assetTypeId;
@@ -60,11 +62,11 @@ class Data {
   Asset? asset;
   NewAsset? newAsset;
   String? toRoomId;
-  int? quantity;
   ToRoom? toRoom;
   List<Assets>? assets;
+  CurrentRoom? currentRoom;
 
-  Data({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetId, this.requestCode, this.requestDate, this.completionDate, this.status, this.statusObj, this.description, this.notes, this.isInternal, this.assignedTo, this.assetTypeId, this.categoryId, this.type, this.typeObj, this.newAssetId, this.asset, this.newAsset, this.toRoomId, this.quantity, this.toRoom, this.assets});
+  Data({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetId, this.requestCode, this.requestDate, this.completionDate, this.status, this.statusObj, this.description, this.notes, this.result, this.isInternal, this.assignedTo, this.assetTypeId, this.categoryId, this.type, this.typeObj, this.newAssetId, this.asset, this.newAsset, this.toRoomId, this.toRoom, this.assets, this.currentRoom});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -80,6 +82,7 @@ class Data {
     statusObj = json["status_obj"] == null ? null : StatusObj.fromJson(json["status_obj"]);
     description = json["description"];
     notes = json["notes"];
+    result = json["result"];
     isInternal = json["is_internal"];
     assignedTo = json["assigned_to"];
     assetTypeId = json["asset_type_id"];
@@ -90,9 +93,9 @@ class Data {
     asset = json["asset"] == null ? null : Asset.fromJson(json["asset"]);
     newAsset = json["new_asset"] == null ? null : NewAsset.fromJson(json["new_asset"]);
     toRoomId = json["to_room_id"];
-    quantity = json["quantity"];
     toRoom = json["to_room"] == null ? null : ToRoom.fromJson(json["to_room"]);
     assets = json["assets"] == null ? null : (json["assets"] as List).map((e) => Assets.fromJson(e)).toList();
+    currentRoom = json["current_room"] == null ? null : CurrentRoom.fromJson(json["current_room"]);
   }
 
   static List<Data> fromList(List<Map<String, dynamic>> list) {
@@ -120,6 +123,7 @@ class Data {
     }
     _data["description"] = description;
     _data["notes"] = notes;
+    _data["result"] = result;
     _data["is_internal"] = isInternal;
     _data["assigned_to"] = assignedTo;
     _data["asset_type_id"] = assetTypeId;
@@ -136,12 +140,14 @@ class Data {
       _data["new_asset"] = newAsset?.toJson();
     }
     _data["to_room_id"] = toRoomId;
-    _data["quantity"] = quantity;
     if(toRoom != null) {
       _data["to_room"] = toRoom?.toJson();
     }
     if(assets != null) {
       _data["assets"] = assets?.map((e) => e.toJson()).toList();
+    }
+    if(currentRoom != null) {
+      _data["current_room"] = currentRoom?.toJson();
     }
     return _data;
   }
@@ -160,6 +166,7 @@ class Data {
     StatusObj? statusObj,
     String? description,
     String? notes,
+    String? result,
     bool? isInternal,
     String? assignedTo,
     String? assetTypeId,
@@ -170,9 +177,9 @@ class Data {
     Asset? asset,
     NewAsset? newAsset,
     String? toRoomId,
-    int? quantity,
     ToRoom? toRoom,
     List<Assets>? assets,
+    CurrentRoom? currentRoom,
   }) => Data(
     id: id ?? this.id,
     createdAt: createdAt ?? this.createdAt,
@@ -187,6 +194,7 @@ class Data {
     statusObj: statusObj ?? this.statusObj,
     description: description ?? this.description,
     notes: notes ?? this.notes,
+    result: result ?? this.result,
     isInternal: isInternal ?? this.isInternal,
     assignedTo: assignedTo ?? this.assignedTo,
     assetTypeId: assetTypeId ?? this.assetTypeId,
@@ -197,19 +205,203 @@ class Data {
     asset: asset ?? this.asset,
     newAsset: newAsset ?? this.newAsset,
     toRoomId: toRoomId ?? this.toRoomId,
-    quantity: quantity ?? this.quantity,
     toRoom: toRoom ?? this.toRoom,
     assets: assets ?? this.assets,
+    currentRoom: currentRoom ?? this.currentRoom,
+  );
+}
+
+class CurrentRoom {
+  String? id;
+  String? createdAt;
+  String? editedAt;
+  Creator6? creator;
+  Editor6? editor;
+  String? roomName;
+  int? area;
+  String? roomCode;
+  String? roomTypeId;
+  int? capacity;
+  String? statusId;
+  String? floorId;
+  String? description;
+
+  CurrentRoom({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.roomName, this.area, this.roomCode, this.roomTypeId, this.capacity, this.statusId, this.floorId, this.description});
+
+  CurrentRoom.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    createdAt = json["created_at"];
+    editedAt = json["edited_at"];
+    creator = json["creator"] == null ? null : Creator6.fromJson(json["creator"]);
+    editor = json["editor"] == null ? null : Editor6.fromJson(json["editor"]);
+    roomName = json["room_name"];
+    area = json["area"];
+    roomCode = json["room_code"];
+    roomTypeId = json["room_type_id"];
+    capacity = json["capacity"];
+    statusId = json["status_id"];
+    floorId = json["floor_id"];
+    description = json["description"];
+  }
+
+  static List<CurrentRoom> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => CurrentRoom.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["id"] = id;
+    _data["created_at"] = createdAt;
+    _data["edited_at"] = editedAt;
+    if(creator != null) {
+      _data["creator"] = creator?.toJson();
+    }
+    if(editor != null) {
+      _data["editor"] = editor?.toJson();
+    }
+    _data["room_name"] = roomName;
+    _data["area"] = area;
+    _data["room_code"] = roomCode;
+    _data["room_type_id"] = roomTypeId;
+    _data["capacity"] = capacity;
+    _data["status_id"] = statusId;
+    _data["floor_id"] = floorId;
+    _data["description"] = description;
+    return _data;
+  }
+
+  CurrentRoom copyWith({
+    String? id,
+    String? createdAt,
+    String? editedAt,
+    Creator6? creator,
+    Editor6? editor,
+    String? roomName,
+    int? area,
+    String? roomCode,
+    String? roomTypeId,
+    int? capacity,
+    String? statusId,
+    String? floorId,
+    String? description,
+  }) => CurrentRoom(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    editedAt: editedAt ?? this.editedAt,
+    creator: creator ?? this.creator,
+    editor: editor ?? this.editor,
+    roomName: roomName ?? this.roomName,
+    area: area ?? this.area,
+    roomCode: roomCode ?? this.roomCode,
+    roomTypeId: roomTypeId ?? this.roomTypeId,
+    capacity: capacity ?? this.capacity,
+    statusId: statusId ?? this.statusId,
+    floorId: floorId ?? this.floorId,
+    description: description ?? this.description,
+  );
+}
+
+class Editor6 {
+  String? id;
+  String? fullname;
+  String? email;
+  String? phoneNumber;
+  String? avatar;
+
+  Editor6({this.id, this.fullname, this.email, this.phoneNumber, this.avatar});
+
+  Editor6.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    fullname = json["fullname"];
+    email = json["email"];
+    phoneNumber = json["phone_number"];
+    avatar = json["avatar"];
+  }
+
+  static List<Editor6> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => Editor6.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["id"] = id;
+    _data["fullname"] = fullname;
+    _data["email"] = email;
+    _data["phone_number"] = phoneNumber;
+    _data["avatar"] = avatar;
+    return _data;
+  }
+
+  Editor6 copyWith({
+    String? id,
+    String? fullname,
+    String? email,
+    String? phoneNumber,
+    String? avatar,
+  }) => Editor6(
+    id: id ?? this.id,
+    fullname: fullname ?? this.fullname,
+    email: email ?? this.email,
+    phoneNumber: phoneNumber ?? this.phoneNumber,
+    avatar: avatar ?? this.avatar,
+  );
+}
+
+class Creator6 {
+  String? id;
+  String? fullname;
+  String? email;
+  String? phoneNumber;
+  String? avatar;
+
+  Creator6({this.id, this.fullname, this.email, this.phoneNumber, this.avatar});
+
+  Creator6.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    fullname = json["fullname"];
+    email = json["email"];
+    phoneNumber = json["phone_number"];
+    avatar = json["avatar"];
+  }
+
+  static List<Creator6> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => Creator6.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["id"] = id;
+    _data["fullname"] = fullname;
+    _data["email"] = email;
+    _data["phone_number"] = phoneNumber;
+    _data["avatar"] = avatar;
+    return _data;
+  }
+
+  Creator6 copyWith({
+    String? id,
+    String? fullname,
+    String? email,
+    String? phoneNumber,
+    String? avatar,
+  }) => Creator6(
+    id: id ?? this.id,
+    fullname: fullname ?? this.fullname,
+    email: email ?? this.email,
+    phoneNumber: phoneNumber ?? this.phoneNumber,
+    avatar: avatar ?? this.avatar,
   );
 }
 
 class Assets {
+  int? quantity;
   FromRoom? fromRoom;
   Asset1? asset;
 
-  Assets({this.fromRoom, this.asset});
+  Assets({this.quantity, this.fromRoom, this.asset});
 
   Assets.fromJson(Map<String, dynamic> json) {
+    quantity = json["quantity"];
     fromRoom = json["from_room"] == null ? null : FromRoom.fromJson(json["from_room"]);
     asset = json["asset"] == null ? null : Asset1.fromJson(json["asset"]);
   }
@@ -220,6 +412,7 @@ class Assets {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["quantity"] = quantity;
     if(fromRoom != null) {
       _data["from_room"] = fromRoom?.toJson();
     }
@@ -230,9 +423,11 @@ class Assets {
   }
 
   Assets copyWith({
+    int? quantity,
     FromRoom? fromRoom,
     Asset1? asset,
   }) => Assets(
+    quantity: quantity ?? this.quantity,
     fromRoom: fromRoom ?? this.fromRoom,
     asset: asset ?? this.asset,
   );

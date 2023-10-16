@@ -17,7 +17,7 @@ class AppUrl {
   static const String getListNotification = '$baseUrl/notification?order_by=created_at%20desc';
 
   //Tasks API
-  static const String getListTask = '$baseUrl/task';
+  static const String getListTask = '$baseUrl/task?order_by=RequestDate%20desc';
   static const String getDetailTask = '$baseUrl/task';
 
   //Asset API
