@@ -53,7 +53,6 @@ class TransferTask extends StatelessWidget {
             case StatusAPI.COMPLETED:
               final taskInfo = taskController.taskDetail.value.data;
               String? jsonDateString = taskInfo?.requestDate;
-              print("List Asset: ${taskInfo?.assets?.length}");
               String nonNullableString =
                   jsonDateString ?? "2023-09-19T08:53:33.0000694";
               DateTime date = DateTime.parse(nonNullableString);
@@ -75,6 +74,16 @@ class TransferTask extends StatelessWidget {
                   );
                   break;
                 case 2:
+                  statusIcon = Icons.timelapse;
+                  statusColor = Colors.amber;
+                  submitColor = Colors.green;
+                  submitIcon = Icons.document_scanner_rounded;
+                  submitText = const Text(
+                    "Báo Cáo Nhiệm Vụ",
+                    style: TextStyle(color: AppColor.whiteColor),
+                  );
+                  break;
+                case 3:
                   statusIcon = Icons.schedule_send;
                   statusColor = Colors.blue;
                   submitColor = Colors.green;
@@ -84,17 +93,17 @@ class TransferTask extends StatelessWidget {
                     style: TextStyle(color: AppColor.whiteColor),
                   );
                   break;
-                case 3:
+                case 4:
                   statusIcon = Icons.assignment_turned_in;
                   statusColor = Colors.green;
-                  submitColor = Colors.blue;
+                  submitColor = Colors.grey;
                   submitIcon = Icons.check;
                   submitText = const Text(
-                    "Chấp Nhận Nhiệm Vụ",
+                    "Đã Hoàn Thành",
                     style: TextStyle(color: AppColor.whiteColor),
                   );
                   break;
-                case 4:
+                case 5:
                   statusIcon = Icons.highlight_off;
                   statusColor = Colors.grey;
                   submitColor = Colors.blue;
@@ -324,7 +333,10 @@ class TransferTask extends StatelessWidget {
                       margin: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Icon(submitIcon, color: AppColor.whiteColor), submitText],
+                        children: [
+                          Icon(submitIcon, color: AppColor.whiteColor),
+                          submitText
+                        ],
                       ),
                     ),
                   ],

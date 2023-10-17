@@ -58,27 +58,70 @@ class MaintainTask extends StatelessWidget {
                 DateTime date = DateTime.parse(nonNullableString);
                 String formattedDate = DateFormat('dd-MM-yyyy').format(date);
                 IconData statusIcon;
+                IconData submitIcon;
                 Color statusColor;
+                Color submitColor;
+                Text submitText;
                 switch (taskInfo?.status) {
                   case 1:
                     statusIcon = Icons.insights;
                     statusColor = Colors.orange;
+                    submitColor = Colors.blue;
+                    submitIcon = Icons.check;
+                    submitText = const Text(
+                      "Chấp Nhận Nhiệm Vụ",
+                      style: TextStyle(color: AppColor.whiteColor),
+                    );
                     break;
                   case 2:
-                    statusIcon = Icons.schedule_send;
-                    statusColor = Colors.blue;
+                    statusIcon = Icons.timelapse;
+                    statusColor = Colors.amber;
+                    submitColor = Colors.green;
+                    submitIcon = Icons.document_scanner_rounded;
+                    submitText = const Text(
+                      "Báo Cáo Nhiệm Vụ",
+                      style: TextStyle(color: AppColor.whiteColor),
+                    );
                     break;
                   case 3:
-                    statusIcon = Icons.assignment_turned_in;
-                    statusColor = Colors.green;
+                    statusIcon = Icons.schedule_send;
+                    statusColor = Colors.blue;
+                    submitColor = Colors.green;
+                    submitIcon = Icons.document_scanner_rounded;
+                    submitText = const Text(
+                      "Báo Cáo Nhiệm Vụ",
+                      style: TextStyle(color: AppColor.whiteColor),
+                    );
                     break;
                   case 4:
+                    statusIcon = Icons.assignment_turned_in;
+                    statusColor = Colors.green;
+                    submitColor = Colors.grey;
+                    submitIcon = Icons.check;
+                    submitText = const Text(
+                      "Đã Hoàn Thành",
+                      style: TextStyle(color: AppColor.whiteColor),
+                    );
+                    break;
+                  case 5:
                     statusIcon = Icons.highlight_off;
                     statusColor = Colors.grey;
+                    submitColor = Colors.blue;
+                    submitIcon = Icons.check;
+                    submitText = const Text(
+                      "Chấp Nhận Nhiệm Vụ",
+                      style: TextStyle(color: AppColor.whiteColor),
+                    );
                     break;
                   default:
                     statusIcon = Icons.error;
                     statusColor = Colors.red;
+                    submitColor = Colors.blue;
+                    submitIcon = Icons.check;
+                    submitText = const Text(
+                      "Chấp Nhận Nhiệm Vụ",
+                      style: TextStyle(color: AppColor.whiteColor),
+                    );
                 }
                 return SingleChildScrollView(
                   child: Column(
@@ -202,62 +245,78 @@ class MaintainTask extends StatelessWidget {
                         ),
                       ),
                       const Padding(
-                        padding: EdgeInsets.only(left: 15),
-                        child: Text("Thông Tin Thiết Bị:",
+                        padding: EdgeInsets.only(left: 15, bottom: 12),
+                        child: Text("Thông Tin Thiết Bị Cần Bảo Trì:",
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20)),
                       ),
-                      Accordion(
-                        paddingListTop: 0,
-                        paddingListBottom: 0,
-                        maxOpenSections: 1,
-                        headerBackgroundColorOpened: Colors.black54,
-                        headerPadding: const EdgeInsets.symmetric(
-                            vertical: 7, horizontal: 15),
-                        children: [
-                          AccordionSection(
-                            isOpen: false,
-                            leftIcon: const Icon(Icons.compare_rounded,
-                                color: Colors.white),
-                            header: Text('${taskInfo?.asset?.assetCode}',
-                                style: const TextStyle(
-                                    color: AppColor.blackColor)),
-                            headerBackgroundColor: Colors.black38,
-                            headerBackgroundColorOpened: Color(0xFFE78956),
-                            contentBorderColor: Colors.black54,
-                            content: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                  vertical: 5.0,
-                                ),
+                      Container(
+                        height: 300,
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: Accordion(
+                          paddingListTop: 0,
+                          paddingListBottom: 0,
+                          maxOpenSections: 1,
+                          headerBackgroundColorOpened: Colors.black54,
+                          headerPadding: const EdgeInsets.symmetric(
+                              vertical: 7, horizontal: 15),
+                          children: [
+                            AccordionSection(
+                              isOpen: false,
+                              leftIcon: const Icon(Icons.compare_rounded,
+                                  color: Colors.white),
+                              header: Text('${taskInfo?.asset?.assetName}',
+                                  style: const TextStyle(
+                                      color: AppColor.whiteColor,fontSize: 18)),
+                              headerBackgroundColor: Colors.black38,
+                              headerBackgroundColorOpened: const Color(0xFFE78956),
+                              contentBorderColor: Colors.black54,
+                              content: Align(
+                                alignment: Alignment.centerLeft,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ListTile(
-                                      leading: const Icon(Icons.info,
-                                          color: AppColor.blackColor),
-                                      title: Text(
-                                          "${taskInfo?.asset?.description}",
+                                    SizedBox(
+                                      child: Text(
+                                          "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
                                           style: const TextStyle(
-                                              color: AppColor.blackColor)),
+                                              color: AppColor.blackColor,
+                                              fontSize: 18)),
                                     ),
-                                    ListTile(
-                                      leading: const Icon(Icons.info,
-                                          color: AppColor.blackColor),
-                                      title: Text(
-                                          "${taskInfo?.asset?.statusObj?.displayName}",
+                                    SizedBox(
+                                      child: Text(
+                                          "Số lượng: ${taskInfo?.asset?.quantity}",
                                           style: const TextStyle(
-                                              color: AppColor.blackColor)),
-                                    )
+                                              color: AppColor.blackColor,
+                                              fontSize: 18)),
+                                    ),
+                                    SizedBox(
+                                      child: Text(
+                                          "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
+                                          style: const TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontSize: 18)),
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: submitColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        margin: const EdgeInsets.all(15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Icon(submitIcon, color: AppColor.whiteColor), submitText],
+                        ),
                       ),
                     ],
                   ),

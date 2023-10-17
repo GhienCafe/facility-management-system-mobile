@@ -33,7 +33,9 @@ class DataListWidget extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final task = taskController.taskList.value.data![index];
                   String? jsonDateString = task.requestDate;
-                  DateTime date = DateTime.parse(jsonDateString!);
+                  String nonNullableString =
+                      jsonDateString ?? "0000-00-00T08:53:33.0000694";
+                  DateTime date = DateTime.parse(nonNullableString);
                   String formattedDate = DateFormat('dd-MM-yyyy').format(date);
                   IconData statusIcon;
                   Color statusColor;
@@ -43,14 +45,18 @@ class DataListWidget extends StatelessWidget {
                       statusColor = Colors.orange;
                       break;
                     case 2:
+                      statusIcon = Icons.timelapse;
+                      statusColor = Colors.amber;
+                      break;
+                    case 3:
                       statusIcon = Icons.schedule_send;
                       statusColor = Colors.blue;
                       break;
-                    case 3:
+                    case 4:
                       statusIcon = Icons.assignment_turned_in;
                       statusColor = Colors.green;
                       break;
-                    case 4:
+                    case 5:
                       statusIcon = Icons.highlight_off;
                       statusColor = Colors.grey;
                       break;

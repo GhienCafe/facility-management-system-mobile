@@ -44,7 +44,6 @@ class NotificationController {
             });
   }
 
-  // Khởi tạo Local Notification ở đây với custom tùy thích
   static Future<void> initializeLocalNotifications(
       {required bool debug}) async {
     await AwesomeNotifications().initialize(

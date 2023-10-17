@@ -1,4 +1,5 @@
 import 'package:FMS/view/widget/loading_task_detail.dart';
+import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +24,6 @@ class CheckTask extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             color: AppColor.primaryColor,
             onPressed: () {
-              //Get.back();
               taskController.setTaskDetail(TaskDetailModel());
               Get.toNamed(RouteName.taskScreen);
             },
@@ -51,34 +51,80 @@ class CheckTask extends StatelessWidget {
             case StatusAPI.COMPLETED:
               final taskInfo = taskController.taskDetail.value.data;
               String? jsonDateString = taskInfo?.requestDate;
-              String nonNullableString = jsonDateString ?? "2023-09-19T08:53:33.0000694";
+              String nonNullableString =
+                  jsonDateString ?? "2023-09-19T08:53:33.0000694";
               DateTime date = DateTime.parse(nonNullableString);
               String formattedDate = DateFormat('dd-MM-yyyy').format(date);
               IconData statusIcon;
+              IconData submitIcon;
               Color statusColor;
+              Color submitColor;
+              Text submitText;
               switch (taskInfo?.status) {
                 case 1:
                   statusIcon = Icons.insights;
                   statusColor = Colors.orange;
+                  submitColor = Colors.blue;
+                  submitIcon = Icons.check;
+                  submitText = const Text(
+                    "Chấp Nhận Nhiệm Vụ",
+                    style: TextStyle(color: AppColor.whiteColor),
+                  );
                   break;
                 case 2:
-                  statusIcon = Icons.schedule_send;
-                  statusColor = Colors.blue;
+                  statusIcon = Icons.timelapse;
+                  statusColor = Colors.amber;
+                  submitColor = Colors.green;
+                  submitIcon = Icons.document_scanner_rounded;
+                  submitText = const Text(
+                    "Báo Cáo Nhiệm Vụ",
+                    style: TextStyle(color: AppColor.whiteColor),
+                  );
                   break;
                 case 3:
-                  statusIcon = Icons.assignment_turned_in;
-                  statusColor = Colors.green;
+                  statusIcon = Icons.schedule_send;
+                  statusColor = Colors.blue;
+                  submitColor = Colors.green;
+                  submitIcon = Icons.document_scanner_rounded;
+                  submitText = const Text(
+                    "Báo Cáo Nhiệm Vụ",
+                    style: TextStyle(color: AppColor.whiteColor),
+                  );
                   break;
                 case 4:
+                  statusIcon = Icons.assignment_turned_in;
+                  statusColor = Colors.green;
+                  submitColor = Colors.grey;
+                  submitIcon = Icons.check;
+                  submitText = const Text(
+                    "Đã Hoàn Thành",
+                    style: TextStyle(color: AppColor.whiteColor),
+                  );
+                  break;
+                case 5:
                   statusIcon = Icons.highlight_off;
                   statusColor = Colors.grey;
+                  submitColor = Colors.blue;
+                  submitIcon = Icons.check;
+                  submitText = const Text(
+                    "Chấp Nhận Nhiệm Vụ",
+                    style: TextStyle(color: AppColor.whiteColor),
+                  );
                   break;
                 default:
                   statusIcon = Icons.error;
                   statusColor = Colors.red;
+                  submitColor = Colors.blue;
+                  submitIcon = Icons.check;
+                  submitText = const Text(
+                    "Chấp Nhận Nhiệm Vụ",
+                    style: TextStyle(color: AppColor.whiteColor),
+                  );
               }
               return SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: const EdgeInsets.all(15),
@@ -122,15 +168,12 @@ class CheckTask extends StatelessWidget {
                                 width: 175,
                                 child: ListTile(
                                   leading: const Icon(Icons.room,
-                                      color: Colors.white,
-                                      size:
-                                          25),
+                                      color: Colors.white, size: 25),
                                   title: Text(
                                     'Phòng ${taskInfo?.currentRoom?.roomCode}',
                                     style: const TextStyle(
                                       fontSize: 18,
-                                      color: Colors
-                                          .white,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -140,15 +183,12 @@ class CheckTask extends StatelessWidget {
                                 width: 185,
                                 child: ListTile(
                                   leading: const Icon(Icons.event,
-                                      color: Colors.white,
-                                      size:
-                                          25),
+                                      color: Colors.white, size: 25),
                                   title: Text(
                                     formattedDate,
                                     style: const TextStyle(
                                       fontSize: 18,
-                                      color: Colors
-                                          .white,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -173,33 +213,103 @@ class CheckTask extends StatelessWidget {
                                 'Trạng thái: ${taskInfo?.statusObj?.displayName}',
                                 style: const TextStyle(
                                   fontSize: 18,
-                                  color:
-                                      Colors.white,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 50,
-                            child: Text("Thông Tin Thiết Bị"),
                           ),
                           SizedBox(
                             height: 30,
                             child: ListTile(
                               leading: const Icon(Icons.key_rounded,
-                                  color: Colors.white,
-                                  size:
-                                      25),
+                                  color: Colors.white, size: 25),
                               title: Text(
                                 "Mã: ${taskInfo?.requestCode}",
                                 style: const TextStyle(
                                   fontSize: 18,
-                                  color:
-                                      Colors.white,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
                           ),
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15, bottom: 12),
+                      child: Text("Thông Tin Thiết Bị Cần Kiểm Tra:",
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20)),
+                    ),
+                    Container(
+                      height: 300,
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: Accordion(
+                        paddingListTop: 0,
+                        paddingListBottom: 0,
+                        maxOpenSections: 1,
+                        headerBackgroundColorOpened: Colors.black54,
+                        headerPadding: const EdgeInsets.symmetric(
+                            vertical: 7, horizontal: 15),
+                        children: [
+                          AccordionSection(
+                            isOpen: false,
+                            leftIcon: const Icon(Icons.compare_rounded,
+                                color: Colors.white),
+                            header: Text('${taskInfo?.asset?.assetName}',
+                                style: const TextStyle(
+                                    color: AppColor.whiteColor, fontSize: 18)),
+                            headerBackgroundColor: Colors.black38,
+                            headerBackgroundColorOpened:
+                                const Color(0xFFE78956),
+                            contentBorderColor: Colors.black54,
+                            content: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    child: Text(
+                                        "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
+                                        style: const TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontSize: 18)),
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                        "Số lượng: ${taskInfo?.asset?.quantity}",
+                                        style: const TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontSize: 18)),
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                        "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
+                                        style: const TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontSize: 18)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: submitColor,
+                          borderRadius: BorderRadius.circular(15)),
+                      margin: const EdgeInsets.all(15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(submitIcon, color: AppColor.whiteColor),
+                          submitText
                         ],
                       ),
                     ),
