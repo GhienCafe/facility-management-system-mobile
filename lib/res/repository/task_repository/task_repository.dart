@@ -11,8 +11,15 @@ class TaskRepository {
     dynamic response = await _apiService.getApiAuthor(AppUrl.getListTask);
     return TaskListModel.fromJson(response);
   }
+
   Future<TaskDetailModel> taskDetailApi(String id) async {
     dynamic response = await _apiService.getApiAuthor("${AppUrl.getDetailTask}/$id");
     return TaskDetailModel.fromJson(response);
   }
+
+  Future<dynamic> acceptTask( var data) async {
+    dynamic response = await _apiService.putApiAuthor(data, AppUrl.updateTask);
+    return response;
+  }
+
 }

@@ -8,6 +8,7 @@ import '../../../res/color/colors.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../res/routes/routes_name.dart';
+import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/task/task_controller.dart';
 import '../../widget/loading_task_detail.dart';
 
@@ -249,10 +250,10 @@ class TransferTask extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 20)),
                     ),
-                    Container(
-                      height: 300,
-                      padding: const EdgeInsets.only(left: 15, right: 15),
+                    SingleChildScrollView(
                       child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
                         itemCount: taskController
                                 .taskDetail.value.data?.assets?.length ??
                             0,
@@ -272,7 +273,7 @@ class TransferTask extends StatelessWidget {
                                   isOpen: false,
                                   leftIcon: const Icon(Icons.info,
                                       color: Colors.white),
-                                  header: Text('${asset?.asset?.assetName}',
+                                  header: Text('${asset.asset?.assetName}',
                                       style: const TextStyle(
                                           color: AppColor.whiteColor,
                                           fontSize: 18)),
@@ -289,22 +290,25 @@ class TransferTask extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
+                                          height: 30,
                                           child: Text(
-                                              "Mã Thiết bị: ${asset?.asset?.assetCode}",
+                                              "Mã Thiết bị: ${asset.asset?.assetCode}",
                                               style: const TextStyle(
                                                   color: AppColor.blackColor,
                                                   fontSize: 18)),
                                         ),
                                         SizedBox(
+                                          height: 30,
                                           child: Text(
-                                              "Số lượng: ${asset?.asset?.quantity}",
+                                              "Số lượng: ${asset.asset?.quantity}",
                                               style: const TextStyle(
                                                   color: AppColor.blackColor,
                                                   fontSize: 18)),
                                         ),
                                         SizedBox(
+                                          height: 30,
                                           child: Text(
-                                              "Vị trí: Phòng ${asset?.fromRoom?.roomCode}",
+                                              "Vị trí: Phòng ${asset.fromRoom?.roomCode}",
                                               style: const TextStyle(
                                                   color: AppColor.blackColor,
                                                   fontSize: 18)),
@@ -320,23 +324,51 @@ class TransferTask extends StatelessWidget {
                               height: 300,
                               alignment: AlignmentDirectional.center,
                               child: const Text("Không Có Thiết Bị"),
-                            ); // Return an empty container if asset is null
+                            );
                           }
                         },
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: submitColor,
-                          borderRadius: BorderRadius.circular(15)),
-                      margin: const EdgeInsets.all(15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(submitIcon, color: AppColor.whiteColor),
-                          submitText
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        String nonID = taskInfo?.id ??
+                            "00000000-0000-0000-0000-000000000000";
+                        switch (taskInfo?.status) {
+                          case 1:
+                            taskController.acceptTask(nonID);
+                            break;
+                          case 2:
+                            break;
+                          case 3:
+                            Utils.snackBar(
+                                "Thông báo:", "Nhiệm vụ đã được báo cáo");
+                            break;
+                          case 4:
+                            Utils.snackBar(
+                                "Thông báo:", "Nhiệm vụ đã hoàn thành");
+                            break;
+                          case 5:
+                            Utils.snackBar(
+                                "Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
+                            break;
+                          default:
+                            // Handle the default case if needed
+                            break;
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: submitColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        margin: const EdgeInsets.all(15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(submitIcon, color: AppColor.whiteColor),
+                            submitText
+                          ],
+                        ),
                       ),
                     ),
                   ],

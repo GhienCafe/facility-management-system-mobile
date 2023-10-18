@@ -1,3 +1,4 @@
+import 'package:FMS/utlis/utlis.dart';
 import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class MaintainTask extends StatelessWidget {
   MaintainTask({super.key, required this.taskId});
   @override
   Widget build(BuildContext context) {
+    taskController.taskDetailApi(taskId);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -307,15 +309,43 @@ class MaintainTask extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: submitColor,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [Icon(submitIcon, color: AppColor.whiteColor), submitText],
+                      GestureDetector(
+                        onTap: () {
+                          String nonID = taskInfo?.id ??
+                              "00000000-0000-0000-0000-000000000000";
+                          switch (taskInfo?.status) {
+                            case 1:
+                              taskController.acceptTask(nonID);
+                              break;
+                            case 2:
+                              break;
+                            case 3:
+                              Utils.snackBar("Thông báo:", "Nhiệm vụ đã được báo cáo");
+                              break;
+                            case 4:
+                              Utils.snackBar("Thông báo:", "Nhiệm vụ đã hoàn thành");
+                              break;
+                            case 5:
+                              Utils.snackBar("Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
+                              break;
+                            default:
+                            // Handle the default case if needed
+                              break;
+                          }
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: submitColor,
+                              borderRadius: BorderRadius.circular(15)),
+                          margin: const EdgeInsets.all(15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(submitIcon, color: AppColor.whiteColor),
+                              submitText
+                            ],
+                          ),
                         ),
                       ),
                     ],

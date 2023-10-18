@@ -9,11 +9,13 @@ import '../../../res/color/colors.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../res/routes/routes_name.dart';
+import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/task/task_controller.dart';
 
 class CheckTask extends StatelessWidget {
   final String? taskId;
   final taskController = Get.find<TaskController>();
+
   CheckTask({super.key, required this.taskId});
   @override
   Widget build(BuildContext context) {
@@ -299,18 +301,43 @@ class CheckTask extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: submitColor,
-                          borderRadius: BorderRadius.circular(15)),
-                      margin: const EdgeInsets.all(15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(submitIcon, color: AppColor.whiteColor),
-                          submitText
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        String nonID = taskInfo?.id ??
+                            "00000000-0000-0000-0000-000000000000";
+                        switch (taskInfo?.status) {
+                          case 1:
+                            taskController.acceptTask(nonID);
+                            break;
+                          case 2:
+                            break;
+                          case 3:
+                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã được báo cáo");
+                            break;
+                          case 4:
+                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã hoàn thành");
+                            break;
+                          case 5:
+                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
+                            break;
+                          default:
+                          // Handle the default case if needed
+                            break;
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: submitColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        margin: const EdgeInsets.all(15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(submitIcon, color: AppColor.whiteColor),
+                            submitText
+                          ],
+                        ),
                       ),
                     ),
                   ],

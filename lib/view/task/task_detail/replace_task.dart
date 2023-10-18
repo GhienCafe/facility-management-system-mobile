@@ -8,6 +8,7 @@ import '../../../res/color/colors.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../res/routes/routes_name.dart';
+import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/task/task_controller.dart';
 import '../../widget/loading_task_detail.dart';
 
@@ -221,15 +222,15 @@ class ReplaceTask extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: ExpansionTile(
+                        leading: const Icon(Icons.output_outlined),
                         title: const Text("Thiết Bị Cần Thay Thế:",
                             style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18)),
                         children: [
-                          Container(
+                          SizedBox(
                             height: 200,
-                            padding: const EdgeInsets.only(left: 15, right: 15),
                             child: Accordion(
                               paddingListTop: 0,
                               paddingListBottom: 0,
@@ -292,15 +293,15 @@ class ReplaceTask extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: ExpansionTile(
+                        leading: const Icon(Icons.input_outlined),
                         title: const Text("Thiết Bị Sẽ Thay Thế:",
                             style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18)),
                         children: [
-                          Container(
+                          SizedBox(
                             height: 200,
-                            padding: const EdgeInsets.only(left: 15, right: 15),
                             child: Accordion(
                               paddingListTop: 0,
                               paddingListBottom: 0,
@@ -361,18 +362,43 @@ class ReplaceTask extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: submitColor,
-                          borderRadius: BorderRadius.circular(15)),
-                      margin: const EdgeInsets.all(15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(submitIcon, color: AppColor.whiteColor),
-                          submitText
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        String nonID = taskInfo?.id ??
+                            "00000000-0000-0000-0000-000000000000";
+                        switch (taskInfo?.status) {
+                          case 1:
+                            taskController.acceptTask(nonID);
+                            break;
+                          case 2:
+                            break;
+                          case 3:
+                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã được báo cáo");
+                            break;
+                          case 4:
+                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã hoàn thành");
+                            break;
+                          case 5:
+                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
+                            break;
+                          default:
+                          // Handle the default case if needed
+                            break;
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: submitColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        margin: const EdgeInsets.all(15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(submitIcon, color: AppColor.whiteColor),
+                            submitText
+                          ],
+                        ),
                       ),
                     ),
                   ],
