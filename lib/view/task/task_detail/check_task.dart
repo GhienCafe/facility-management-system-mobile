@@ -11,11 +11,11 @@ import '../../../res/components/internet_exception_widget.dart';
 import '../../../res/routes/routes_name.dart';
 import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/task/task_controller.dart';
+import '../../report/report.dart';
 
 class CheckTask extends StatelessWidget {
   final String? taskId;
   final taskController = Get.find<TaskController>();
-
   CheckTask({super.key, required this.taskId});
   @override
   Widget build(BuildContext context) {
@@ -90,10 +90,10 @@ class CheckTask extends StatelessWidget {
                 case 3:
                   statusIcon = Icons.schedule_send;
                   statusColor = Colors.blue;
-                  submitColor = Colors.green;
-                  submitIcon = Icons.document_scanner_rounded;
+                  submitColor = Colors.orange;
+                  submitIcon = Icons.schedule_send;
                   submitText = const Text(
-                    "Báo Cáo Nhiệm Vụ",
+                    " Đã Báo Cáo Nhiệm Vụ",
                     style: TextStyle(color: AppColor.whiteColor),
                   );
                   break;
@@ -319,6 +319,7 @@ class CheckTask extends StatelessWidget {
                             taskController.acceptTask(nonID);
                             break;
                           case 2:
+                            Get.to(() => ReportPage());
                             break;
                           case 3:
                             Utils.snackBar(

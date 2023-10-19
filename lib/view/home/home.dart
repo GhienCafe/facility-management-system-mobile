@@ -24,8 +24,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final RxInt currentIndex = 0.obs;
   final notificationController = Get.put(NotificationController());
-  final TaskController taskController = Get.put(TaskController());
-  final profileController = Get.put(ProfileController());
   UserPreference userPreference = UserPreference();
   UsersModel? _user;
   @override

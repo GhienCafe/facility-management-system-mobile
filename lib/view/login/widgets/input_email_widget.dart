@@ -47,7 +47,7 @@ class InputEmailWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red), // Red border for errors
+          borderSide: const BorderSide(color: Colors.red), // Red border for errors
           borderRadius: BorderRadius.circular(30),
         ),
       ),

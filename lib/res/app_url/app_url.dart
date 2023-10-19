@@ -14,14 +14,14 @@ class AppUrl {
   static const String putUserInfo = '$baseUrl/account';
 
   //Notification API
-  static const String getListNotification = '$baseUrl/notification?order_by=created_at%20desc';
+  static const String getListNotification =
+      '$baseUrl/notification?order_by=created_at%20desc';
 
   //Tasks API
   static const String getListTask = '$baseUrl/task?order_by=RequestDate%20desc';
   static const String getDetailTask = '$baseUrl/task';
   static const String updateTask = '$baseUrl/task?status=2';
   static const String reportTask = '$baseUrl/task?status=3';
-
 
   //Asset API
 

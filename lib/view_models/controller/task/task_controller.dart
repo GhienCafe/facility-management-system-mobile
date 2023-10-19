@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:FMS/models/task/check_task_model.dart';
 import 'package:FMS/res/repository/task_repository/task_repository.dart';
@@ -10,6 +11,7 @@ import '../../../utlis/utlis.dart';
 class TaskController extends GetxController {
   var isLoading = true.obs;
   final _api = TaskRepository();
+  List<File> images = [];
   final rxRequestStatus = StatusAPI.LOADING.obs;
   final rxRequestDetailStatus = StatusAPI.LOADING.obs;
   final taskList = TaskListModel().obs;
@@ -17,7 +19,6 @@ class TaskController extends GetxController {
   final taskDetail = TaskDetailModel().obs;
   RxString error = ''.obs;
   RxInt selectedIndex = 0.obs;
-  RxString detailIDTask = "".obs;
   void setRexRequestStatus(StatusAPI value) => rxRequestStatus.value = value;
   void setRexRequestDetailStatus(StatusAPI value) =>
       rxRequestDetailStatus.value = value;
@@ -52,12 +53,14 @@ class TaskController extends GetxController {
             });
   }
 
-  acceptTask(String id) async {
+  void acceptTask(String id) async {
     Map data= {
       "file_name": "string",
       "key": "string",
       "raw_uri": "string",
-      "uri": "string",
+      "uris": [
+        "string"
+      ],
       "extensions": "string",
       "file_type": 1,
       "content": "string",

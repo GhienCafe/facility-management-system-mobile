@@ -320,7 +320,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
         images.add(File(image.path));
         setState(() {});
       }
-    } catch (e) {}
+    } catch (e) {null;}
   }
 
   Future<String> uploadFile(File file) async {
