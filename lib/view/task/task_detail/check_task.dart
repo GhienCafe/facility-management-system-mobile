@@ -24,7 +24,7 @@ class CheckTask extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            color: AppColor.primaryColor,
+            color: AppColor.whiteColor,
             onPressed: () {
               taskController.setTaskDetail(TaskDetailModel());
               Get.toNamed(RouteName.taskScreen);
@@ -35,13 +35,17 @@ class CheckTask extends StatelessWidget {
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-              colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+                  colors: [
+                    Color(0xff0e4e86),
+                    Color(0xff1461a2),
+                    Color(0xff2e7abb),
+                  ],
             )),
           ),
           title: const Text(
             "Chi tiết nhiệm vụ",
             style: TextStyle(
-              color: AppColor.primaryColor,
+              color: AppColor.whiteColor,
               letterSpacing: 1,
             ),
           ),
@@ -136,7 +140,12 @@ class CheckTask extends StatelessWidget {
                         color: Colors.grey,
                         borderRadius: BorderRadius.circular(20),
                         gradient: const LinearGradient(
-                          colors: [Color(0xFFE78956), Color(0xFFE8924B)],
+                          colors: [
+                            Color(0xff0c4377),
+                            Color(0xff114c81),
+                            Color(0xff134777),
+                            Color(0xff1960a1),
+                          ],
                         ),
                       ),
                       child: Column(
@@ -312,16 +321,19 @@ class CheckTask extends StatelessWidget {
                           case 2:
                             break;
                           case 3:
-                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã được báo cáo");
+                            Utils.snackBar(
+                                "Thông báo:", "Nhiệm vụ đã được báo cáo");
                             break;
                           case 4:
-                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã hoàn thành");
+                            Utils.snackBar(
+                                "Thông báo:", "Nhiệm vụ đã hoàn thành");
                             break;
                           case 5:
-                            Utils.snackBar("Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
+                            Utils.snackBar(
+                                "Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
                             break;
                           default:
-                          // Handle the default case if needed
+                            // Handle the default case if needed
                             break;
                         }
                       },

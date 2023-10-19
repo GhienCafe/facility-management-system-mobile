@@ -70,7 +70,7 @@ class NotificationPopUp extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15),
                             color: notification.isRead!
                                 ? const Color(0xA6B7AAAA)
-                                : AppColor.primaryColor,
+                                : AppColor.orangeColor,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

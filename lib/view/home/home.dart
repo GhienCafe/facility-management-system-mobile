@@ -53,12 +53,16 @@ class _HomeState extends State<Home> {
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-              colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+              colors: [
+                Color(0xff0e4e86),
+                Color(0xff1461a2),
+                Color(0xff2e7abb),
+              ],
             )),
           ),
           title: const Text(
             "FPT FMS",
-            style: TextStyle(color: AppColor.primaryColor),
+            style: TextStyle(color: AppColor.whiteColor),
           ),
           actions: [
             IconButton(
@@ -70,7 +74,7 @@ class _HomeState extends State<Home> {
                     ),
                 icon: const Icon(
                   Icons.add_alert,
-                  color: AppColor.primaryColor,
+                  color: AppColor.whiteColor,
                   size: 25,
                 ))
           ],
@@ -88,7 +92,7 @@ class _HomeState extends State<Home> {
                       height: 190,
                     ),
                     Positioned(
-                      top: 32,
+                      top: 25,
                       left: 16,
                       right: 16,
                       child: Container(
@@ -102,15 +106,15 @@ class _HomeState extends State<Home> {
                               Text(
                                   "Xin Chào, ${_user != null ? _user?.data?.fullname ?? "" : ""}",
                                   style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 25,
                                     fontWeight: FontWeight.w300,
-                                    color: AppColor.primaryColor,
+                                    color: AppColor.whiteColor,
                                   )),
                               const Text("Chúc bạn có một ngày mới tốt lành.",
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColor.primaryColor,
+                                    color: AppColor.whiteColor,
                                   )),
                             ],
                           )),
@@ -132,7 +136,7 @@ class _HomeState extends State<Home> {
                           color: AppColor.whiteColor,
                           border: Border.all(
                             color: AppColor.primaryColor,
-                            width: 4,
+                            width: 2,
                           ),
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -163,20 +167,21 @@ class _HomeState extends State<Home> {
                           headerAnimationLoop: true,
                           animType: AnimType.topSlide,
                           showCloseIcon: true,
-                          closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                          closeIcon:
+                              const Icon(Icons.close_fullscreen_outlined),
                           title: 'Quét Mã QR',
                           desc: 'Bạn muốn quét loại mã nào ? ',
                           btnCancelText: "QR Phòng",
                           btnCancelColor: Colors.blue,
                           btnCancelOnPress: () {
-                            Get.to(()=> const QRViewRoom());
+                            Get.to(() => const QRViewRoom());
                           },
                           onDismissCallback: (type) {
                             debugPrint('Dialog Dismiss from callback $type');
                           },
                           btnOkText: "QR Thiết Bị",
                           btnOkOnPress: () {
-                            Get.to(()=> const QRViewAsset());
+                            Get.to(() => const QRViewAsset());
                           },
                         ).show();
                       },
@@ -187,7 +192,7 @@ class _HomeState extends State<Home> {
                           color: AppColor.whiteColor,
                           border: Border.all(
                             color: AppColor.primaryColor,
-                            width: 4,
+                            width: 2,
                           ),
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -223,7 +228,7 @@ class _HomeState extends State<Home> {
                         color: AppColor.whiteColor,
                         border: Border.all(
                           color: AppColor.primaryColor,
-                          width: 4,
+                          width: 2,
                         ),
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -253,7 +258,7 @@ class _HomeState extends State<Home> {
                           color: AppColor.whiteColor,
                           border: Border.all(
                             color: AppColor.primaryColor,
-                            width: 4,
+                            width: 2,
                           ),
                           borderRadius: BorderRadius.circular(15),
                         ),

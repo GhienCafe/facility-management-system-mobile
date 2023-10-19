@@ -24,7 +24,7 @@ class MaintainTask extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            color: AppColor.primaryColor,
+            color: AppColor.whiteColor,
             onPressed: () {
               //Get.back();
               taskController.setTaskDetail(TaskDetailModel());
@@ -36,13 +36,17 @@ class MaintainTask extends StatelessWidget {
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-              colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+                  colors: [
+                    Color(0xff0e4e86),
+                    Color(0xff1461a2),
+                    Color(0xff2e7abb),
+                  ],
             )),
           ),
           title: const Text(
             "Chi tiết nhiệm vụ",
             style: TextStyle(
-              color: AppColor.primaryColor,
+              color: AppColor.whiteColor,
               letterSpacing: 1,
             ),
           ),
@@ -138,7 +142,12 @@ class MaintainTask extends StatelessWidget {
                           color: Colors.grey,
                           borderRadius: BorderRadius.circular(10),
                           gradient: const LinearGradient(
-                            colors: [Color(0xFFE78956), Color(0xFFE8924B)],
+                            colors: [
+                              Color(0xff0c4377),
+                              Color(0xff114c81),
+                              Color(0xff134777),
+                              Color(0xff1960a1),
+                            ],
                           ),
                         ),
                         child: Column(

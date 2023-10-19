@@ -102,10 +102,10 @@ class DataListWidget extends StatelessWidget {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Color(0xFFEE873E),
-                            Color(0xFFE8983A),
-                            Color(0xFFE8A91E),
-                            Color(0xFFE1AE3B),
+                            Color(0xff0c4377),
+                            Color(0xff114c81),
+                            Color(0xff134777),
+                            Color(0xff1960a1),
                           ],
                         ),
                         borderRadius: BorderRadius.all(

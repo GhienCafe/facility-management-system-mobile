@@ -60,10 +60,14 @@ Widget customAppBar(String title, double top, [Widget? leading]) {
       Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
-          colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+          colors: [
+            Color(0xff0e4e86),
+            Color(0xff1461a2),
+            Color(0xff2e7abb),
+          ],
         )),
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+          padding: const EdgeInsets.only(left: 20, bottom: 5, top: 5),
           child: Stack(
             alignment: Alignment.centerLeft,
             children: [
@@ -78,11 +82,11 @@ Widget customAppBar(String title, double top, [Widget? leading]) {
                   style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.w400,
-                    color: AppColor.primaryColor,
+                    color: AppColor.whiteColor,
                   ),
                 ),
               ),
-              const BackButton(color: AppColor.primaryColor),
+              const BackButton(color: AppColor.whiteColor),
             ],
           ),
         ),

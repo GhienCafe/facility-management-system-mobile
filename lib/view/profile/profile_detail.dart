@@ -31,7 +31,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          color: AppColor.primaryColor,
+          color: AppColor.whiteColor,
           onPressed: () {
             Get.toNamed(RouteName.profileScreen);
           },
@@ -41,13 +41,17 @@ class _ProfileDetailState extends State<ProfileDetail> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
-            colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+            colors: [
+              Color(0xff0e4e86),
+              Color(0xff1461a2),
+              Color(0xff2e7abb),
+            ],
           )),
         ),
         title: const Text(
           "Thông Tin Cá Nhân",
           style: TextStyle(
-            color: AppColor.primaryColor,
+            color: AppColor.whiteColor,
             letterSpacing: 1,
           ),
         ),

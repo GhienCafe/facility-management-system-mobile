@@ -69,7 +69,6 @@ class TaskController extends GetxController {
         Timer(const Duration(seconds: 1), () {
           Utils.snackBarSuccess("Thông báo", "Xác nhận nhiệm vụ thành công");
         });
-
       } else {
         Utils.snackBarError("Thông báo", "Xác nhận nhiệm vụ không thành công");
       }

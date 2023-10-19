@@ -29,7 +29,6 @@ class _NotePageState extends State<NotePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const BackButton(color: AppColor.primaryColor),
           IconButton(
             onPressed: () {
               Navigator.of(context)
@@ -40,7 +39,7 @@ class _NotePageState extends State<NotePage> {
             },
             icon: const Icon(
               Icons.add,
-              color: AppColor.primaryColor,
+              color: AppColor.whiteColor,
               size: 30,
             ),
           ),
@@ -54,7 +53,7 @@ class _NotePageState extends State<NotePage> {
             icon: Icon(
               Icons.search,
               size: 30,
-              color: searchOn ? const Color(0xffff8b34) : AppColor.primaryColor,
+              color: searchOn ? const Color(0xffff8b34) : AppColor.whiteColor,
             ),
           ),
           PopupMenuButton<String>(
@@ -128,7 +127,7 @@ class _NotePageState extends State<NotePage> {
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w800,
                                         fontSize: 24,
-                                        color: Colors.white)),
+                                        color: AppColor.whiteColor)),
                               ),
                         Expanded(
                           child: Text(
@@ -311,9 +310,9 @@ class _NotePageState extends State<NotePage> {
                 onPressed: () async {
                   showDeleteDialog(index: reverseIndex, Notes: Notes);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.close,
-                  color: Colors.white,
+                  color: AppColor.whiteColor,
                   size: 26,
                 )),
           ),
@@ -441,7 +440,7 @@ class _NotePageState extends State<NotePage> {
                 },
                 icon: const Icon(
                   Icons.close,
-                  color: Colors.white,
+                  color: AppColor.whiteColor,
                   size: 26,
                 )),
           ),

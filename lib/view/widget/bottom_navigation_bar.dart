@@ -39,7 +39,11 @@ class _BottomBarState extends State<BottomBar> {
         color: AppColor.whiteColor,
         //backgroundColor: AppColor.primaryColor,
         gradient: const LinearGradient(
-          colors: [Color(0xFFEEBDBD), Color(0xFFECD398)],
+          colors: [
+            Color(0xff0e4e86),
+            Color(0xff1461a2),
+            Color(0xff2e7abb),
+          ],
         ),
         style: TabStyle.reactCircle,
         onTap: (index) {

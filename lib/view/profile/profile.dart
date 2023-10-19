@@ -61,13 +61,17 @@ class _ProfileState extends State<Profile> {
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-              colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
+              colors: [
+                Color(0xff0e4e86),
+                Color(0xff1461a2),
+                Color(0xff2e7abb),
+              ],
             )),
           ),
           title: const Text(
             "Menu",
             style: TextStyle(
-              color: AppColor.primaryColor,
+              color: AppColor.whiteColor,
               letterSpacing: 1,
             ),
           ),
@@ -196,57 +200,56 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-Widget loadingAvatar(){
+
+Widget loadingAvatar() {
   return Center(
       child: Container(
-        margin: const EdgeInsets.only(top: 10),
-        child: Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+    margin: const EdgeInsets.only(top: 10),
+    child: Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.white,
+              ),
+              width: 100.0,
+              height: 100.0,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 25.0,
                     color: Colors.white,
                   ),
-                  width: 100.0,
-                  height: 100.0,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Padding(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 5.0),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 25.0,
-                        color: Colors.white,
-                      ),
-                      const Padding(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 10.0),
-                      ),
-                      Container(
-                        height: 25.0,
-                        width: 150.0,
-                        color: Colors.white,
-                      ),
-                    ],
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
                   ),
-                )
-              ],
-            ),
-          ),
+                  Container(
+                    height: 25.0,
+                    width: 150.0,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-      ));
+      ),
+    ),
+  ));
 }

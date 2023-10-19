@@ -20,6 +20,7 @@ class AppUrl {
   static const String getListTask = '$baseUrl/task?order_by=RequestDate%20desc';
   static const String getDetailTask = '$baseUrl/task';
   static const String updateTask = '$baseUrl/task?status=2';
+  static const String reportTask = '$baseUrl/task?status=3';
 
 
   //Asset API

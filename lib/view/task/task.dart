@@ -34,14 +34,15 @@ class _TaskState extends State<Task> {
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.only(top: 10),
-        child:  DefaultTabController(
+        child: DefaultTabController(
           length: 3,
           child: Column(
             children: <Widget>[
               ButtonsTabBar(
                 backgroundColor: AppColor.primaryColor,
                 unselectedBackgroundColor: Colors.grey[300],
-                unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
+                unselectedLabelStyle:
+                    const TextStyle(color: AppColor.blackColor),
                 height: 40,
                 buttonMargin: const EdgeInsets.only(left: 10, right: 10),
                 labelStyle: const TextStyle(
@@ -77,13 +78,13 @@ class _TaskState extends State<Task> {
         margin: const EdgeInsets.only(top: 10),
         child: DefaultTabController(
           length: 3,
-          child:
-          Column(
+          child: Column(
             children: <Widget>[
               ButtonsTabBar(
                 backgroundColor: AppColor.primaryColor,
                 unselectedBackgroundColor: Colors.grey[300],
-                unselectedLabelStyle: const TextStyle(color: AppColor.blackColor),
+                unselectedLabelStyle:
+                    const TextStyle(color: AppColor.blackColor),
                 height: 40,
                 buttonMargin: const EdgeInsets.only(left: 10, right: 10),
                 labelStyle: const TextStyle(
@@ -138,13 +139,16 @@ class _TaskState extends State<Task> {
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFFFACCCC), Color(0xFFF6EFE9)],
-                )
-            ),
+              colors: [
+                Color(0xff0e4e86),
+                Color(0xff1461a2),
+                Color(0xff2e7abb),
+              ],
+            )),
           ),
           title: const Text(
             "Công Việc",
-            style: TextStyle(color: AppColor.primaryColor),
+            style: TextStyle(color: AppColor.whiteColor),
           ),
           actions: [
             IconButton(
@@ -153,13 +157,13 @@ class _TaskState extends State<Task> {
               },
               icon: const Icon(
                 Icons.refresh,
-                color: AppColor.primaryColor,
+                color: AppColor.whiteColor,
                 size: 25,
               ),
             )
           ],
         ),
-        body:  buildLoadedPage(),
+        body: buildLoadedPage(),
         bottomNavigationBar: BottomBar(currentIndex),
       ),
     );

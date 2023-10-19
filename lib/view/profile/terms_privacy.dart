@@ -6,58 +6,88 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../res/color/colors.dart';
+import '../../res/routes/routes_name.dart';
+
 class AttentionPage extends StatelessWidget {
   const AttentionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chú ý khi sử dụng ứng dụng'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: MaterialButton(
-                color: Colors.blue,
-                minWidth: double.infinity,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                height: 50,
-                onPressed: () {
-                  Get.to(() => const MultiFileUploadScreen());
-                },
-                child: const Text("Multi File"),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: AppColor.whiteColor,
+            onPressed: () {
+              Get.toNamed(RouteName.profileScreen);
+            },
+          ),
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              colors: [
+                Color(0xff0e4e86),
+                Color(0xff1461a2),
+                Color(0xff2e7abb),
+              ],
+            )),
+          ),
+          title: const Text(
+            "Thông Tin Cá Nhân",
+            style: TextStyle(
+              color: AppColor.whiteColor,
+              letterSpacing: 1,
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: MaterialButton(
+                  color: Colors.blue,
+                  minWidth: double.infinity,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  height: 50,
+                  onPressed: () {
+                    Get.to(() => const MultiFileUploadScreen());
+                  },
+                  child: const Text("Multi File"),
+                ),
               ),
-            ),
-            const AttentionItem(
-              title: 'Chức Năng Ứng Dụng',
-              content:
-                  'Ứng dụng này được thiết kế để giúp nhân viên nhận các nhiệm vụ và báo cáo tình hình tài sản của công ty. Hãy sử dụng nó để nắm bắt và quản lý công việc của bạn.',
-            ),
-            const Divider(),
-            const AttentionItem(
-              title: 'Bảo Mật Thông Tin',
-              content:
-                  'Chúng tôi cam kết bảo mật thông tin cá nhân của bạn. Không chia sẻ thông tin đăng nhập hoặc dữ liệu công việc của bạn với bất kỳ ai khác.',
-            ),
-            const Divider(),
-            const AttentionItem(
-              title: 'Điều Khoản Sử Dụng',
-              content:
-                  'Trước khi sử dụng ứng dụng, bạn cần đọc và đồng ý với Điều khoản sử dụng. Điều khoản này quy định các quyền và trách nhiệm của bạn khi sử dụng ứng dụng của chúng tôi.',
-            ),
-            const Divider(),
-            const AttentionItem(
-              title: 'Liên hệ',
-              content:
-                  'Nếu bạn có bất kỳ câu hỏi hoặc phản hồi nào về ứng dụng hoặc về các vấn đề liên quan đến bảo mật và quyền riêng tư, hãy liên hệ với chúng tôi qua địa chỉ email hoặc số điện thoại được cung cấp trong ứng dụng.',
-            ),
-          ],
+              const AttentionItem(
+                title: 'Chức Năng Ứng Dụng',
+                content:
+                    'Ứng dụng này được thiết kế để giúp nhân viên nhận các nhiệm vụ và báo cáo tình hình tài sản của công ty. Hãy sử dụng nó để nắm bắt và quản lý công việc của bạn.',
+              ),
+              const Divider(),
+              const AttentionItem(
+                title: 'Bảo Mật Thông Tin',
+                content:
+                    'Chúng tôi cam kết bảo mật thông tin cá nhân của bạn. Không chia sẻ thông tin đăng nhập hoặc dữ liệu công việc của bạn với bất kỳ ai khác.',
+              ),
+              const Divider(),
+              const AttentionItem(
+                title: 'Điều Khoản Sử Dụng',
+                content:
+                    'Trước khi sử dụng ứng dụng, bạn cần đọc và đồng ý với Điều khoản sử dụng. Điều khoản này quy định các quyền và trách nhiệm của bạn khi sử dụng ứng dụng của chúng tôi.',
+              ),
+              const Divider(),
+              const AttentionItem(
+                title: 'Liên hệ',
+                content:
+                    'Nếu bạn có bất kỳ câu hỏi hoặc phản hồi nào về ứng dụng hoặc về các vấn đề liên quan đến bảo mật và quyền riêng tư, hãy liên hệ với chúng tôi qua địa chỉ email hoặc số điện thoại được cung cấp trong ứng dụng.',
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -290,17 +320,17 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
         images.add(File(image.path));
         setState(() {});
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   Future<String> uploadFile(File file) async {
     final metaData = SettableMetadata(contentType: 'image/jpeg');
     final storageRef = FirebaseStorage.instance.ref();
-    Reference ref = storageRef
-        .child('Report/${DateTime.now().microsecondsSinceEpoch}.jpg');
+    Reference ref =
+        storageRef.child('Report/${DateTime.now().microsecondsSinceEpoch}.jpg');
     final uploadTask = ref.putFile(file, metaData);
-    final taskSnapshot = await uploadTask.whenComplete(() => print("Upload File Success"));
+    final taskSnapshot =
+        await uploadTask.whenComplete(() => print("Upload File Success"));
     String url = await taskSnapshot.ref.getDownloadURL();
     return url;
   }
