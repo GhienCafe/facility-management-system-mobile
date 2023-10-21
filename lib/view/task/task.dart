@@ -1,6 +1,8 @@
 import 'package:FMS/res/color/colors.dart';
+import 'package:FMS/view/task/list_complete_data.dart';
+import 'package:FMS/view/task/list_process_data.dart';
+import 'package:FMS/view/task/list_waiting_data.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
-import 'package:FMS/view/widget/loading_list.dart';
 import 'package:FMS/view_models/controller/task/task_controller.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
@@ -30,54 +32,12 @@ class _TaskState extends State<Task> {
     taskController.refreshApi();
   }
 
-  Widget buildLoadingPage() {
-    return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.only(top: 10),
-        child: DefaultTabController(
-          length: 3,
-          child: Column(
-            children: <Widget>[
-              ButtonsTabBar(
-                backgroundColor: AppColor.primaryColor,
-                unselectedBackgroundColor: Colors.grey[300],
-                unselectedLabelStyle:
-                    const TextStyle(color: AppColor.blackColor),
-                height: 40,
-                buttonMargin: const EdgeInsets.only(left: 10, right: 10),
-                labelStyle: const TextStyle(
-                    color: AppColor.whiteColor, fontWeight: FontWeight.bold),
-                tabs: const [
-                  Tab(
-                    icon: Icon(Icons.format_list_bulleted),
-                    text: "Tất Cả",
-                  ),
-                  Tab(
-                    icon: Icon(Icons.timer),
-                    text: "Đang Xử Lý",
-                  ),
-                  Tab(
-                    icon: Icon(Icons.done),
-                    text: "Hoàn Thành",
-                  ),
-                ],
-              ),
-              const Expanded(
-                child: LoadingListPage(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget buildLoadedPage() {
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.only(top: 10),
         child: DefaultTabController(
-          length: 3,
+          length: 4,
           child: Column(
             children: <Widget>[
               ButtonsTabBar(
@@ -96,6 +56,10 @@ class _TaskState extends State<Task> {
                   ),
                   Tab(
                     icon: Icon(Icons.timer),
+                    text: "Đang Chờ",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.pending_actions),
                     text: "Đang Xử Lý",
                   ),
                   Tab(
@@ -107,9 +71,11 @@ class _TaskState extends State<Task> {
                   if (index == 0) {
                     taskController;
                   } else if (index == 1) {
-                    taskController;
+                    taskController.taskListWaitingApi();
                   } else if (index == 2) {
-                    taskController;
+                    taskController.taskListProcessApi();
+                  } else if (index == 3) {
+                    taskController.taskListCompleteApi();
                   }
                 },
               ),
@@ -117,8 +83,9 @@ class _TaskState extends State<Task> {
                 child: TabBarView(
                   children: <Widget>[
                     DataListWidget(),
-                    DataListWidget(),
-                    DataListWidget(),
+                    WaitingListWidget(),
+                    ProcessListWidget(),
+                    CompleteListWidget(),
                   ],
                 ),
               ),

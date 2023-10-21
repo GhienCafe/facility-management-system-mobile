@@ -7,6 +7,7 @@ import '../../../utlis/utlis.dart';
 import '../task/task_controller.dart';
 
 class ReportController extends GetxController {
+
   final taskController = Get.find<TaskController>();
   final _api = ReportRepository();
   final rxRequestStatus = StatusAPI.LOADING.obs;
@@ -14,6 +15,7 @@ class ReportController extends GetxController {
   RxString error = ''.obs;
   void setRexRequestStatus(StatusAPI _value) => rxRequestStatus.value = _value;
   void setError(String _value) => error.value = _value;
+
 
   void reportTask(String id, String description, List<String> image)  async {
     Map data={

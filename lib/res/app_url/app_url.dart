@@ -19,6 +19,9 @@ class AppUrl {
 
   //Tasks API
   static const String getListTask = '$baseUrl/task?order_by=RequestDate%20desc';
+  static const String getListProcessTask = '$baseUrl/task?status=2&order_by=RequestDate%20desc';
+  static const String getListWaitingTask = '$baseUrl/task?status=1&order_by=RequestDate%20desc';
+  static const String getListCompleteTask = '$baseUrl/task?status=4&order_by=RequestDate%20desc';
   static const String getDetailTask = '$baseUrl/task';
   static const String updateTask = '$baseUrl/task?status=2';
   static const String reportTask = '$baseUrl/task?status=3';

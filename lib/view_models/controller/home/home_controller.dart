@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
-import 'package:FMS/res/repository/home_repository/home_repository.dart';
 
 import '../../../data/response/status.dart';
 
 class HomeController extends GetxController {
-  final _api = HomeRepository();
+  //final _api = HomeRepository();
   final rxRequestStatus = StatusAPI.LOADING.obs;
   RxString error = ''.obs;
 

@@ -29,7 +29,7 @@ class DataListWidget extends StatelessWidget {
             return Container(
               margin: const EdgeInsets.only(top: 10),
               child: ListView.builder(
-                itemCount: taskController.taskList.value.data!.length,
+                itemCount: taskController.taskList.value.data?.length,
                 itemBuilder: (BuildContext context, int index) {
                   final task = taskController.taskList.value.data![index];
                   String? jsonDateString = task.requestDate;

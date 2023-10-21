@@ -14,24 +14,24 @@ import 'package:get/get.dart';
 import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exception_widget.dart';
 
-class ProcessListWidget extends StatelessWidget {
+class WaitingListWidget extends StatelessWidget {
   final taskController = Get.find<TaskController>();
-  ProcessListWidget({super.key});
+  WaitingListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Obx(
           () {
-        switch (taskController.rxRequestProcessStatus.value) {
+        switch (taskController.rxRequestWaitingStatus.value) {
           case StatusAPI.LOADING:
             return const LoadingListPage();
           case StatusAPI.COMPLETED:
             return Container(
               margin: const EdgeInsets.only(top: 10),
               child: ListView.builder(
-                itemCount: taskController.taskListProcess.value.data?.length ?? 0,
+                itemCount: taskController.taskListWaiting.value.data?.length ?? 0,
                 itemBuilder: (BuildContext context, int index) {
-                  final task = taskController.taskListProcess.value.data![index];
+                  final task = taskController.taskListWaiting.value.data![index];
                   String? jsonDateString = task.requestDate;
                   String nonNullableString =
                       jsonDateString ?? "0000-00-00T08:53:33.0000694";

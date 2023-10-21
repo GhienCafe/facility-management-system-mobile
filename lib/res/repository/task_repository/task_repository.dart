@@ -12,6 +12,21 @@ class TaskRepository {
     return TaskListModel.fromJson(response);
   }
 
+  Future<TaskListModel> taskListProcessApi() async {
+    dynamic response = await _apiService.getApiAuthor(AppUrl.getListProcessTask);
+    return TaskListModel.fromJson(response);
+  }
+
+  Future<TaskListModel> taskListCompleteApi() async {
+    dynamic response = await _apiService.getApiAuthor(AppUrl.getListCompleteTask);
+    return TaskListModel.fromJson(response);
+  }
+
+  Future<TaskListModel> taskListWaitingApi() async {
+    dynamic response = await _apiService.getApiAuthor(AppUrl.getListWaitingTask);
+    return TaskListModel.fromJson(response);
+  }
+
   Future<TaskDetailModel> taskDetailApi(String id) async {
     dynamic response = await _apiService.getApiAuthor("${AppUrl.getDetailTask}/$id");
     return TaskDetailModel.fromJson(response);

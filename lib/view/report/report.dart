@@ -77,8 +77,9 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
         child: Column(children: [
           const ListTile(
             contentPadding: EdgeInsets.all(0),
-            leading: Icon(Icons.add_a_photo,color: Colors.grey),
-            title: Text("Hình ảnh báo cáo:",style: TextStyle(fontSize: 20,color: Colors.grey)),
+            leading: Icon(Icons.add_a_photo, color: Colors.grey),
+            title: Text("Hình ảnh báo cáo:",
+                style: TextStyle(fontSize: 20, color: Colors.grey)),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -202,8 +203,9 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
           ),
           const ListTile(
             contentPadding: EdgeInsets.all(0),
-            leading: Icon(Icons.description,color: Colors.grey),
-            title: Text("Nội dung báo cáo:",style: TextStyle(fontSize: 20,color: Colors.grey)),
+            leading: Icon(Icons.description, color: Colors.grey),
+            title: Text("Nội dung báo cáo:",
+                style: TextStyle(fontSize: 20, color: Colors.grey)),
           ),
           SizedBox(
             height: 200,
@@ -212,7 +214,9 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
               enableSuggestions: true,
               maxLines: 5,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15),),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 hintText: 'Mô tả báo cáo...',
               ),
             ),
@@ -220,8 +224,8 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
           MaterialButton(
             color: Colors.blue,
             minWidth: double.infinity,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             height: 50,
             onPressed: () async {
               final taskInfo = taskController.taskDetail.value.data;
@@ -238,10 +242,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
               }
             },
             child: const Text("Upload",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                )),
+                style: TextStyle(color: Colors.white, fontSize: 20)),
           )
         ]),
       ),
