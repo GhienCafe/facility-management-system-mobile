@@ -22,6 +22,7 @@ class _TaskState extends State<Task> {
   final RxInt currentIndex = 1.obs;
   int selectedTabIndex = 0;
 
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +30,7 @@ class _TaskState extends State<Task> {
   }
 
   void refreshData() {
+    selectedTabIndex = 0;
     taskController.refreshApi();
   }
 
@@ -67,14 +69,14 @@ class _TaskState extends State<Task> {
                     text: "Hoàn Thành",
                   ),
                 ],
-                onTap: (index) {
-                  if (index == 0) {
+                onTap: (selectedTabIndex) {
+                  if (selectedTabIndex == 0) {
                     taskController;
-                  } else if (index == 1) {
+                  } else if (selectedTabIndex == 1) {
                     taskController.taskListWaitingApi();
-                  } else if (index == 2) {
+                  } else if (selectedTabIndex == 2) {
                     taskController.taskListProcessApi();
-                  } else if (index == 3) {
+                  } else if (selectedTabIndex == 3) {
                     taskController.taskListCompleteApi();
                   }
                 },

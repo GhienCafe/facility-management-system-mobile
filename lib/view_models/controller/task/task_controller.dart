@@ -9,6 +9,7 @@ import '../../../utlis/utlis.dart';
 
 class TaskController extends GetxController {
   var isLoading = true.obs;
+  RxBool isExpanded = false.obs;
   final _api = TaskRepository();
   final rxRequestStatus = StatusAPI.LOADING.obs;
   final rxRequestWaitingStatus = StatusAPI.LOADING.obs;
@@ -92,6 +93,8 @@ class TaskController extends GetxController {
 
   void taskDetailApi(String? id) {
     rxRequestDetailStatus(StatusAPI.LOADING);
+    final taskClean = TaskDetailModel();
+    setTaskDetail(taskClean);
     _api
         .taskDetailApi(id!)
         .then((value) => {

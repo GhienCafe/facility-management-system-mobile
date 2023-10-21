@@ -15,11 +15,11 @@ import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exception_widget.dart';
 
 class DataListWidget extends StatelessWidget {
-  final taskController = Get.put(TaskController());
   DataListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final taskController = Get.find<TaskController>();
     return Obx(
       () {
         switch (taskController.rxRequestStatus.value) {

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../data/response/status.dart';
-import '../../../models/task/check_task_model.dart';
 import '../../../res/color/colors.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exception_widget.dart';
@@ -26,7 +25,6 @@ class CheckTask extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             color: AppColor.whiteColor,
             onPressed: () {
-              taskController.setTaskDetail(TaskDetailModel());
               Get.toNamed(RouteName.taskScreen);
             },
           ),
@@ -127,234 +125,259 @@ class CheckTask extends StatelessWidget {
                     style: TextStyle(color: AppColor.whiteColor),
                   );
               }
-              return SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.all(15),
-                      width: 500,
-                      height: 250,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color(0xff0c4377),
-                            Color(0xff114c81),
-                            Color(0xff134777),
-                            Color(0xff1960a1),
-                          ],
-                        ),
-                      ),
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 620,
+                    child: SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 80,
-                            child: ListTile(
-                              title: Text(
-                                "${taskInfo?.typeObj?.displayName}",
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              subtitle: Text(
-                                "${taskInfo?.description}",
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              leading: const Icon(Icons.add_chart_outlined,
-                                  size: 30, color: Colors.white),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                height: 30,
-                                width: 175,
-                                child: ListTile(
-                                  leading: const Icon(Icons.room,
-                                      color: Colors.white, size: 25),
-                                  title: Text(
-                                    'Phòng ${taskInfo?.currentRoom?.roomCode}',
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                width: 185,
-                                child: ListTile(
-                                  leading: const Icon(Icons.event,
-                                      color: Colors.white, size: 25),
-                                  title: Text(
-                                    formattedDate,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 15, bottom: 15),
-                            height: 30,
-                            child: ListTile(
-                              leading: Container(
-                                width: 25,
-                                height: 25,
-                                decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(100)),
-                                    color: Colors.white),
-                                child: Icon(statusIcon,
-                                    color: statusColor, size: 20),
-                              ),
-                              title: Text(
-                                'Trạng thái: ${taskInfo?.statusObj?.displayName}',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                            child: ListTile(
-                              leading: const Icon(Icons.key_rounded,
-                                  color: Colors.white, size: 25),
-                              title: Text(
-                                "Mã: ${taskInfo?.requestCode}",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15, bottom: 12),
-                      child: Text("Thông Tin Thiết Bị Cần Kiểm Tra:",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20)),
-                    ),
-                    Container(
-                      height: 300,
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Accordion(
-                        paddingListTop: 0,
-                        paddingListBottom: 0,
-                        maxOpenSections: 1,
-                        headerBackgroundColorOpened: Colors.black54,
-                        headerPadding: const EdgeInsets.symmetric(
-                            vertical: 7, horizontal: 15),
-                        children: [
-                          AccordionSection(
-                            isOpen: false,
-                            leftIcon: const Icon(Icons.compare_rounded,
-                                color: Colors.white),
-                            header: Text('${taskInfo?.asset?.assetName}',
-                                style: const TextStyle(
-                                    color: AppColor.whiteColor, fontSize: 18)),
-                            headerBackgroundColor: Colors.black38,
-                            headerBackgroundColorOpened:
-                                const Color(0xFFE78956),
-                            contentBorderColor: Colors.black54,
-                            content: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    child: Text(
-                                        "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
-                                        style: const TextStyle(
-                                            color: AppColor.blackColor,
-                                            fontSize: 18)),
-                                  ),
-                                  SizedBox(
-                                    child: Text(
-                                        "Số lượng: ${taskInfo?.asset?.quantity}",
-                                        style: const TextStyle(
-                                            color: AppColor.blackColor,
-                                            fontSize: 18)),
-                                  ),
-                                  SizedBox(
-                                    child: Text(
-                                        "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
-                                        style: const TextStyle(
-                                            color: AppColor.blackColor,
-                                            fontSize: 18)),
-                                  ),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xff0c4377),
+                                  Color(0xff114c81),
+                                  Color(0xff134777),
+                                  Color(0xff1960a1),
                                 ],
                               ),
                             ),
+                            height: taskController.isExpanded.value ? 320 : 220,
+                            child: Column(
+                              children: [
+                                Theme(
+                                  data: ThemeData().copyWith(
+                                      dividerColor: Colors.transparent),
+                                  child: ExpansionTile(
+                                    onExpansionChanged: (value) {
+                                      taskController.isExpanded.value = value;
+                                    },
+                                    leading: const Icon(
+                                        Icons.add_chart_outlined,
+                                        size: 30,
+                                        color: Colors.white),
+                                    title: Text(
+                                      "${taskInfo?.typeObj?.displayName}",
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    trailing: const Icon(Icons.info,
+                                        color: AppColor.whiteColor),
+                                    expandedAlignment: Alignment.topLeft,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        height: 100,
+                                        child: SingleChildScrollView(
+                                          child: Text(
+                                            "${taskInfo?.description}",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 30,
+                                      width: 175,
+                                      child: ListTile(
+                                        leading: const Icon(Icons.room,
+                                            color: Colors.white, size: 25),
+                                        title: Text(
+                                          'Phòng ${taskInfo?.currentRoom?.roomCode}',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                      width: 185,
+                                      child: ListTile(
+                                        leading: const Icon(Icons.event,
+                                            color: Colors.white, size: 25),
+                                        title: Text(
+                                          formattedDate,
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 15, bottom: 15),
+                                  height: 30,
+                                  child: ListTile(
+                                    leading: Container(
+                                      width: 25,
+                                      height: 25,
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(100)),
+                                          color: Colors.white),
+                                      child: Icon(statusIcon,
+                                          color: statusColor, size: 20),
+                                    ),
+                                    title: Text(
+                                      'Trạng thái: ${taskInfo?.statusObj?.displayName}',
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                  child: ListTile(
+                                    leading: const Icon(Icons.key_rounded,
+                                        color: Colors.white, size: 25),
+                                    title: Text(
+                                      "Mã: ${taskInfo?.requestCode}",
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15, bottom: 12),
+                            child: Text("Thông Tin Thiết Bị Cần Kiểm Tra:",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20)),
+                          ),
+                          Container(
+                            height: 300,
+                            padding: const EdgeInsets.only(left: 15, right: 15),
+                            child: Accordion(
+                              paddingListTop: 0,
+                              paddingListBottom: 0,
+                              maxOpenSections: 1,
+                              headerBackgroundColorOpened: Colors.black54,
+                              headerPadding: const EdgeInsets.symmetric(
+                                  vertical: 7, horizontal: 15),
+                              children: [
+                                AccordionSection(
+                                  isOpen: false,
+                                  leftIcon: const Icon(Icons.compare_rounded,
+                                      color: Colors.white),
+                                  header: Text('${taskInfo?.asset?.assetName}',
+                                      style: const TextStyle(
+                                          color: AppColor.whiteColor, fontSize: 18)),
+                                  headerBackgroundColor: Colors.black38,
+                                  headerBackgroundColorOpened:
+                                  const Color(0xff1960a1),
+                                  contentBorderColor: Colors.black54,
+                                  content: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          child: Text(
+                                              "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
+                                              style: const TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontSize: 18)),
+                                        ),
+                                        SizedBox(
+                                          child: Text(
+                                              "Số lượng: ${taskInfo?.asset?.quantity}",
+                                              style: const TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontSize: 18)),
+                                        ),
+                                        SizedBox(
+                                          child: Text(
+                                              "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
+                                              style: const TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontSize: 18)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
                         ],
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        String nonID = taskInfo?.id ??
-                            "00000000-0000-0000-0000-000000000000";
-                        switch (taskInfo?.status) {
-                          case 1:
-                            taskController.acceptTask(nonID);
-                            break;
-                          case 2:
-                            Get.to(() => ReportPage());
-                            break;
-                          case 3:
-                            Utils.snackBar(
-                                "Thông báo:", "Nhiệm vụ đã được báo cáo");
-                            break;
-                          case 4:
-                            Utils.snackBar(
-                                "Thông báo:", "Nhiệm vụ đã hoàn thành");
-                            break;
-                          case 5:
-                            Utils.snackBar(
-                                "Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
-                            break;
-                          default:
-                            // Handle the default case if needed
-                            break;
-                        }
-                      },
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: submitColor,
-                            borderRadius: BorderRadius.circular(15)),
-                        margin: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(submitIcon, color: AppColor.whiteColor),
-                            submitText
-                          ],
-                        ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      String nonID = taskInfo?.id ??
+                          "00000000-0000-0000-0000-000000000000";
+                      switch (taskInfo?.status) {
+                        case 1:
+                          taskController.acceptTask(nonID);
+                          break;
+                        case 2:
+                          Get.to(() => ReportPage());
+                          break;
+                        case 3:
+                          Utils.snackBar(
+                              "Thông báo:", "Nhiệm vụ đã được báo cáo");
+                          break;
+                        case 4:
+                          Utils.snackBar(
+                              "Thông báo:", "Nhiệm vụ đã hoàn thành");
+                          break;
+                        case 5:
+                          Utils.snackBar(
+                              "Thông báo:", "Nhiệm vụ đã bị hủy bỏ");
+                          break;
+                        default:
+                        // Handle the default case if needed
+                          break;
+                      }
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: submitColor,
+                          borderRadius: BorderRadius.circular(15)),
+                      margin: const EdgeInsets.all(15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(submitIcon, color: AppColor.whiteColor),
+                          submitText
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             case StatusAPI.ERROR:
               if (taskController.error.value == 'No internet') {
