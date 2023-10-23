@@ -14,9 +14,8 @@ class AppUrl {
   static const String putUserInfo = '$baseUrl/account';
 
   //Notification API
-  static const String getListNotification =
-      '$baseUrl/notification?order_by=created_at%20desc';
-
+  static const String getListNotification = '$baseUrl/notification?order_by=created_at%20desc';
+  static const String putIdNotification = '$baseUrl/notification';
   //Tasks API
   static const String getListTask = '$baseUrl/task?order_by=RequestDate%20desc';
   static const String getListProcessTask = '$baseUrl/task?status=2&order_by=RequestDate%20desc';

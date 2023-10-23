@@ -152,7 +152,6 @@ class NetworkApiServices extends BaseApiService {
 
   Future<dynamic> putApiAuthorNoData(String url) async {
     dynamic responseJson;
-    print(url);
     try {
       UserPreference userPreference = UserPreference();
       UsersModel userInfo = await userPreference.getUserInfo();

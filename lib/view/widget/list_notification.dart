@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exception_widget.dart';
+import 'loading_noti_list.dart';
 
 class NotificationPopUp extends StatelessWidget {
   NotificationPopUp({super.key});
-  final notificationController = Get.put(NotificationController());
+  final notificationController = Get.find<NotificationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +37,10 @@ class NotificationPopUp extends StatelessWidget {
           Obx(() {
             switch (notificationController.rxRequestStatus.value) {
               case StatusAPI.LOADING:
-                return Center(
-                    child: Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  child: const CircularProgressIndicator(
-                      color: AppColor.primaryColor),
-                ));
+                return const SizedBox(
+                      height: 510,
+                  child: LoadingListNotification(),
+                );
               case StatusAPI.COMPLETED:
                 return SizedBox(
                   height: 500,
@@ -49,7 +48,8 @@ class NotificationPopUp extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: notificationController
-                        .notificationList.value.data!.length,
+                            .notificationList.value.data?.length ??
+                        0,
                     itemBuilder: (BuildContext context, int index) {
                       final notification = notificationController
                           .notificationList.value.data![index];
@@ -59,7 +59,11 @@ class NotificationPopUp extends StatelessWidget {
                           DateFormat('dd-MM-yyyy').format(date);
                       return GestureDetector(
                         onTap: () {
-                          print("TAP! TAP !${notification.itemId}");
+                          if (!notification.isRead!) {
+                            notificationController.readNotification(
+                                notification.id ??
+                                    "00000000-0000-0000-0000-000000000000");
+                          }
                         },
                         child: Container(
                           height: 110,
@@ -69,7 +73,7 @@ class NotificationPopUp extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             color: notification.isRead!
-                                ? const Color(0xA6B7AAAA)
+                                ? const Color(0xA6625F5F)
                                 : AppColor.orangeColor,
                           ),
                           child: Row(
@@ -81,20 +85,19 @@ class NotificationPopUp extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(notification.title!.toString(),
+                                    Text("${notification.title}",
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,
                                             color: AppColor.whiteColor)),
-                                    Text(notification.content!.toString(),
+                                    Text("${notification.content}",
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             fontSize: 15,
                                             color: AppColor.whiteColor),
                                         maxLines: 2),
-                                    Text(
-                                        "ID: ${notification.id!.toString()}",
+                                    Text("ID: ${notification.id}",
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             fontSize: 12,

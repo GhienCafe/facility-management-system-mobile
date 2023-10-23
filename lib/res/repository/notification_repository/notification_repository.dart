@@ -9,4 +9,9 @@ class NotificationRepository {
     dynamic response = await _apiService.getApiAuthor(AppUrl.getListNotification);
     return NotificationListModel.fromJson(response);
   }
+
+  Future<dynamic> readNotificationApi(String id) async {
+    dynamic response = await _apiService.putApiAuthorNoData("${AppUrl.putIdNotification}/$id");
+    return response;
+  }
 }

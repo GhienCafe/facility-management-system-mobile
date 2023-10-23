@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:FMS/models/notification/notification_model.dart';
 import 'package:FMS/res/repository/notification_repository/notification_repository.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -6,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/response/status.dart';
+import '../../../utlis/utlis.dart';
 
 class NotificationController {
   final _api = NotificationRepository();
@@ -28,6 +31,18 @@ class NotificationController {
               setError(error.toString()),
               setRexRequestStatus(StatusAPI.ERROR),
             });
+  }
+
+  void readNotification(String id){
+    _api.readNotificationApi(id).then((value) {
+      if (value['status_code'] == 200 || value['status_code'] == 201) {
+        refreshApi();
+      } else {
+        //Utils.snackBarError("Thông báo", "Báo cáo không thành công");
+      }
+    }).onError((error, stackTrace) {
+      Utils.snackBar('Có lỗi xảy ra: ', error.toString());
+    });
   }
 
   void refreshApi() {

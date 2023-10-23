@@ -27,15 +27,20 @@ class TaskController extends GetxController {
   RxInt selectedIndex = 0.obs;
 
   void setRexRequestStatus(StatusAPI value) => rxRequestStatus.value = value;
-  void setRexRequestWaitingStatus(StatusAPI value) => rxRequestWaitingStatus.value = value;
-  void setRexRequestProcessStatus(StatusAPI value) => rxRequestProcessStatus.value = value;
-  void setRexRequestCompleteStatus(StatusAPI value) => rxRequestCompleteStatus.value = value;
-  void setRexRequestDetailStatus(StatusAPI value) => rxRequestDetailStatus.value = value;
+  void setRexRequestWaitingStatus(StatusAPI value) =>
+      rxRequestWaitingStatus.value = value;
+  void setRexRequestProcessStatus(StatusAPI value) =>
+      rxRequestProcessStatus.value = value;
+  void setRexRequestCompleteStatus(StatusAPI value) =>
+      rxRequestCompleteStatus.value = value;
+  void setRexRequestDetailStatus(StatusAPI value) =>
+      rxRequestDetailStatus.value = value;
 
   void setTaskList(TaskListModel value) => taskList.value = value;
   void setTaskWaitingList(TaskListModel value) => taskListWaiting.value = value;
   void setTaskProcessList(TaskListModel value) => taskListProcess.value = value;
-  void setTaskCompleteList(TaskListModel value) => taskListSuccess.value = value;
+  void setTaskCompleteList(TaskListModel value) =>
+      taskListSuccess.value = value;
   void setTaskDetail(TaskDetailModel value) => taskDetail.value = value;
   void setError(String value) => error.value = value;
 
@@ -56,39 +61,39 @@ class TaskController extends GetxController {
     _api
         .taskListProcessApi()
         .then((value) => {
-      setRexRequestProcessStatus(StatusAPI.COMPLETED),
-      setTaskProcessList(value),
-    })
+              setRexRequestProcessStatus(StatusAPI.COMPLETED),
+              setTaskProcessList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestProcessStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestProcessStatus(StatusAPI.ERROR),
+            });
   }
 
   void taskListCompleteApi() {
     _api
         .taskListCompleteApi()
         .then((value) => {
-      setRexRequestCompleteStatus(StatusAPI.COMPLETED),
-      setTaskCompleteList(value),
-    })
+              setRexRequestCompleteStatus(StatusAPI.COMPLETED),
+              setTaskCompleteList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestCompleteStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestCompleteStatus(StatusAPI.ERROR),
+            });
   }
 
   void taskListWaitingApi() {
     _api
         .taskListWaitingApi()
         .then((value) => {
-      setRexRequestWaitingStatus(StatusAPI.COMPLETED),
-      setTaskWaitingList(value),
-    })
+              setRexRequestWaitingStatus(StatusAPI.COMPLETED),
+              setTaskWaitingList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestWaitingStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestWaitingStatus(StatusAPI.ERROR),
+            });
   }
 
   void taskDetailApi(String? id) {

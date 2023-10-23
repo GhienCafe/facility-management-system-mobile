@@ -13,7 +13,7 @@ class _LoadingTaskPageState extends State<LoadingTaskPage> {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      highlightColor: Colors.grey[500]!,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
