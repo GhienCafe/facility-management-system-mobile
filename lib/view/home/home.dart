@@ -232,10 +232,10 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.search,
+                          Icon(Icons.equalizer,
                               color: AppColor.primaryColor, size: 70),
                           SizedBox(width: 20),
-                          Text("Nhiệm Vụ",
+                          Text("Thống Kê",
                               style: TextStyle(
                                 color: AppColor.primaryColor,
                                 fontSize: 20,

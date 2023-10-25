@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:get/get.dart';
+
+import '../../utlis/utlis.dart';
+import '../../view_models/controller/qr/qr_controller.dart';
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+  final String taskInfoId;
+  const QRViewExample({Key? key, required this.taskInfoId}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
@@ -12,6 +17,8 @@ class _QRViewExampleState extends State<QRViewExample> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  final qrController = Get.put(QRController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -132,13 +139,18 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
+    this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      controller.pauseCamera();
+      result = scanData;
+      final String? qrCode = scanData.code;
+      if(qrCode == widget.taskInfoId){
+        Get.back();
+        Utils.snackBarSuccess("Thông Báo:", "Thiết Bị Trùng Khớp");
+      } else{
+        Get.back();
+        Utils.snackBarError("Thông Báo:", "Thiết Bị Không Trùng Khớp");
+      }
     });
   }
 

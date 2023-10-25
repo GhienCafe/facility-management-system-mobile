@@ -9,6 +9,7 @@ import '../../../res/components/internet_exception_widget.dart';
 import '../../../res/routes/routes_name.dart';
 import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/task/task_controller.dart';
+import '../../qr_code/qr_scan_code.dart';
 import '../../report/report.dart';
 import '../../widget/loading_task_detail.dart';
 
@@ -149,10 +150,10 @@ class ReplaceTask extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            height: taskController.isExpanded.value ? 320 : 220,
+                            height: taskController.isExpanded.value ? 340 : 250,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Theme(
                                   data: ThemeData().copyWith(
@@ -163,14 +164,14 @@ class ReplaceTask extends StatelessWidget {
                                     },
                                     leading: const Icon(
                                         Icons.add_chart_outlined,
-                                        size: 30,
+                                        size: 25,
                                         color: Colors.white),
                                     title: Text(
                                       "${taskInfo?.typeObj?.displayName}",
                                       style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     trailing: const Icon(Icons.info,
                                         color: AppColor.whiteColor),
@@ -193,13 +194,14 @@ class ReplaceTask extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
                                   height: 30,
                                   child: ListTile(
-                                    leading: const Icon(Icons.event,
+                                    leading: const Icon(Icons.room,
                                         color: Colors.white, size: 25),
                                     title: Text(
-                                      formattedDate,
+                                      'Phòng: ${taskInfo?.toRoom?.roomCode}',
                                       style: const TextStyle(
                                         fontSize: 18,
                                         color: Colors.white,
@@ -208,8 +210,22 @@ class ReplaceTask extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 15, bottom: 15),
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  height: 30,
+                                  child: ListTile(
+                                    leading: const Icon(Icons.event,
+                                        color: Colors.white, size: 25),
+                                    title: Text(
+                                      "Ngày yêu cầu: $formattedDate",
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
                                   height: 30,
                                   child: ListTile(
                                     leading: Container(
@@ -237,7 +253,7 @@ class ReplaceTask extends StatelessWidget {
                                     leading: const Icon(Icons.key_rounded,
                                         color: Colors.white, size: 25),
                                     title: Text(
-                                      "Mã: ${taskInfo?.requestCode}",
+                                      "Mã nhiệm vụ: ${taskInfo?.requestCode}",
                                       style: const TextStyle(
                                         fontSize: 18,
                                         color: Colors.white,
@@ -284,36 +300,58 @@ class ReplaceTask extends StatelessWidget {
                                         contentBorderColor: Colors.black54,
                                         content: Align(
                                           alignment: Alignment.centerLeft,
-                                          child: Column(
+                                          child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              SizedBox(
-                                                child: Text(
-                                                    "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
-                                                    style: const TextStyle(
-                                                        color:
-                                                            AppColor.blackColor,
-                                                        fontSize: 18)),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    child: Text(
+                                                        "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
+                                                        style: const TextStyle(
+                                                            color: AppColor
+                                                                .blackColor,
+                                                            fontSize: 18)),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Text(
+                                                        "Số lượng: ${taskInfo?.asset?.quantity}",
+                                                        style: const TextStyle(
+                                                            color: AppColor
+                                                                .blackColor,
+                                                            fontSize: 18)),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Text(
+                                                        "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
+                                                        style: const TextStyle(
+                                                            color: AppColor
+                                                                .blackColor,
+                                                            fontSize: 18)),
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                child: Text(
-                                                    "Số lượng: ${taskInfo?.asset?.quantity}",
-                                                    style: const TextStyle(
-                                                        color:
-                                                            AppColor.blackColor,
-                                                        fontSize: 18)),
-                                              ),
-                                              SizedBox(
-                                                child: Text(
-                                                    "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
-                                                    style: const TextStyle(
-                                                        color:
-                                                            AppColor.blackColor,
-                                                        fontSize: 18)),
-                                              ),
+                                              const VerticalDivider(
+                                                  thickness: 10,
+                                                  color: AppColor.blackColor,
+                                                  width: 2),
+                                              IconButton(
+                                                tooltip: "Scan QR Thiết Bị",
+                                                icon: const Icon(
+                                                    Icons
+                                                        .qr_code_scanner_outlined,
+                                                    size: 40),
+                                                onPressed: () {
+                                                  Get.to(() => QRViewExample(
+                                                      taskInfoId: taskInfo?.asset?.id ??
+                                                          "00000000-0000-0000-0000-000000000000"));
+                                                },
+                                              )
                                             ],
                                           ),
                                         ),
@@ -360,36 +398,58 @@ class ReplaceTask extends StatelessWidget {
                                         contentBorderColor: Colors.black54,
                                         content: Align(
                                           alignment: Alignment.centerLeft,
-                                          child: Column(
+                                          child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              SizedBox(
-                                                child: Text(
-                                                    "Mã Thiết bị: ${taskInfo?.newAsset?.assetCode}",
-                                                    style: const TextStyle(
-                                                        color:
-                                                            AppColor.blackColor,
-                                                        fontSize: 18)),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    child: Text(
+                                                        "Mã Thiết bị: ${taskInfo?.newAsset?.assetCode}",
+                                                        style: const TextStyle(
+                                                            color: AppColor
+                                                                .blackColor,
+                                                            fontSize: 18)),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Text(
+                                                        "Số lượng: ${taskInfo?.newAsset?.quantity}",
+                                                        style: const TextStyle(
+                                                            color: AppColor
+                                                                .blackColor,
+                                                            fontSize: 18)),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Text(
+                                                        "Vị trí: Phòng ${taskInfo?.toRoom?.roomCode}",
+                                                        style: const TextStyle(
+                                                            color: AppColor
+                                                                .blackColor,
+                                                            fontSize: 18)),
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                child: Text(
-                                                    "Số lượng: ${taskInfo?.newAsset?.quantity}",
-                                                    style: const TextStyle(
-                                                        color:
-                                                            AppColor.blackColor,
-                                                        fontSize: 18)),
-                                              ),
-                                              SizedBox(
-                                                child: Text(
-                                                    "Vị trí: Phòng ${taskInfo?.toRoom?.roomCode}",
-                                                    style: const TextStyle(
-                                                        color:
-                                                            AppColor.blackColor,
-                                                        fontSize: 18)),
-                                              ),
+                                              const VerticalDivider(
+                                                  thickness: 10,
+                                                  color: AppColor.blackColor,
+                                                  width: 2),
+                                              IconButton(
+                                                tooltip: "Scan QR Thiết Bị",
+                                                icon: const Icon(
+                                                    Icons
+                                                        .qr_code_scanner_outlined,
+                                                    size: 40),
+                                                onPressed: () {
+                                                  Get.to(() => QRViewExample(
+                                                      taskInfoId: taskInfo?.newAsset?.id ??
+                                                          "00000000-0000-0000-0000-000000000000"));
+                                                },
+                                              )
                                             ],
                                           ),
                                         ),

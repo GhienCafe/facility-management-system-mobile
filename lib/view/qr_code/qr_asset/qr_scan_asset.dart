@@ -1,5 +1,7 @@
+import 'package:FMS/view_models/controller/qr/qr_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:get/get.dart';
 
 import '../../../res/color/colors.dart';
 
@@ -12,6 +14,7 @@ class QRViewAsset extends StatefulWidget {
 
 class _QRViewAssetState extends State<QRViewAsset> {
   Barcode? result;
+  final qrController = Get.put(QRController());
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -158,6 +161,7 @@ class _QRViewAssetState extends State<QRViewAsset> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
+      controller.pauseCamera();
       setState(() {
         result = scanData;
       });
