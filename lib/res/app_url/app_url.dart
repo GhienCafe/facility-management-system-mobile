@@ -26,6 +26,7 @@ class AppUrl {
   static const String reportTask = '$baseUrl/task?status=3';
 
   //Asset API
+  static const String getAsset = '$baseUrl/asset';
 
   // Example
   static const String userListApi =
