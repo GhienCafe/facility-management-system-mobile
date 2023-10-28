@@ -1,3 +1,4 @@
+import 'package:FMS/view/report/report_check.dart';
 import 'package:FMS/view/widget/loading_task_detail.dart';
 import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ import '../../../res/routes/routes_name.dart';
 import '../../../utlis/utlis.dart';
 import '../../../view_models/controller/task/task_controller.dart';
 import '../../qr_code/qr_scan_code.dart';
-import '../../report/report.dart';
 
 class CheckTask extends StatelessWidget {
   final String? taskId;
@@ -367,7 +367,7 @@ class CheckTask extends StatelessWidget {
                           taskController.acceptTask(nonID);
                           break;
                         case 2:
-                          Get.to(() => ReportPage());
+                          Get.to(() => ReportCheckPage());
                           break;
                         case 3:
                           Utils.snackBar(

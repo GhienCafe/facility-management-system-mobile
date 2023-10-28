@@ -9,10 +9,10 @@ import '../../res/color/colors.dart';
 import '../../view_models/controller/report/report_controller.dart';
 import '../../view_models/controller/task/task_controller.dart';
 
-class ReportPage extends StatelessWidget {
+class ReportCheckPage extends StatelessWidget {
   final taskController = Get.find<TaskController>();
   final reportController = Get.put(ReportController());
-  ReportPage({super.key});
+  ReportCheckPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +67,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
   List<File> images = [];
   TextEditingController nameController = TextEditingController();
   bool _isLoading = false;
+  bool isVerified = false;
   final reportController = Get.find<ReportController>();
   final taskController = Get.find<TaskController>();
   List<String> downloadUrls = [];
@@ -203,6 +204,28 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
           const SizedBox(
             height: 10,
           ),
+          Row(
+            children: [
+              const SizedBox(
+                width: 180,
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  leading: Icon(Icons.construction, color: Colors.grey),
+                  title: Text("Cần Sửa Chữa:",
+                      style: TextStyle(fontSize: 20, color: Colors.grey)),
+                ),
+              ),
+              Checkbox(
+                value: isVerified,
+                onChanged: (newValue) {
+                  setState(() {
+                    isVerified = newValue!;
+                    print(isVerified);
+                  });
+                },
+              ),
+            ],
+          ),
           const ListTile(
             contentPadding: EdgeInsets.all(0),
             leading: Icon(Icons.description, color: Colors.grey),
@@ -233,13 +256,10 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
               final taskInfo = taskController.taskDetail.value.data;
               String nonID =
                   taskInfo?.id ?? "00000000-0000-0000-0000-000000000000";
-
-              // Check if the nameController and downloadUrls are empty
               if (nameController.text.isEmpty && downloadUrls.isEmpty) {
                 Utils.snackBar(
                     "Lưu Ý", "Hình ảnh và mô tả không được để trống");
               } else {
-                // Show the loading indicator
                 setState(() {
                   _isLoading = true;
                 });
@@ -247,9 +267,8 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                   String url = await uploadFile(images[i]);
                   downloadUrls.add(url);
                   if (i == images.length - 1) {
-                    reportController.reportTask(
-                        nonID, nameController.text, downloadUrls);
-                    // Hide the loading indicator when the operation is complete
+                    reportController.reportCheckTask(
+                        nonID, nameController.text, downloadUrls, isVerified);
                     setState(() {
                       _isLoading = false;
                     });

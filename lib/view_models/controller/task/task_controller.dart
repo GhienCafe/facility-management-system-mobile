@@ -117,11 +117,15 @@ class TaskController extends GetxController {
       "file_name": "string",
       "key": "string",
       "raw_uri": "string",
-      "uris": ["string"],
+      "uris": [
+        "string"
+      ],
       "extensions": "string",
       "file_type": 1,
       "content": "string",
-      "item_id": id
+      "item_id": id,
+      "status": 2,
+      "is_verified": true
     };
     _api.acceptTask(data).then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {

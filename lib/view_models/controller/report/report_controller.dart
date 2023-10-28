@@ -7,7 +7,6 @@ import '../../../utlis/utlis.dart';
 import '../task/task_controller.dart';
 
 class ReportController extends GetxController {
-
   final taskController = Get.find<TaskController>();
   final _api = ReportRepository();
   final rxRequestStatus = StatusAPI.LOADING.obs;
@@ -16,9 +15,8 @@ class ReportController extends GetxController {
   void setRexRequestStatus(StatusAPI _value) => rxRequestStatus.value = _value;
   void setError(String _value) => error.value = _value;
 
-
-  void reportTask(String id, String description, List<String> image)  async {
-    Map data={
+  void reportTask(String id, String description, List<String> image) async {
+    Map data = {
       "file_name": "string",
       "key": "string",
       "raw_uri": "string",
@@ -26,7 +24,9 @@ class ReportController extends GetxController {
       "extensions": "string",
       "file_type": 1,
       "content": description,
-      "item_id": id
+      "item_id": id,
+      "status": 3,
+      "is_verified": null
     };
     _api.reportTask(data).then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
@@ -43,4 +43,32 @@ class ReportController extends GetxController {
     });
   }
 
+  void reportCheckTask(String id, String description, List<String> image,
+      bool isVerified) async {
+    Map data = {
+      "file_name": "string",
+      "key": "string",
+      "raw_uri": "string",
+      "uris": image,
+      "extensions": "string",
+      "file_type": 1,
+      "content": description,
+      "item_id": id,
+      "status": 3,
+      "is_verified": isVerified
+    };
+    _api.reportTask(data).then((value) {
+      if (value['status_code'] == 200 || value['status_code'] == 201) {
+        Get.back();
+        taskController.refreshDetailApi(id);
+        Timer(const Duration(seconds: 1), () {
+          Utils.snackBarSuccess("Thông báo", "Báo cáo thành công");
+        });
+      } else {
+        Utils.snackBarError("Thông báo", "Báo cáo không thành công");
+      }
+    }).onError((error, stackTrace) {
+      Utils.snackBar('Có lỗi xảy ra: ', error.toString());
+    });
+  }
 }
