@@ -15,11 +15,11 @@ import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exception_widget.dart';
 
 class DataListWidget extends StatelessWidget {
+  final taskController = Get.find<TaskController>();
   DataListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final taskController = Get.find<TaskController>();
     return Obx(
       () {
         switch (taskController.rxRequestStatus.value) {
@@ -93,7 +93,7 @@ class DataListWidget extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      height: 170,
+                      height: MediaQuery.of(context).size.height * .22,
                       width: double.infinity,
                       margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.all(25),
@@ -117,12 +117,12 @@ class DataListWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: 270,
+                            width: MediaQuery.of(context).size.width * .60,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 30,
+                                  height: MediaQuery.of(context).size.height * .04,
                                   child: Text(
                                       task.typeObj!.displayName.toString(),
                                       overflow: TextOverflow.ellipsis,
@@ -133,7 +133,7 @@ class DataListWidget extends StatelessWidget {
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 SizedBox(
-                                  height: 55,
+                                  height: MediaQuery.of(context).size.height * .08,
                                   child: Text(task.description.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -142,7 +142,6 @@ class DataListWidget extends StatelessWidget {
                                         color: Colors.white,
                                       )),
                                 ),
-                                const SizedBox(height: 10),
                                 Row(
                                   children: [
                                     const Icon(Icons.event,

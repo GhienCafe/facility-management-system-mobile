@@ -56,7 +56,7 @@ class QRResultAsset extends StatelessWidget {
                 String formattedDate = DateFormat('dd-MM-yyyy').format(date);
                 return Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * .30,
                       width: MediaQuery.of(context).size.width * .90,
                       child: Image.network(

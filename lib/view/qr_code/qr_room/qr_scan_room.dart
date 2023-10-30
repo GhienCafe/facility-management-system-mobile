@@ -1,6 +1,8 @@
 import 'package:FMS/res/color/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:get/get.dart';
+import '../../../view_models/controller/qr/qr_room_controller.dart';
 
 class QRViewRoom extends StatefulWidget {
   const QRViewRoom({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class QRViewRoom extends StatefulWidget {
 class _QRViewRoomState extends State<QRViewRoom> {
   Barcode? result;
   QRViewController? controller;
+  final qrController = Get.put(QRRoomController());
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   @override
@@ -156,9 +159,12 @@ class _QRViewRoomState extends State<QRViewRoom> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      controller.pauseCamera();
+      result = scanData;
+      final String? qrCode = scanData.code;
+      if(qrCode!.isNotEmpty){
+        qrController.viewRoom(qrCode);
+      }
     });
   }
 

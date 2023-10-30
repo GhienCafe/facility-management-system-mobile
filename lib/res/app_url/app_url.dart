@@ -28,6 +28,10 @@ class AppUrl {
   //Asset API
   static const String getAsset = '$baseUrl/asset';
 
+  //Room API
+  static const String getInfoRoom = '$baseUrl/room';
+  static const String getAssetInRoom = '$baseUrl/asset/room';
+  
   // Example
   static const String userListApi =
       'https://webhook.site/f00a7330-d81d-4622-913a-c2058fdaf076';

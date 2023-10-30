@@ -309,7 +309,6 @@ class TransferTask extends StatelessWidget {
                                         content: Align(
                                           alignment: Alignment.centerLeft,
                                           child:
-
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
