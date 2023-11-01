@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../data/response/status.dart';
 import '../../../models/assets/asset_model.dart';
 import '../../../res/repository/qr_repository/qr_repository.dart';
+import '../../../res/routes/routes_name.dart';
 import '../../../view/qr_code/qr_asset/qr_view_asset.dart';
 
 class QRController extends GetxController {
@@ -20,14 +21,25 @@ class QRController extends GetxController {
     _api
         .scanAsset(id)
         .then((value) => {
-      setRexRequestStatus(StatusAPI.COMPLETED),
-      setCurrentAsset(value),
-      Get.to(() => QRResultAsset(id: id,))
-    })
+              setRexRequestStatus(StatusAPI.COMPLETED),
+              if (value.statusCode != 200)
+                {
+                  Get.toNamed(RouteName.homeScreen),
+                  Utils.snackBarError(
+                      "Xảy ra lỗi:", "Không tìm thấy thông tin thiết bị"),
+                }
+              else
+                {
+                  setCurrentAsset(value),
+                  Get.to(() => QRResultAsset(
+                        id: id,
+                      ))
+                },
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestStatus(StatusAPI.ERROR),
+            });
   }
 
   void refreshApi(String id) {
@@ -35,13 +47,13 @@ class QRController extends GetxController {
     _api
         .scanAsset(id)
         .then((value) => {
-      setRexRequestStatus(StatusAPI.COMPLETED),
-      setCurrentAsset(value),
-    })
+              setRexRequestStatus(StatusAPI.COMPLETED),
+              setCurrentAsset(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestStatus(StatusAPI.ERROR),
+            });
   }
 
   void updateQRData(String data) {
