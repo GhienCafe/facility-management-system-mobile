@@ -1,4 +1,3 @@
-import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -170,10 +169,9 @@ class TransferTask extends StatelessWidget {
                                     title: Text(
                                       "${taskInfo?.typeObj?.displayName}",
                                       style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold
-                                      ),
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     trailing: const Icon(Icons.info,
                                         color: AppColor.whiteColor),
@@ -285,85 +283,96 @@ class TransferTask extends StatelessWidget {
                                 final asset = taskController
                                     .taskDetail.value.data?.assets?[index];
                                 if (asset != null) {
-                                  return Accordion(
-                                    paddingListTop: 0,
-                                    paddingListBottom: 0,
-                                    maxOpenSections: 1,
-                                    headerBackgroundColorOpened: Colors.black54,
-                                    headerPadding: const EdgeInsets.symmetric(
-                                        vertical: 7, horizontal: 15),
-                                    children: [
-                                      AccordionSection(
-                                        isOpen: false,
-                                        leftIcon: const Icon(Icons.info,
-                                            color: Colors.white),
-                                        header: Text(
-                                            '${asset.asset?.assetName}',
-                                            style: const TextStyle(
-                                                color: AppColor.whiteColor,
-                                                fontSize: 18)),
-                                        headerBackgroundColor: Colors.black38,
-                                        headerBackgroundColorOpened:
-                                            const Color(0xff1960a1),
-                                        contentBorderColor: Colors.black54,
-                                        content: Align(
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    child: ExpansionTile(
+                                      expandedAlignment: Alignment.topLeft,
+                                      backgroundColor: const Color(0xff0c4377),
+                                      collapsedBackgroundColor: Colors.grey,
+                                      leading: const Icon(Icons.compare_rounded,
+                                          color: Colors.white),
+                                      title: Text(
+                                          '${asset.asset?.assetName}',
+                                          style: const TextStyle(
+                                              color: AppColor.whiteColor,
+                                              fontSize: 18)),
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20))),
+                                      collapsedShape:
+                                          const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                      children: [
+                                        Align(
                                           alignment: Alignment.centerLeft,
-                                          child:
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: [
                                               Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   SizedBox(
-                                                    height: 30,
                                                     child: Text(
                                                         "Mã Thiết bị: ${asset.asset?.assetCode}",
                                                         style: const TextStyle(
-                                                            color:
-                                                            AppColor.blackColor,
+                                                            color: AppColor
+                                                                .whiteColor,
                                                             fontSize: 18)),
                                                   ),
                                                   SizedBox(
-                                                    height: 30,
+                                                    width: 230,
                                                     child: Text(
-                                                        "Số lượng: ${asset.asset?.quantity}",
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        "Mô tả: ${asset.asset?.description}",
                                                         style: const TextStyle(
-                                                            color:
-                                                            AppColor.blackColor,
+                                                            color: AppColor
+                                                                .whiteColor,
                                                             fontSize: 18)),
                                                   ),
                                                   SizedBox(
-                                                    height: 30,
                                                     child: Text(
-                                                        "Vị trí: Phòng ${asset.fromRoom?.roomCode}",
+                                                        "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
                                                         style: const TextStyle(
-                                                            color:
-                                                            AppColor.blackColor,
+                                                            color: AppColor
+                                                                .whiteColor,
                                                             fontSize: 18)),
                                                   ),
                                                 ],
                                               ),
                                               const VerticalDivider(
                                                   thickness: 10,
-                                                  color: AppColor.blackColor,
+                                                  color: AppColor.whiteColor,
                                                   width: 2),
                                               IconButton(
                                                 tooltip: "Scan QR Thiết Bị",
                                                 icon: const Icon(
-                                                    Icons.qr_code_scanner_outlined, size: 40),
+                                                    Icons
+                                                        .qr_code_scanner_outlined,
+                                                    size: 40,
+                                                    color: AppColor.whiteColor),
                                                 onPressed: () {
-                                                  Get.to(() => QRViewExample(taskInfoId: taskInfo?.id ?? "00000000-0000-0000-0000-000000000000"));
+                                                  Get.to(() => QRViewExample(
+                                                      taskInfoId: taskInfo
+                                                              ?.asset?.id ??
+                                                          "00000000-0000-0000-0000-000000000000"));
                                                 },
                                               )
                                             ],
-                                          )
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        const SizedBox(
+                                          height: 10,
+                                        )
+                                      ],
+                                    ),
                                   );
                                 } else {
                                   return Container(

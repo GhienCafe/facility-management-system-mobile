@@ -1,6 +1,5 @@
 import 'package:FMS/view/report/report_check.dart';
 import 'package:FMS/view/widget/loading_task_detail.dart';
-import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -272,85 +271,89 @@ class CheckTask extends StatelessWidget {
                                     fontSize: 20)),
                           ),
                           Container(
-                            height: 300,
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: Accordion(
-                              paddingListTop: 0,
-                              paddingListBottom: 0,
-                              maxOpenSections: 1,
-                              headerBackgroundColorOpened: Colors.black54,
-                              headerPadding: const EdgeInsets.symmetric(
-                                  vertical: 7, horizontal: 15),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: ExpansionTile(
+                              expandedAlignment: Alignment.topLeft,
+                              backgroundColor: const Color(0xff0c4377),
+                              collapsedBackgroundColor: Colors.grey,
+                              leading: const Icon(Icons.compare_rounded,
+                                  color: Colors.white),
+                              title: Text('${taskInfo?.asset?.assetName}',
+                                  style: const TextStyle(
+                                      color: AppColor.whiteColor,
+                                      fontSize: 18)),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20))),
+                              collapsedShape:
+                              const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20))),
                               children: [
-                                AccordionSection(
-                                  isOpen: false,
-                                  leftIcon: const Icon(Icons.compare_rounded,
-                                      color: Colors.white),
-                                  header: Text('${taskInfo?.asset?.assetName}',
-                                      style: const TextStyle(
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            child: Text(
+                                                "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
+                                                style: const TextStyle(
+                                                    color: AppColor
+                                                        .whiteColor,
+                                                    fontSize: 18)),
+                                          ),
+                                          SizedBox(
+                                            width: 230,
+                                            child: Text(maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                "Mô tả: ${taskInfo?.asset?.description}",
+                                                style: const TextStyle(
+                                                    color: AppColor
+                                                        .whiteColor,
+                                                    fontSize: 18)),
+                                          ),
+                                          SizedBox(
+                                            child: Text(
+                                                "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
+                                                style: const TextStyle(
+                                                    color: AppColor
+                                                        .whiteColor,
+                                                    fontSize: 18)),
+                                          ),
+                                        ],
+                                      ),
+                                      const VerticalDivider(
+                                          thickness: 10,
                                           color: AppColor.whiteColor,
-                                          fontSize: 18)),
-                                  headerBackgroundColor: Colors.black38,
-                                  headerBackgroundColorOpened:
-                                      const Color(0xff1960a1),
-                                  contentBorderColor: Colors.black54,
-                                  content: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              child: Text(
-                                                  "Mã Thiết bị: ${taskInfo?.asset?.assetCode}",
-                                                  style: const TextStyle(
-                                                      color:
-                                                          AppColor.blackColor,
-                                                      fontSize: 18)),
-                                            ),
-                                            SizedBox(
-                                              child: Text(
-                                                  "Số lượng: ${taskInfo?.asset?.quantity}",
-                                                  style: const TextStyle(
-                                                      color:
-                                                          AppColor.blackColor,
-                                                      fontSize: 18)),
-                                            ),
-                                            SizedBox(
-                                              child: Text(
-                                                  "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
-                                                  style: const TextStyle(
-                                                      color:
-                                                          AppColor.blackColor,
-                                                      fontSize: 18)),
-                                            ),
-                                          ],
-                                        ),
-                                        const VerticalDivider(
-                                            thickness: 10,
-                                            color: AppColor.blackColor,
-                                            width: 2),
-                                        IconButton(
-                                          tooltip: "Scan QR Thiết Bị",
-                                          icon: const Icon(
-                                              Icons.qr_code_scanner_outlined,
-                                              size: 40),
-                                          onPressed: () {
-                                            Get.to(() => QRViewExample(
-                                                taskInfoId: taskInfo?.id ??
-                                                    "00000000-0000-0000-0000-000000000000"));
-                                          },
-                                        )
-                                      ],
-                                    ),
+                                          width: 2),
+                                      IconButton(
+                                        tooltip: "Scan QR Thiết Bị",
+                                        icon: const Icon(
+                                            Icons
+                                                .qr_code_scanner_outlined,
+                                            size: 40,
+                                            color: AppColor.whiteColor),
+                                        onPressed: () {
+                                          Get.to(() => QRViewExample(
+                                              taskInfoId: taskInfo
+                                                  ?.asset?.id ??
+                                                  "00000000-0000-0000-0000-000000000000"));
+                                        },
+                                      )
+                                    ],
                                   ),
                                 ),
+                                const SizedBox(
+                                  height: 10,
+                                )
                               ],
                             ),
                           ),

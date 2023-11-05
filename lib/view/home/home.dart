@@ -1,6 +1,7 @@
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view/note/notes.dart';
 import 'package:FMS/view/qr_code/qr_asset/qr_scan_asset.dart';
+import 'package:FMS/view/statistics/statistics.dart';
 import 'package:FMS/view/widget/list_notification.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -217,32 +218,38 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      width: 150,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color: AppColor.whiteColor,
-                        border: Border.all(
-                          color: AppColor.primaryColor,
-                          width: 2,
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => StatisticsPage());
+                      },
+                      child: Container(
+                        width: 150,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: AppColor.whiteColor,
+                          border: Border.all(
+                            color: AppColor.primaryColor,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.equalizer,
-                              color: AppColor.primaryColor, size: 70),
-                          SizedBox(width: 20),
-                          Text("Thống Kê",
-                              style: TextStyle(
-                                color: AppColor.primaryColor,
-                                fontSize: 20,
-                              )),
-                        ],
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.equalizer,
+                                color: AppColor.primaryColor, size: 70),
+                            SizedBox(width: 20),
+                            Text("Thống Kê",
+                                style: TextStyle(
+                                  color: AppColor.primaryColor,
+                                  fontSize: 20,
+                                )),
+                          ],
+                        ),
                       ),
                     ),
+
                     GestureDetector(
                       onTap: () {
                         Get.to(() => const Note());

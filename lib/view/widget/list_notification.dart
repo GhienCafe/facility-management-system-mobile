@@ -21,15 +21,28 @@ class NotificationPopUp extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Stack(
+          Stack(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  BackButton(color: AppColor.primaryColor),
-                  Text("Thông Báo",
-                      style:
+                  const Row(
+                    children: [
+                      BackButton(color: AppColor.primaryColor),
+                      Text("Thông Báo",
+                          style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        notificationController.readAllNotification();
+                      },
+                      child: const Text(
+                        "Đọc Tất Cả",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                  ),
                 ],
               ),
             ],
@@ -38,7 +51,7 @@ class NotificationPopUp extends StatelessWidget {
             switch (notificationController.rxRequestStatus.value) {
               case StatusAPI.LOADING:
                 return const SizedBox(
-                      height: 510,
+                  height: 510,
                   child: LoadingListNotification(),
                 );
               case StatusAPI.COMPLETED:
@@ -48,11 +61,9 @@ class NotificationPopUp extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: notificationController
-                            .notificationList.value.data?.length ??
-                        0,
+                            .notificationList.value.data?.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
-                      final notification = notificationController
-                          .notificationList.value.data![index];
+                      final notification = notificationController.notificationList.value.data![index];
                       String? jsonDateString = notification.createdAt;
                       DateTime date = DateTime.parse(jsonDateString!);
                       String formattedDate =

@@ -45,6 +45,18 @@ class NotificationController {
     });
   }
 
+  void readAllNotification(){
+    _api.readAllNotificationApi().then((value) {
+      if (value['status_code'] == 200 || value['status_code'] == 201) {
+        refreshApi();
+      } else {
+        //Utils.snackBarError("Thông báo", "Báo cáo không thành công");
+      }
+    }).onError((error, stackTrace) {
+      Utils.snackBar('Có lỗi xảy ra: ', error.toString());
+    });
+  }
+
   void refreshApi() {
     setRexRequestStatus(StatusAPI.LOADING);
     _api
