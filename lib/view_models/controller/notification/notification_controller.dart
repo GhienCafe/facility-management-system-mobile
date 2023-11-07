@@ -31,6 +31,7 @@ class NotificationController {
               setError(error.toString()),
               setRexRequestStatus(StatusAPI.ERROR),
             });
+
   }
 
   void readNotification(String id){
@@ -48,6 +49,7 @@ class NotificationController {
   void readAllNotification(){
     _api.readAllNotificationApi().then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
+
         refreshApi();
       } else {
         //Utils.snackBarError("Thông báo", "Báo cáo không thành công");

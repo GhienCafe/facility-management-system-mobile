@@ -49,20 +49,6 @@ class AttentionPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: MaterialButton(
-              //     color: Colors.blue,
-              //     minWidth: double.infinity,
-              //     shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(8)),
-              //     height: 50,
-              //     onPressed: () {
-              //       Get.to(() => const MultiFileUploadScreen());
-              //     },
-              //     child: const Text("Multi File"),
-              //   ),
-              // ),
               AttentionItem(
                 title: 'Chức Năng Ứng Dụng',
                 content:

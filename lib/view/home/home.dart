@@ -15,6 +15,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../view_models/controller/notification/notification_controller.dart';
 import '../qr_code/qr_room/qr_scan_room.dart';
 import '../widget/custom_card_info.dart';
+import 'package:badges/badges.dart' as badges;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -24,6 +25,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final RxInt currentIndex = 0.obs;
+  RxInt numNotRead = 0.obs;
   final notificationController = Get.put(NotificationController());
   UserPreference userPreference = UserPreference();
   UsersModel? _user;
@@ -32,6 +34,20 @@ class _HomeState extends State<Home> {
     super.initState();
     _loadUserInfo();
     notificationController.notificationListApi();
+    getCurrentNotification();
+  }
+
+  void getCurrentNotification() {
+    int totalNotification =
+        notificationController.notificationList.value.data?.length ?? 0;
+    for (int i = 0; i < totalNotification; i++) {
+      bool isReadNotification = notificationController.notificationList.value.data?[i].isRead ?? false;
+      if( !isReadNotification) {
+        setState(() {
+          numNotRead.value++;
+        });
+      }
+    }
   }
 
   void _loadUserInfo() async {
@@ -100,18 +116,44 @@ class _HomeState extends State<Home> {
               style: TextStyle(color: AppColor.whiteColor),
             ),
             actions: [
-              IconButton(
-                  onPressed: () => showDialog<void>(
+              Obx(
+                    () {
+                  return Container(
+                    margin: const EdgeInsets.only(right: 10, top: 5),
+                    child: numNotRead.value == 0
+                        ? IconButton(
+                      onPressed: () => showDialog<void>(
                         context: context,
                         builder: (BuildContext context) => Dialog(
-                          child: NotificationPopUp(),
+                          child: NotificationPopUp(notRead: numNotRead),
                         ),
                       ),
-                  icon: const Icon(
-                    Icons.add_alert,
-                    color: AppColor.whiteColor,
-                    size: 25,
-                  ))
+                      icon: const Icon(
+                        Icons.add_alert,
+                        color: AppColor.whiteColor,
+                        size: 25,
+                      ),
+                    )
+                        : Badge(
+                      alignment: Alignment.topRight,
+                      label: Text("${numNotRead.value}", style: const TextStyle(fontSize: 8)),
+                      child: IconButton(
+                        onPressed: () => showDialog<void>(
+                          context: context,
+                          builder: (BuildContext context) => Dialog(
+                            child: NotificationPopUp(notRead: numNotRead),
+                          ),
+                        ),
+                        icon: const Icon(
+                          Icons.add_alert,
+                          color: AppColor.whiteColor,
+                          size: 25,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              )
             ],
           ),
           body: SingleChildScrollView(
@@ -332,4 +374,18 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+Widget addBadgeIcon(
+    {required Widget widget,
+    required Icon? badgeIcon,
+    Color badgeColor = Colors.red,
+    badges.BadgeShape badgeShape = badges.BadgeShape.circle}) {
+  return badges.Badge(
+    showBadge: badgeIcon != null,
+    position: badges.BadgePosition.bottomStart(start: -40),
+    badgeContent: badgeIcon,
+    badgeStyle: badges.BadgeStyle(badgeColor: badgeColor, shape: badgeShape),
+    child: widget,
+  );
 }

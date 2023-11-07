@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:FMS/data/response/status.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/controller/notification/notification_controller.dart';
@@ -9,7 +11,8 @@ import '../../res/components/internet_exception_widget.dart';
 import 'loading_noti_list.dart';
 
 class NotificationPopUp extends StatelessWidget {
-  NotificationPopUp({super.key});
+  final RxInt notRead;
+  NotificationPopUp({super.key, required this.notRead});
   final notificationController = Get.find<NotificationController>();
 
   @override
@@ -35,6 +38,7 @@ class NotificationPopUp extends StatelessWidget {
                     ],
                   ),
                   IconButton(onPressed: () {
+                    notRead.value = 0;
                     notificationController.readAllNotification();
                   }, icon: const Icon(Icons.checklist))
                 ],
@@ -64,6 +68,7 @@ class NotificationPopUp extends StatelessWidget {
                           DateFormat('dd-MM-yyyy').format(date);
                       return GestureDetector(
                         onTap: () {
+                          notRead.value--;
                           if (!notification.isRead!) {
                             notificationController.readNotification(
                                 notification.id ??
@@ -71,7 +76,7 @@ class NotificationPopUp extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          height: 110,
+                          height: 120,
                           width: double.infinity,
                           padding: const EdgeInsets.all(10),
                           margin: const EdgeInsets.all(10),
@@ -91,9 +96,10 @@ class NotificationPopUp extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("${notification.title}",
+                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 17,
                                             fontWeight: FontWeight.w500,
                                             color: AppColor.whiteColor)),
                                     Text("${notification.content}",
@@ -102,12 +108,6 @@ class NotificationPopUp extends StatelessWidget {
                                             fontSize: 15,
                                             color: AppColor.whiteColor),
                                         maxLines: 2),
-                                    Text("ID: ${notification.id}",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            color: AppColor.whiteColor),
-                                        maxLines: 1),
                                   ],
                                 ),
                               ),
