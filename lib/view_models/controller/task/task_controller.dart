@@ -155,6 +155,56 @@ class TaskController extends GetxController {
             });
   }
 
+  void refreshAllList() {
+    setRexRequestStatus(StatusAPI.LOADING);
+    setRexRequestWaitingStatus(StatusAPI.LOADING);
+    setRexRequestCompleteStatus(StatusAPI.LOADING);
+    setRexRequestProcessStatus(StatusAPI.LOADING);
+    _api
+        .taskListApi()
+        .then((value) => {
+      setRexRequestStatus(StatusAPI.COMPLETED),
+      setTaskList(value),
+    })
+        .onError((error, stackTrace) => {
+      setError(error.toString()),
+      setRexRequestStatus(StatusAPI.ERROR),
+    });
+
+    _api
+        .taskListWaitingApi()
+        .then((value) => {
+      setRexRequestWaitingStatus(StatusAPI.COMPLETED),
+      setTaskWaitingList(value),
+    })
+        .onError((error, stackTrace) => {
+      setError(error.toString()),
+      setRexRequestWaitingStatus(StatusAPI.ERROR),
+    });
+
+    _api
+        .taskListCompleteApi()
+        .then((value) => {
+      setRexRequestCompleteStatus(StatusAPI.COMPLETED),
+      setTaskCompleteList(value),
+    })
+        .onError((error, stackTrace) => {
+      setError(error.toString()),
+      setRexRequestCompleteStatus(StatusAPI.ERROR),
+    });
+    _api
+        .taskListProcessApi()
+        .then((value) => {
+      setRexRequestProcessStatus(StatusAPI.COMPLETED),
+      setTaskProcessList(value),
+    })
+        .onError((error, stackTrace) => {
+      setError(error.toString()),
+      setRexRequestProcessStatus(StatusAPI.ERROR),
+    });
+
+  }
+
   void refreshDetailApi(String id) {
     setRexRequestDetailStatus(StatusAPI.LOADING);
     _api

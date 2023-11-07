@@ -30,8 +30,8 @@ class _TaskState extends State<Task> {
   }
 
   void refreshData() {
-    selectedTabIndex = 0;
-    taskController.refreshApi();
+
+    taskController.refreshAllList();
   }
 
   Widget buildLoadedPage() {

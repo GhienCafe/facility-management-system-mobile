@@ -24,7 +24,7 @@ class NotificationPopUp extends StatelessWidget {
           Stack(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Row(
                     children: [
@@ -34,15 +34,9 @@ class NotificationPopUp extends StatelessWidget {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                     ],
                   ),
-                  TextButton(
-                      onPressed: () {
-                        notificationController.readAllNotification();
-                      },
-                      child: const Text(
-                        "Đọc Tất Cả",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                  ),
+                  IconButton(onPressed: () {
+                    notificationController.readAllNotification();
+                  }, icon: const Icon(Icons.checklist))
                 ],
               ),
             ],

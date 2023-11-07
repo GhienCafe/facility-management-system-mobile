@@ -218,8 +218,8 @@ Widget loadingAvatar() {
                 borderRadius: BorderRadius.circular(50),
                 color: Colors.white,
               ),
-              width: 100.0,
-              height: 100.0,
+              width: 50.0,
+              height: 50.0,
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),

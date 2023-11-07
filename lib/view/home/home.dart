@@ -122,15 +122,16 @@ class _HomeState extends State<Home> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         Get.toNamed(RouteName.taskScreen);
                       },
+                      borderRadius: BorderRadius.circular(15),
+                      splashColor: Colors.grey.withOpacity(0.5),
                       child: Container(
                         width: 150,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: AppColor.whiteColor,
                           border: Border.all(
                             color: AppColor.primaryColor,
                             width: 2,
@@ -155,9 +156,8 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
-                        //Get.to(const QRViewExample());
                         AwesomeDialog(
                           context: context,
                           dialogType: DialogType.question,
@@ -182,11 +182,12 @@ class _HomeState extends State<Home> {
                           },
                         ).show();
                       },
+                      borderRadius: BorderRadius.circular(15),
+                      splashColor: Colors.grey.withOpacity(0.5),
                       child: Container(
                         width: 150,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: AppColor.whiteColor,
                           border: Border.all(
                             color: AppColor.primaryColor,
                             width: 2,
@@ -218,15 +219,16 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
-                        Get.to(() => StatisticsPage());
+                        Get.to(() => const StatisticsPage());
                       },
+                      borderRadius: BorderRadius.circular(15),
+                      splashColor: Colors.grey.withOpacity(0.5),
                       child: Container(
                         width: 150,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: AppColor.whiteColor,
                           border: Border.all(
                             color: AppColor.primaryColor,
                             width: 2,
@@ -249,16 +251,16 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         Get.to(() => const Note());
                       },
+                      borderRadius: BorderRadius.circular(15),
+                      splashColor: Colors.grey.withOpacity(0.5),
                       child: Container(
                         width: 150,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: AppColor.whiteColor,
                           border: Border.all(
                             color: AppColor.primaryColor,
                             width: 2,

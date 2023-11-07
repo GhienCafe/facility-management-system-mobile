@@ -6,7 +6,6 @@ import '../../../data/response/status.dart';
 import '../../../res/color/colors.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exception_widget.dart';
-import '../../../res/routes/routes_name.dart';
 import '../../../view_models/controller/task/task_controller.dart';
 import '../../qr_code/qr_scan_code.dart';
 import '../../report/report.dart';
@@ -25,7 +24,7 @@ class MaintainTask extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             color: AppColor.whiteColor,
             onPressed: () {
-              Get.toNamed(RouteName.taskScreen);
+              Get.back();
             },
           ),
           automaticallyImplyLeading: false,
