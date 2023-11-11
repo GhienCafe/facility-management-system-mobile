@@ -233,13 +233,10 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
               final taskInfo = taskController.taskDetail.value.data;
               String nonID =
                   taskInfo?.id ?? "00000000-0000-0000-0000-000000000000";
-
-              // Check if the nameController and downloadUrls are empty
               if (nameController.text.isEmpty && downloadUrls.isEmpty) {
                 Utils.snackBar(
                     "Lưu Ý", "Hình ảnh và mô tả không được để trống");
               } else {
-                // Show the loading indicator
                 setState(() {
                   _isLoading = true;
                 });
@@ -249,7 +246,6 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                   if (i == images.length - 1) {
                     reportController.reportTask(
                         nonID, nameController.text, downloadUrls);
-                    // Hide the loading indicator when the operation is complete
                     setState(() {
                       _isLoading = false;
                     });
@@ -265,11 +261,9 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                       Text(" Sending Report",
                           style: TextStyle(color: Colors.white, fontSize: 20)),
                     ],
-                  ) // Display a loading indicator
+                  )
                 : const Text("Upload",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20)), // Show the button text
+                    style: TextStyle(color: Colors.white, fontSize: 20)),
           )
         ]),
       ),

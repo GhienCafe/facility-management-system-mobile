@@ -18,10 +18,8 @@ class ReportController extends GetxController {
   void reportTask(String id, String description, List<String> image) async {
     Map data = {
       "file_name": "string",
-      "key": "string",
       "raw_uri": "string",
       "uris": image,
-      "extensions": "string",
       "file_type": 1,
       "content": description,
       "item_id": id,
@@ -47,10 +45,8 @@ class ReportController extends GetxController {
       bool isVerified) async {
     Map data = {
       "file_name": "string",
-      "key": "string",
       "raw_uri": "string",
       "uris": image,
-      "extensions": "string",
       "file_type": 1,
       "content": description,
       "item_id": id,

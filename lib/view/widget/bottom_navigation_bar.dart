@@ -22,17 +22,17 @@ class _BottomBarState extends State<BottomBar> {
           TabItem(
             icon: Icon(Icons.home_outlined, color: AppColor.whiteColor),
             activeIcon: Icon(Icons.home, color: AppColor.primaryColor,size: 40),
-            title: 'Home',
+            title: 'Trang Chủ',
           ),
           TabItem(
             icon: Icon(Icons.task_outlined, color: AppColor.whiteColor),
             activeIcon: Icon(Icons.task, color: AppColor.primaryColor,size: 40),
-            title: 'Task',
+            title: 'Nhiệm Vụ',
           ),
           TabItem(
             icon: Icon(Icons.reorder_outlined, color: AppColor.whiteColor),
             activeIcon: Icon(Icons.reorder, color: AppColor.primaryColor,size: 40),
-            title: 'More',
+            title: 'Thêm',
           ),
         ],
         shadowColor: AppColor.blackColor,

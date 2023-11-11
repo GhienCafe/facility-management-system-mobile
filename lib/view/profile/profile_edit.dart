@@ -31,7 +31,7 @@ class _ImageUploadsState extends State<ImageUploads> {
                       return const CircleAvatar(
                         radius: 150,
                         backgroundColor: Colors.grey,
-                        child: Text("Không Tìm Thấy",
+                        child: Text("Không Có Hình",
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,

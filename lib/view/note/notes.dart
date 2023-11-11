@@ -41,16 +41,17 @@ class _NoteState extends State<Note> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: loading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : FutureBuilder(
-              future: startDatabase(),
-              builder: (context, snapshot) => NotePage(),
-            ),
-    );
+    return 
+      SafeArea(child: Scaffold(
+        body: loading
+            ? const Center(
+          child: CircularProgressIndicator(),
+        )
+            : FutureBuilder(
+          future: startDatabase(),
+          builder: (context, snapshot) => NotePage(),
+        ),
+      ));
   }
 }
 
