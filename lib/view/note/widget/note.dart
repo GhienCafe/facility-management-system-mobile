@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../notes.dart';
-import 'CreateNote.dart';
-import 'EditNote.dart';
+import 'create_note.dart';
+import 'edit_note.dart';
 
 bool noTitle = false;
 bool noContent = false;

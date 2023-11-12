@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              userInfo?.role == 3 ? "Staff" : "",
+                              userInfo?.role == 3 ? "Nhân Viên" : "",
                               style: const TextStyle(fontSize: 16),
                             ),
                           ],
@@ -165,7 +165,7 @@ class _ProfileState extends State<Profile> {
                   ListTile(
                     leading: const Icon(Icons.exit_to_app),
                     title: const Text(
-                      'Logout',
+                      'Đăng Xuất',
                       style: TextStyle(color: AppColor.primaryColor),
                     ),
                     iconColor: AppColor.primaryColor,
@@ -177,9 +177,11 @@ class _ProfileState extends State<Profile> {
                         animType: AnimType.topSlide,
                         showCloseIcon: true,
                         closeIcon: const Icon(Icons.close_fullscreen_outlined),
-                        title: 'Warning',
-                        desc: 'Log Out Now ? ',
+                        title: 'Đăng Xuất',
+                        desc: 'Bạn muốn đăng xuất tài khoản ?',
                         btnCancelOnPress: () {},
+                        btnCancelText: "Hủy",
+                        btnOkText: "Đăng Xuất",
                         onDismissCallback: (type) {
                           debugPrint('Dialog Dismiss from callback $type');
                         },

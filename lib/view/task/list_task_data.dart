@@ -1,5 +1,6 @@
 import 'package:FMS/data/response/status.dart';
 import 'package:FMS/view/task/task_detail/check_task.dart';
+import 'package:FMS/view/task/task_detail/inventory_task.dart';
 import 'package:FMS/view/task/task_detail/maintain_task.dart';
 import 'package:FMS/view/task/task_detail/repair_task.dart';
 import 'package:FMS/view/task/task_detail/replace_task.dart';
@@ -87,8 +88,11 @@ class DataListWidget extends StatelessWidget {
                           taskController.taskDetailApi(task.id);
                           Get.to(() => TransferTask(taskId: task.id));
                           break;
+                        case 6:
+                          taskController.taskDetailApi(task.id);
+                          Get.to(() => InventoryTask(taskId: task.id), arguments: task.id);
+                          break;
                         default:
-                          // Handle the default case if needed
                           break;
                       }
                     },

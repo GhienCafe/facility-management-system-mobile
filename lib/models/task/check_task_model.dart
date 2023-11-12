@@ -1,4 +1,3 @@
-
 class TaskDetailModel {
   int? statusCode;
   String? message;
@@ -53,9 +52,13 @@ class Data {
   String? notes;
   String? result;
   bool? isInternal;
+  String? checkin;
+  String? checkout;
   String? assignedTo;
   String? assetTypeId;
   String? categoryId;
+  int? priority;
+  PriorityObj? priorityObj;
   int? type;
   TypeObj? typeObj;
   String? newAssetId;
@@ -65,8 +68,9 @@ class Data {
   ToRoom? toRoom;
   List<Assets>? assets;
   CurrentRoom? currentRoom;
+  List<Rooms>? rooms;
 
-  Data({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetId, this.requestCode, this.requestDate, this.completionDate, this.status, this.statusObj, this.description, this.notes, this.result, this.isInternal, this.assignedTo, this.assetTypeId, this.categoryId, this.type, this.typeObj, this.newAssetId, this.asset, this.newAsset, this.toRoomId, this.toRoom, this.assets, this.currentRoom});
+  Data({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetId, this.requestCode, this.requestDate, this.completionDate, this.status, this.statusObj, this.description, this.notes, this.result, this.isInternal, this.checkin, this.checkout, this.assignedTo, this.assetTypeId, this.categoryId, this.priority, this.priorityObj, this.type, this.typeObj, this.newAssetId, this.asset, this.newAsset, this.toRoomId, this.toRoom, this.assets, this.currentRoom, this.rooms});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -84,9 +88,13 @@ class Data {
     notes = json["notes"];
     result = json["result"];
     isInternal = json["is_internal"];
+    checkin = json["checkin"];
+    checkout = json["checkout"];
     assignedTo = json["assigned_to"];
     assetTypeId = json["asset_type_id"];
     categoryId = json["category_id"];
+    priority = json["priority"];
+    priorityObj = json["priority_obj"] == null ? null : PriorityObj.fromJson(json["priority_obj"]);
     type = json["type"];
     typeObj = json["type_obj"] == null ? null : TypeObj.fromJson(json["type_obj"]);
     newAssetId = json["new_asset_id"];
@@ -96,6 +104,7 @@ class Data {
     toRoom = json["to_room"] == null ? null : ToRoom.fromJson(json["to_room"]);
     assets = json["assets"] == null ? null : (json["assets"] as List).map((e) => Assets.fromJson(e)).toList();
     currentRoom = json["current_room"] == null ? null : CurrentRoom.fromJson(json["current_room"]);
+    rooms = json["rooms"] == null ? null : (json["rooms"] as List).map((e) => Rooms.fromJson(e)).toList();
   }
 
   static List<Data> fromList(List<Map<String, dynamic>> list) {
@@ -125,9 +134,15 @@ class Data {
     _data["notes"] = notes;
     _data["result"] = result;
     _data["is_internal"] = isInternal;
+    _data["checkin"] = checkin;
+    _data["checkout"] = checkout;
     _data["assigned_to"] = assignedTo;
     _data["asset_type_id"] = assetTypeId;
     _data["category_id"] = categoryId;
+    _data["priority"] = priority;
+    if(priorityObj != null) {
+      _data["priority_obj"] = priorityObj?.toJson();
+    }
     _data["type"] = type;
     if(typeObj != null) {
       _data["type_obj"] = typeObj?.toJson();
@@ -149,6 +164,9 @@ class Data {
     if(currentRoom != null) {
       _data["current_room"] = currentRoom?.toJson();
     }
+    if(rooms != null) {
+      _data["rooms"] = rooms?.map((e) => e.toJson()).toList();
+    }
     return _data;
   }
 
@@ -168,9 +186,13 @@ class Data {
     String? notes,
     String? result,
     bool? isInternal,
+    String? checkin,
+    String? checkout,
     String? assignedTo,
     String? assetTypeId,
     String? categoryId,
+    int? priority,
+    PriorityObj? priorityObj,
     int? type,
     TypeObj? typeObj,
     String? newAssetId,
@@ -180,6 +202,7 @@ class Data {
     ToRoom? toRoom,
     List<Assets>? assets,
     CurrentRoom? currentRoom,
+    List<Rooms>? rooms,
   }) => Data(
     id: id ?? this.id,
     createdAt: createdAt ?? this.createdAt,
@@ -196,9 +219,13 @@ class Data {
     notes: notes ?? this.notes,
     result: result ?? this.result,
     isInternal: isInternal ?? this.isInternal,
+    checkin: checkin ?? this.checkin,
+    checkout: checkout ?? this.checkout,
     assignedTo: assignedTo ?? this.assignedTo,
     assetTypeId: assetTypeId ?? this.assetTypeId,
     categoryId: categoryId ?? this.categoryId,
+    priority: priority ?? this.priority,
+    priorityObj: priorityObj ?? this.priorityObj,
     type: type ?? this.type,
     typeObj: typeObj ?? this.typeObj,
     newAssetId: newAssetId ?? this.newAssetId,
@@ -208,6 +235,159 @@ class Data {
     toRoom: toRoom ?? this.toRoom,
     assets: assets ?? this.assets,
     currentRoom: currentRoom ?? this.currentRoom,
+    rooms: rooms ?? this.rooms,
+  );
+}
+
+class Rooms {
+  String? id;
+  String? roomName;
+  int? area;
+  String? roomCode;
+  String? floorId;
+  String? statusId;
+  List<Assets1>? assets;
+
+  Rooms({this.id, this.roomName, this.area, this.roomCode, this.floorId, this.statusId, this.assets});
+
+  Rooms.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    roomName = json["room_name"];
+    area = json["area"];
+    roomCode = json["room_code"];
+    floorId = json["floor_id"];
+    statusId = json["status_id"];
+    assets = json["assets"] == null ? null : (json["assets"] as List).map((e) => Assets1.fromJson(e)).toList();
+  }
+
+  static List<Rooms> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => Rooms.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["id"] = id;
+    _data["room_name"] = roomName;
+    _data["area"] = area;
+    _data["room_code"] = roomCode;
+    _data["floor_id"] = floorId;
+    _data["status_id"] = statusId;
+    if(assets != null) {
+      _data["assets"] = assets?.map((e) => e.toJson()).toList();
+    }
+    return _data;
+  }
+
+  Rooms copyWith({
+    String? id,
+    String? roomName,
+    int? area,
+    String? roomCode,
+    String? floorId,
+    String? statusId,
+    List<Assets1>? assets,
+  }) => Rooms(
+    id: id ?? this.id,
+    roomName: roomName ?? this.roomName,
+    area: area ?? this.area,
+    roomCode: roomCode ?? this.roomCode,
+    floorId: floorId ?? this.floorId,
+    statusId: statusId ?? this.statusId,
+    assets: assets ?? this.assets,
+  );
+}
+
+class Assets1 {
+  String? id;
+  String? assetName;
+  String? assetCode;
+  int? quantity;
+  int? status;
+  StatusObj4? statusObj;
+
+  Assets1({this.id, this.assetName, this.assetCode, this.quantity, this.status, this.statusObj});
+
+  Assets1.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    assetName = json["asset_name"];
+    assetCode = json["asset_code"];
+    quantity = json["quantity"];
+    status = json["status"];
+    statusObj = json["status_obj"] == null ? null : StatusObj4.fromJson(json["status_obj"]);
+  }
+
+  static List<Assets1> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => Assets1.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["id"] = id;
+    _data["asset_name"] = assetName;
+    _data["asset_code"] = assetCode;
+    _data["quantity"] = quantity;
+    _data["status"] = status;
+    if(statusObj != null) {
+      _data["status_obj"] = statusObj?.toJson();
+    }
+    return _data;
+  }
+
+  Assets1 copyWith({
+    String? id,
+    String? assetName,
+    String? assetCode,
+    int? quantity,
+    int? status,
+    StatusObj4? statusObj,
+  }) => Assets1(
+    id: id ?? this.id,
+    assetName: assetName ?? this.assetName,
+    assetCode: assetCode ?? this.assetCode,
+    quantity: quantity ?? this.quantity,
+    status: status ?? this.status,
+    statusObj: statusObj ?? this.statusObj,
+  );
+}
+
+class StatusObj4 {
+  int? value;
+  String? name;
+  String? displayName;
+  String? color;
+
+  StatusObj4({this.value, this.name, this.displayName, this.color});
+
+  StatusObj4.fromJson(Map<String, dynamic> json) {
+    value = json["value"];
+    name = json["name"];
+    displayName = json["display_name"];
+    color = json["color"];
+  }
+
+  static List<StatusObj4> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => StatusObj4.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["value"] = value;
+    _data["name"] = name;
+    _data["display_name"] = displayName;
+    _data["color"] = color;
+    return _data;
+  }
+
+  StatusObj4 copyWith({
+    int? value,
+    String? name,
+    String? displayName,
+    String? color,
+  }) => StatusObj4(
+    value: value ?? this.value,
+    name: name ?? this.name,
+    displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 
@@ -451,11 +631,12 @@ class Asset1 {
   String? lastMaintenanceTime;
   String? typeId;
   String? modelId;
+  String? imageUrl;
   bool? isRented;
   String? lastCheckedDate;
   String? startDateOfUse;
 
-  Asset1({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.isRented, this.lastCheckedDate, this.startDateOfUse});
+  Asset1({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
 
   Asset1.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -475,6 +656,7 @@ class Asset1 {
     lastMaintenanceTime = json["last_maintenance_time"];
     typeId = json["type_id"];
     modelId = json["model_id"];
+    imageUrl = json["image_url"];
     isRented = json["is_rented"];
     lastCheckedDate = json["last_checked_date"];
     startDateOfUse = json["start_date_of_use"];
@@ -509,6 +691,7 @@ class Asset1 {
     _data["last_maintenance_time"] = lastMaintenanceTime;
     _data["type_id"] = typeId;
     _data["model_id"] = modelId;
+    _data["image_url"] = imageUrl;
     _data["is_rented"] = isRented;
     _data["last_checked_date"] = lastCheckedDate;
     _data["start_date_of_use"] = startDateOfUse;
@@ -533,6 +716,7 @@ class Asset1 {
     String? lastMaintenanceTime,
     String? typeId,
     String? modelId,
+    String? imageUrl,
     bool? isRented,
     String? lastCheckedDate,
     String? startDateOfUse,
@@ -554,6 +738,7 @@ class Asset1 {
     lastMaintenanceTime: lastMaintenanceTime ?? this.lastMaintenanceTime,
     typeId: typeId ?? this.typeId,
     modelId: modelId ?? this.modelId,
+    imageUrl: imageUrl ?? this.imageUrl,
     isRented: isRented ?? this.isRented,
     lastCheckedDate: lastCheckedDate ?? this.lastCheckedDate,
     startDateOfUse: startDateOfUse ?? this.startDateOfUse,
@@ -564,13 +749,15 @@ class StatusObj3 {
   int? value;
   String? name;
   String? displayName;
+  String? color;
 
-  StatusObj3({this.value, this.name, this.displayName});
+  StatusObj3({this.value, this.name, this.displayName, this.color});
 
   StatusObj3.fromJson(Map<String, dynamic> json) {
     value = json["value"];
     name = json["name"];
     displayName = json["display_name"];
+    color = json["color"];
   }
 
   static List<StatusObj3> fromList(List<Map<String, dynamic>> list) {
@@ -582,6 +769,7 @@ class StatusObj3 {
     _data["value"] = value;
     _data["name"] = name;
     _data["display_name"] = displayName;
+    _data["color"] = color;
     return _data;
   }
 
@@ -589,10 +777,12 @@ class StatusObj3 {
     int? value,
     String? name,
     String? displayName,
+    String? color,
   }) => StatusObj3(
     value: value ?? this.value,
     name: name ?? this.name,
     displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 
@@ -1070,11 +1260,12 @@ class NewAsset {
   String? lastMaintenanceTime;
   String? typeId;
   String? modelId;
+  String? imageUrl;
   bool? isRented;
   String? lastCheckedDate;
   String? startDateOfUse;
 
-  NewAsset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.isRented, this.lastCheckedDate, this.startDateOfUse});
+  NewAsset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
 
   NewAsset.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -1094,6 +1285,7 @@ class NewAsset {
     lastMaintenanceTime = json["last_maintenance_time"];
     typeId = json["type_id"];
     modelId = json["model_id"];
+    imageUrl = json["image_url"];
     isRented = json["is_rented"];
     lastCheckedDate = json["last_checked_date"];
     startDateOfUse = json["start_date_of_use"];
@@ -1128,6 +1320,7 @@ class NewAsset {
     _data["last_maintenance_time"] = lastMaintenanceTime;
     _data["type_id"] = typeId;
     _data["model_id"] = modelId;
+    _data["image_url"] = imageUrl;
     _data["is_rented"] = isRented;
     _data["last_checked_date"] = lastCheckedDate;
     _data["start_date_of_use"] = startDateOfUse;
@@ -1152,6 +1345,7 @@ class NewAsset {
     String? lastMaintenanceTime,
     String? typeId,
     String? modelId,
+    String? imageUrl,
     bool? isRented,
     String? lastCheckedDate,
     String? startDateOfUse,
@@ -1173,6 +1367,7 @@ class NewAsset {
     lastMaintenanceTime: lastMaintenanceTime ?? this.lastMaintenanceTime,
     typeId: typeId ?? this.typeId,
     modelId: modelId ?? this.modelId,
+    imageUrl: imageUrl ?? this.imageUrl,
     isRented: isRented ?? this.isRented,
     lastCheckedDate: lastCheckedDate ?? this.lastCheckedDate,
     startDateOfUse: startDateOfUse ?? this.startDateOfUse,
@@ -1183,13 +1378,15 @@ class StatusObj2 {
   int? value;
   String? name;
   String? displayName;
+  String? color;
 
-  StatusObj2({this.value, this.name, this.displayName});
+  StatusObj2({this.value, this.name, this.displayName, this.color});
 
   StatusObj2.fromJson(Map<String, dynamic> json) {
     value = json["value"];
     name = json["name"];
     displayName = json["display_name"];
+    color = json["color"];
   }
 
   static List<StatusObj2> fromList(List<Map<String, dynamic>> list) {
@@ -1201,6 +1398,7 @@ class StatusObj2 {
     _data["value"] = value;
     _data["name"] = name;
     _data["display_name"] = displayName;
+    _data["color"] = color;
     return _data;
   }
 
@@ -1208,10 +1406,12 @@ class StatusObj2 {
     int? value,
     String? name,
     String? displayName,
+    String? color,
   }) => StatusObj2(
     value: value ?? this.value,
     name: name ?? this.name,
     displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 
@@ -1325,11 +1525,12 @@ class Asset {
   String? lastMaintenanceTime;
   String? typeId;
   String? modelId;
+  String? imageUrl;
   bool? isRented;
   String? lastCheckedDate;
   String? startDateOfUse;
 
-  Asset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.isRented, this.lastCheckedDate, this.startDateOfUse});
+  Asset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
 
   Asset.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -1349,6 +1550,7 @@ class Asset {
     lastMaintenanceTime = json["last_maintenance_time"];
     typeId = json["type_id"];
     modelId = json["model_id"];
+    imageUrl = json["image_url"];
     isRented = json["is_rented"];
     lastCheckedDate = json["last_checked_date"];
     startDateOfUse = json["start_date_of_use"];
@@ -1383,6 +1585,7 @@ class Asset {
     _data["last_maintenance_time"] = lastMaintenanceTime;
     _data["type_id"] = typeId;
     _data["model_id"] = modelId;
+    _data["image_url"] = imageUrl;
     _data["is_rented"] = isRented;
     _data["last_checked_date"] = lastCheckedDate;
     _data["start_date_of_use"] = startDateOfUse;
@@ -1407,6 +1610,7 @@ class Asset {
     String? lastMaintenanceTime,
     String? typeId,
     String? modelId,
+    String? imageUrl,
     bool? isRented,
     String? lastCheckedDate,
     String? startDateOfUse,
@@ -1428,6 +1632,7 @@ class Asset {
     lastMaintenanceTime: lastMaintenanceTime ?? this.lastMaintenanceTime,
     typeId: typeId ?? this.typeId,
     modelId: modelId ?? this.modelId,
+    imageUrl: imageUrl ?? this.imageUrl,
     isRented: isRented ?? this.isRented,
     lastCheckedDate: lastCheckedDate ?? this.lastCheckedDate,
     startDateOfUse: startDateOfUse ?? this.startDateOfUse,
@@ -1438,13 +1643,15 @@ class StatusObj1 {
   int? value;
   String? name;
   String? displayName;
+  String? color;
 
-  StatusObj1({this.value, this.name, this.displayName});
+  StatusObj1({this.value, this.name, this.displayName, this.color});
 
   StatusObj1.fromJson(Map<String, dynamic> json) {
     value = json["value"];
     name = json["name"];
     displayName = json["display_name"];
+    color = json["color"];
   }
 
   static List<StatusObj1> fromList(List<Map<String, dynamic>> list) {
@@ -1456,6 +1663,7 @@ class StatusObj1 {
     _data["value"] = value;
     _data["name"] = name;
     _data["display_name"] = displayName;
+    _data["color"] = color;
     return _data;
   }
 
@@ -1463,10 +1671,12 @@ class StatusObj1 {
     int? value,
     String? name,
     String? displayName,
+    String? color,
   }) => StatusObj1(
     value: value ?? this.value,
     name: name ?? this.name,
     displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 
@@ -1566,13 +1776,15 @@ class TypeObj {
   int? value;
   String? name;
   String? displayName;
+  String? color;
 
-  TypeObj({this.value, this.name, this.displayName});
+  TypeObj({this.value, this.name, this.displayName, this.color});
 
   TypeObj.fromJson(Map<String, dynamic> json) {
     value = json["value"];
     name = json["name"];
     displayName = json["display_name"];
+    color = json["color"];
   }
 
   static List<TypeObj> fromList(List<Map<String, dynamic>> list) {
@@ -1584,6 +1796,7 @@ class TypeObj {
     _data["value"] = value;
     _data["name"] = name;
     _data["display_name"] = displayName;
+    _data["color"] = color;
     return _data;
   }
 
@@ -1591,10 +1804,53 @@ class TypeObj {
     int? value,
     String? name,
     String? displayName,
+    String? color,
   }) => TypeObj(
     value: value ?? this.value,
     name: name ?? this.name,
     displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
+  );
+}
+
+class PriorityObj {
+  int? value;
+  String? name;
+  String? displayName;
+  String? color;
+
+  PriorityObj({this.value, this.name, this.displayName, this.color});
+
+  PriorityObj.fromJson(Map<String, dynamic> json) {
+    value = json["value"];
+    name = json["name"];
+    displayName = json["display_name"];
+    color = json["color"];
+  }
+
+  static List<PriorityObj> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => PriorityObj.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["value"] = value;
+    _data["name"] = name;
+    _data["display_name"] = displayName;
+    _data["color"] = color;
+    return _data;
+  }
+
+  PriorityObj copyWith({
+    int? value,
+    String? name,
+    String? displayName,
+    String? color,
+  }) => PriorityObj(
+    value: value ?? this.value,
+    name: name ?? this.name,
+    displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 
@@ -1602,13 +1858,15 @@ class StatusObj {
   int? value;
   String? name;
   String? displayName;
+  String? color;
 
-  StatusObj({this.value, this.name, this.displayName});
+  StatusObj({this.value, this.name, this.displayName, this.color});
 
   StatusObj.fromJson(Map<String, dynamic> json) {
     value = json["value"];
     name = json["name"];
     displayName = json["display_name"];
+    color = json["color"];
   }
 
   static List<StatusObj> fromList(List<Map<String, dynamic>> list) {
@@ -1620,6 +1878,7 @@ class StatusObj {
     _data["value"] = value;
     _data["name"] = name;
     _data["display_name"] = displayName;
+    _data["color"] = color;
     return _data;
   }
 
@@ -1627,10 +1886,12 @@ class StatusObj {
     int? value,
     String? name,
     String? displayName,
+    String? color,
   }) => StatusObj(
     value: value ?? this.value,
     name: name ?? this.name,
     displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 

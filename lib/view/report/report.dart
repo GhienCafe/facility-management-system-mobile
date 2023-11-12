@@ -90,6 +90,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                 onTap: () {
                   takePicture(); // Function to capture an image.
                 },
+                borderRadius: BorderRadius.circular(15),
                 child: Container(
                   width: 100,
                   height: 50,
@@ -109,6 +110,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                 onTap: () {
                   getMultiImage();
                 },
+                borderRadius: BorderRadius.circular(15),
                 child: Container(
                     width: 100,
                     height: 50,
@@ -129,6 +131,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                     downloadUrls = [];
                   });
                 },
+                borderRadius: BorderRadius.circular(15),
                 child: Container(
                     width: 100,
                     height: 50,

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:FMS/data/response/status.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/controller/notification/notification_controller.dart';
@@ -33,14 +31,18 @@ class NotificationPopUp extends StatelessWidget {
                     children: [
                       BackButton(color: AppColor.primaryColor),
                       Text("Thông Báo",
-                          style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
                     ],
                   ),
-                  IconButton(onPressed: () {
-                    notRead.value = 0;
-                    notificationController.readAllNotification();
-                  }, icon: const Icon(Icons.checklist))
+                  IconButton(
+                    onPressed: () {
+                      notRead.value = 0;
+                      notificationController.readAllNotification();
+                    },
+                    icon: const Icon(Icons.checklist),
+                    tooltip: "Đọc Hết"
+                  )
                 ],
               ),
             ],
@@ -59,9 +61,11 @@ class NotificationPopUp extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: notificationController
-                            .notificationList.value.data?.length ?? 0,
+                            .notificationList.value.data?.length ??
+                        0,
                     itemBuilder: (BuildContext context, int index) {
-                      final notification = notificationController.notificationList.value.data![index];
+                      final notification = notificationController
+                          .notificationList.value.data![index];
                       String? jsonDateString = notification.createdAt;
                       DateTime date = DateTime.parse(jsonDateString!);
                       String formattedDate =

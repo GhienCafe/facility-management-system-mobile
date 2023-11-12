@@ -1,4 +1,3 @@
-
 class AssetModel {
   int? statusCode;
   String? message;
