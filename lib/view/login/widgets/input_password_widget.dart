@@ -12,7 +12,7 @@ class InputPasswordWidget extends StatefulWidget {
 }
 
 class _InputPasswordWidgetState extends State<InputPasswordWidget> {
-  bool ot = false;
+  bool ot = true;
 
   final loginVM = Get.put(LoginViewModel());
 

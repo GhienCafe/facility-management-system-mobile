@@ -17,7 +17,6 @@ class InventoryTask extends StatelessWidget {
   final taskController = Get.find<TaskController>();
   final reportController = Get.put(ReportController());
   InventoryTask({super.key, required this.taskId});
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -276,10 +275,8 @@ class InventoryTask extends StatelessWidget {
                                   child: ListTile(
                                     hoverColor: AppColor.grayColor,
                                     onTap: () {
-                                      Rooms detailRoom =
-                                          Rooms.fromJson(room.toJson());
-                                      Get.to(() =>
-                                          ReportInventory(room: detailRoom));
+                                      Rooms detailRoom = Rooms.fromJson(room.toJson());
+                                      Get.to(() => ReportInventory(room: detailRoom));
                                     },
                                     trailing: const Icon(Icons.info),
                                     leading: const Icon(Icons.location_on_sharp,
@@ -298,7 +295,6 @@ class InventoryTask extends StatelessWidget {
                                   ),
                                 );
                               } else {
-                                // Handle the case where room is null (you can return an empty container, show a placeholder, etc.)
                                 return Container();
                               }
                             },

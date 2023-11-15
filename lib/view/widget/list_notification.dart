@@ -61,8 +61,7 @@ class NotificationPopUp extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: notificationController
-                            .notificationList.value.data?.length ??
-                        0,
+                            .notificationList.value.data?.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
                       final notification = notificationController
                           .notificationList.value.data![index];

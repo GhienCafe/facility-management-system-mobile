@@ -261,11 +261,11 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircularProgressIndicator(color: AppColor.whiteColor),
-                      Text(" Sending Report",
+                      Text(" Đang Gửi Báo Cáo",
                           style: TextStyle(color: Colors.white, fontSize: 20)),
                     ],
                   )
-                : const Text("Upload",
+                : const Text("Gửi Báo Cáo",
                     style: TextStyle(color: Colors.white, fontSize: 20)),
           )
         ]),

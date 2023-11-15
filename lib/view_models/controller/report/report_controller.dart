@@ -43,7 +43,6 @@ class ReportController extends GetxController {
         }
       ]
     };
-    //print(data);
     _api.reportTask(data).then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
         Get.back();
@@ -113,11 +112,10 @@ class ReportController extends GetxController {
       "is_verified": true,
       "rooms": rooms
     };
-    //print(jsonEncode(data));
     _api.reportTask(data).then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
         Get.back();
-        taskController.refreshDetailApi(id);
+        taskController.refreshAllList();
         Timer(const Duration(milliseconds: 300), () {
           Utils.snackBarSuccess("Thông báo", "Báo cáo thành công");
         });
