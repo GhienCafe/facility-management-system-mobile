@@ -1,4 +1,5 @@
 import 'package:FMS/models/login/users_model.dart';
+import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,16 @@ class LoginViewModel extends GetxController {
   Future<void> signOutGoogle() async {
     await googleSignIn.signOut();
   }
+
+  Future<void> saveFCMToken() async {
+    final FCMToken = await AwesomeNotificationsFcm().requestFirebaseAppToken();
+    try {
+      Map data = {'token': FCMToken};
+      await _api.saveFCMToken(data);
+    } catch (error) {
+      print("Error when save FCM Token!");
+    }
+    }
 
   RxBool loading = false.obs;
   void loginApiMailPassword() {
@@ -103,6 +114,7 @@ class LoginViewModel extends GetxController {
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
                   Utils.snackBarSuccess("Chào mừng", "Chúc một ngày mới tốt lành"),
+                  saveFCMToken(),
                 })
             .onError((error, stackTrace) => {});
       }

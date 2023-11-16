@@ -246,9 +246,10 @@ class Rooms {
   String? roomCode;
   String? floorId;
   String? statusId;
+  Status? status;
   List<Assets1>? assets;
 
-  Rooms({this.id, this.roomName, this.area, this.roomCode, this.floorId, this.statusId, this.assets});
+  Rooms({this.id, this.roomName, this.area, this.roomCode, this.floorId, this.statusId, this.status, this.assets});
 
   Rooms.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -257,6 +258,7 @@ class Rooms {
     roomCode = json["room_code"];
     floorId = json["floor_id"];
     statusId = json["status_id"];
+    status = json["status"] == null ? null : Status.fromJson(json["status"]);
     assets = json["assets"] == null ? null : (json["assets"] as List).map((e) => Assets1.fromJson(e)).toList();
   }
 
@@ -272,6 +274,9 @@ class Rooms {
     _data["room_code"] = roomCode;
     _data["floor_id"] = floorId;
     _data["status_id"] = statusId;
+    if(status != null) {
+      _data["status"] = status?.toJson();
+    }
     if(assets != null) {
       _data["assets"] = assets?.map((e) => e.toJson()).toList();
     }
@@ -285,6 +290,7 @@ class Rooms {
     String? roomCode,
     String? floorId,
     String? statusId,
+    Status? status,
     List<Assets1>? assets,
   }) => Rooms(
     id: id ?? this.id,
@@ -293,6 +299,7 @@ class Rooms {
     roomCode: roomCode ?? this.roomCode,
     floorId: floorId ?? this.floorId,
     statusId: statusId ?? this.statusId,
+    status: status ?? this.status,
     assets: assets ?? this.assets,
   );
 }
@@ -301,19 +308,25 @@ class Assets1 {
   String? id;
   String? assetName;
   String? assetCode;
-  int? quantity;
-  int? status;
-  StatusObj4? statusObj;
+  int? quantityReported;
+  int? quantityBefore;
+  int? statusBefore;
+  StatusBeforeObj? statusBeforeObj;
+  int? statusReported;
+  StatusReportedObj? statusReportedObj;
 
-  Assets1({this.id, this.assetName, this.assetCode, this.quantity, this.status, this.statusObj});
+  Assets1({this.id, this.assetName, this.assetCode, this.quantityReported, this.quantityBefore, this.statusBefore, this.statusBeforeObj, this.statusReported, this.statusReportedObj});
 
   Assets1.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     assetName = json["asset_name"];
     assetCode = json["asset_code"];
-    quantity = json["quantity"];
-    status = json["status"];
-    statusObj = json["status_obj"] == null ? null : StatusObj4.fromJson(json["status_obj"]);
+    quantityReported = json["quantity_reported"];
+    quantityBefore = json["quantity_before"];
+    statusBefore = json["status_before"];
+    statusBeforeObj = json["status_before_obj"] == null ? null : StatusBeforeObj.fromJson(json["status_before_obj"]);
+    statusReported = json["status_reported"];
+    statusReportedObj = json["status_reported_obj"] == null ? null : StatusReportedObj.fromJson(json["status_reported_obj"]);
   }
 
   static List<Assets1> fromList(List<Map<String, dynamic>> list) {
@@ -325,10 +338,15 @@ class Assets1 {
     _data["id"] = id;
     _data["asset_name"] = assetName;
     _data["asset_code"] = assetCode;
-    _data["quantity"] = quantity;
-    _data["status"] = status;
-    if(statusObj != null) {
-      _data["status_obj"] = statusObj?.toJson();
+    _data["quantity_reported"] = quantityReported;
+    _data["quantity_before"] = quantityBefore;
+    _data["status_before"] = statusBefore;
+    if(statusBeforeObj != null) {
+      _data["status_before_obj"] = statusBeforeObj?.toJson();
+    }
+    _data["status_reported"] = statusReported;
+    if(statusReportedObj != null) {
+      _data["status_reported_obj"] = statusReportedObj?.toJson();
     }
     return _data;
   }
@@ -337,36 +355,42 @@ class Assets1 {
     String? id,
     String? assetName,
     String? assetCode,
-    int? quantity,
-    int? status,
-    StatusObj4? statusObj,
+    int? quantityReported,
+    int? quantityBefore,
+    int? statusBefore,
+    StatusBeforeObj? statusBeforeObj,
+    int? statusReported,
+    StatusReportedObj? statusReportedObj,
   }) => Assets1(
     id: id ?? this.id,
     assetName: assetName ?? this.assetName,
     assetCode: assetCode ?? this.assetCode,
-    quantity: quantity ?? this.quantity,
-    status: status ?? this.status,
-    statusObj: statusObj ?? this.statusObj,
+    quantityReported: quantityReported ?? this.quantityReported,
+    quantityBefore: quantityBefore ?? this.quantityBefore,
+    statusBefore: statusBefore ?? this.statusBefore,
+    statusBeforeObj: statusBeforeObj ?? this.statusBeforeObj,
+    statusReported: statusReported ?? this.statusReported,
+    statusReportedObj: statusReportedObj ?? this.statusReportedObj,
   );
 }
 
-class StatusObj4 {
+class StatusReportedObj {
   int? value;
   String? name;
   String? displayName;
   String? color;
 
-  StatusObj4({this.value, this.name, this.displayName, this.color});
+  StatusReportedObj({this.value, this.name, this.displayName, this.color});
 
-  StatusObj4.fromJson(Map<String, dynamic> json) {
+  StatusReportedObj.fromJson(Map<String, dynamic> json) {
     value = json["value"];
     name = json["name"];
     displayName = json["display_name"];
     color = json["color"];
   }
 
-  static List<StatusObj4> fromList(List<Map<String, dynamic>> list) {
-    return list.map((map) => StatusObj4.fromJson(map)).toList();
+  static List<StatusReportedObj> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => StatusReportedObj.fromJson(map)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -378,15 +402,92 @@ class StatusObj4 {
     return _data;
   }
 
-  StatusObj4 copyWith({
+  StatusReportedObj copyWith({
     int? value,
     String? name,
     String? displayName,
     String? color,
-  }) => StatusObj4(
+  }) => StatusReportedObj(
     value: value ?? this.value,
     name: name ?? this.name,
     displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
+  );
+}
+
+class StatusBeforeObj {
+  int? value;
+  String? name;
+  String? displayName;
+  String? color;
+
+  StatusBeforeObj({this.value, this.name, this.displayName, this.color});
+
+  StatusBeforeObj.fromJson(Map<String, dynamic> json) {
+    value = json["value"];
+    name = json["name"];
+    displayName = json["display_name"];
+    color = json["color"];
+  }
+
+  static List<StatusBeforeObj> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => StatusBeforeObj.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["value"] = value;
+    _data["name"] = name;
+    _data["display_name"] = displayName;
+    _data["color"] = color;
+    return _data;
+  }
+
+  StatusBeforeObj copyWith({
+    int? value,
+    String? name,
+    String? displayName,
+    String? color,
+  }) => StatusBeforeObj(
+    value: value ?? this.value,
+    name: name ?? this.name,
+    displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
+  );
+}
+
+class Status {
+  String? statusName;
+  String? description;
+  String? color;
+
+  Status({this.statusName, this.description, this.color});
+
+  Status.fromJson(Map<String, dynamic> json) {
+    statusName = json["status_name"];
+    description = json["description"];
+    color = json["color"];
+  }
+
+  static List<Status> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => Status.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["status_name"] = statusName;
+    _data["description"] = description;
+    _data["color"] = color;
+    return _data;
+  }
+
+  Status copyWith({
+    String? statusName,
+    String? description,
+    String? color,
+  }) => Status(
+    statusName: statusName ?? this.statusName,
+    description: description ?? this.description,
     color: color ?? this.color,
   );
 }
@@ -624,6 +725,8 @@ class Asset1 {
   bool? isMovable;
   int? status;
   StatusObj3? statusObj;
+  int? requestStatus;
+  RequestStatusObj2? requestStatusObj;
   int? manufacturingYear;
   String? serialNumber;
   int? quantity;
@@ -636,7 +739,7 @@ class Asset1 {
   String? lastCheckedDate;
   String? startDateOfUse;
 
-  Asset1({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
+  Asset1({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.requestStatus, this.requestStatusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
 
   Asset1.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -649,6 +752,8 @@ class Asset1 {
     isMovable = json["is_movable"];
     status = json["status"];
     statusObj = json["status_obj"] == null ? null : StatusObj3.fromJson(json["status_obj"]);
+    requestStatus = json["request_status"];
+    requestStatusObj = json["request_status_obj"] == null ? null : RequestStatusObj2.fromJson(json["request_status_obj"]);
     manufacturingYear = json["manufacturing_year"];
     serialNumber = json["serial_number"];
     quantity = json["quantity"];
@@ -684,6 +789,10 @@ class Asset1 {
     if(statusObj != null) {
       _data["status_obj"] = statusObj?.toJson();
     }
+    _data["request_status"] = requestStatus;
+    if(requestStatusObj != null) {
+      _data["request_status_obj"] = requestStatusObj?.toJson();
+    }
     _data["manufacturing_year"] = manufacturingYear;
     _data["serial_number"] = serialNumber;
     _data["quantity"] = quantity;
@@ -709,6 +818,8 @@ class Asset1 {
     bool? isMovable,
     int? status,
     StatusObj3? statusObj,
+    int? requestStatus,
+    RequestStatusObj2? requestStatusObj,
     int? manufacturingYear,
     String? serialNumber,
     int? quantity,
@@ -731,6 +842,8 @@ class Asset1 {
     isMovable: isMovable ?? this.isMovable,
     status: status ?? this.status,
     statusObj: statusObj ?? this.statusObj,
+    requestStatus: requestStatus ?? this.requestStatus,
+    requestStatusObj: requestStatusObj ?? this.requestStatusObj,
     manufacturingYear: manufacturingYear ?? this.manufacturingYear,
     serialNumber: serialNumber ?? this.serialNumber,
     quantity: quantity ?? this.quantity,
@@ -742,6 +855,47 @@ class Asset1 {
     isRented: isRented ?? this.isRented,
     lastCheckedDate: lastCheckedDate ?? this.lastCheckedDate,
     startDateOfUse: startDateOfUse ?? this.startDateOfUse,
+  );
+}
+
+class RequestStatusObj2 {
+  int? value;
+  String? name;
+  String? displayName;
+  String? color;
+
+  RequestStatusObj2({this.value, this.name, this.displayName, this.color});
+
+  RequestStatusObj2.fromJson(Map<String, dynamic> json) {
+    value = json["value"];
+    name = json["name"];
+    displayName = json["display_name"];
+    color = json["color"];
+  }
+
+  static List<RequestStatusObj2> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => RequestStatusObj2.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["value"] = value;
+    _data["name"] = name;
+    _data["display_name"] = displayName;
+    _data["color"] = color;
+    return _data;
+  }
+
+  RequestStatusObj2 copyWith({
+    int? value,
+    String? name,
+    String? displayName,
+    String? color,
+  }) => RequestStatusObj2(
+    value: value ?? this.value,
+    name: name ?? this.name,
+    displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 
@@ -1253,6 +1407,8 @@ class NewAsset {
   bool? isMovable;
   int? status;
   StatusObj2? statusObj;
+  int? requestStatus;
+  RequestStatusObj1? requestStatusObj;
   int? manufacturingYear;
   String? serialNumber;
   int? quantity;
@@ -1265,7 +1421,7 @@ class NewAsset {
   String? lastCheckedDate;
   String? startDateOfUse;
 
-  NewAsset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
+  NewAsset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.requestStatus, this.requestStatusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
 
   NewAsset.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -1278,6 +1434,8 @@ class NewAsset {
     isMovable = json["is_movable"];
     status = json["status"];
     statusObj = json["status_obj"] == null ? null : StatusObj2.fromJson(json["status_obj"]);
+    requestStatus = json["request_status"];
+    requestStatusObj = json["request_status_obj"] == null ? null : RequestStatusObj1.fromJson(json["request_status_obj"]);
     manufacturingYear = json["manufacturing_year"];
     serialNumber = json["serial_number"];
     quantity = json["quantity"];
@@ -1313,6 +1471,10 @@ class NewAsset {
     if(statusObj != null) {
       _data["status_obj"] = statusObj?.toJson();
     }
+    _data["request_status"] = requestStatus;
+    if(requestStatusObj != null) {
+      _data["request_status_obj"] = requestStatusObj?.toJson();
+    }
     _data["manufacturing_year"] = manufacturingYear;
     _data["serial_number"] = serialNumber;
     _data["quantity"] = quantity;
@@ -1338,6 +1500,8 @@ class NewAsset {
     bool? isMovable,
     int? status,
     StatusObj2? statusObj,
+    int? requestStatus,
+    RequestStatusObj1? requestStatusObj,
     int? manufacturingYear,
     String? serialNumber,
     int? quantity,
@@ -1360,6 +1524,8 @@ class NewAsset {
     isMovable: isMovable ?? this.isMovable,
     status: status ?? this.status,
     statusObj: statusObj ?? this.statusObj,
+    requestStatus: requestStatus ?? this.requestStatus,
+    requestStatusObj: requestStatusObj ?? this.requestStatusObj,
     manufacturingYear: manufacturingYear ?? this.manufacturingYear,
     serialNumber: serialNumber ?? this.serialNumber,
     quantity: quantity ?? this.quantity,
@@ -1371,6 +1537,47 @@ class NewAsset {
     isRented: isRented ?? this.isRented,
     lastCheckedDate: lastCheckedDate ?? this.lastCheckedDate,
     startDateOfUse: startDateOfUse ?? this.startDateOfUse,
+  );
+}
+
+class RequestStatusObj1 {
+  int? value;
+  String? name;
+  String? displayName;
+  String? color;
+
+  RequestStatusObj1({this.value, this.name, this.displayName, this.color});
+
+  RequestStatusObj1.fromJson(Map<String, dynamic> json) {
+    value = json["value"];
+    name = json["name"];
+    displayName = json["display_name"];
+    color = json["color"];
+  }
+
+  static List<RequestStatusObj1> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => RequestStatusObj1.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["value"] = value;
+    _data["name"] = name;
+    _data["display_name"] = displayName;
+    _data["color"] = color;
+    return _data;
+  }
+
+  RequestStatusObj1 copyWith({
+    int? value,
+    String? name,
+    String? displayName,
+    String? color,
+  }) => RequestStatusObj1(
+    value: value ?? this.value,
+    name: name ?? this.name,
+    displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 
@@ -1518,6 +1725,8 @@ class Asset {
   bool? isMovable;
   int? status;
   StatusObj1? statusObj;
+  int? requestStatus;
+  RequestStatusObj? requestStatusObj;
   int? manufacturingYear;
   String? serialNumber;
   int? quantity;
@@ -1530,7 +1739,7 @@ class Asset {
   String? lastCheckedDate;
   String? startDateOfUse;
 
-  Asset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
+  Asset({this.id, this.createdAt, this.editedAt, this.creator, this.editor, this.assetName, this.assetCode, this.isMovable, this.status, this.statusObj, this.requestStatus, this.requestStatusObj, this.manufacturingYear, this.serialNumber, this.quantity, this.description, this.lastMaintenanceTime, this.typeId, this.modelId, this.imageUrl, this.isRented, this.lastCheckedDate, this.startDateOfUse});
 
   Asset.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -1543,6 +1752,8 @@ class Asset {
     isMovable = json["is_movable"];
     status = json["status"];
     statusObj = json["status_obj"] == null ? null : StatusObj1.fromJson(json["status_obj"]);
+    requestStatus = json["request_status"];
+    requestStatusObj = json["request_status_obj"] == null ? null : RequestStatusObj.fromJson(json["request_status_obj"]);
     manufacturingYear = json["manufacturing_year"];
     serialNumber = json["serial_number"];
     quantity = json["quantity"];
@@ -1578,6 +1789,10 @@ class Asset {
     if(statusObj != null) {
       _data["status_obj"] = statusObj?.toJson();
     }
+    _data["request_status"] = requestStatus;
+    if(requestStatusObj != null) {
+      _data["request_status_obj"] = requestStatusObj?.toJson();
+    }
     _data["manufacturing_year"] = manufacturingYear;
     _data["serial_number"] = serialNumber;
     _data["quantity"] = quantity;
@@ -1603,6 +1818,8 @@ class Asset {
     bool? isMovable,
     int? status,
     StatusObj1? statusObj,
+    int? requestStatus,
+    RequestStatusObj? requestStatusObj,
     int? manufacturingYear,
     String? serialNumber,
     int? quantity,
@@ -1625,6 +1842,8 @@ class Asset {
     isMovable: isMovable ?? this.isMovable,
     status: status ?? this.status,
     statusObj: statusObj ?? this.statusObj,
+    requestStatus: requestStatus ?? this.requestStatus,
+    requestStatusObj: requestStatusObj ?? this.requestStatusObj,
     manufacturingYear: manufacturingYear ?? this.manufacturingYear,
     serialNumber: serialNumber ?? this.serialNumber,
     quantity: quantity ?? this.quantity,
@@ -1636,6 +1855,47 @@ class Asset {
     isRented: isRented ?? this.isRented,
     lastCheckedDate: lastCheckedDate ?? this.lastCheckedDate,
     startDateOfUse: startDateOfUse ?? this.startDateOfUse,
+  );
+}
+
+class RequestStatusObj {
+  int? value;
+  String? name;
+  String? displayName;
+  String? color;
+
+  RequestStatusObj({this.value, this.name, this.displayName, this.color});
+
+  RequestStatusObj.fromJson(Map<String, dynamic> json) {
+    value = json["value"];
+    name = json["name"];
+    displayName = json["display_name"];
+    color = json["color"];
+  }
+
+  static List<RequestStatusObj> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => RequestStatusObj.fromJson(map)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["value"] = value;
+    _data["name"] = name;
+    _data["display_name"] = displayName;
+    _data["color"] = color;
+    return _data;
+  }
+
+  RequestStatusObj copyWith({
+    int? value,
+    String? name,
+    String? displayName,
+    String? color,
+  }) => RequestStatusObj(
+    value: value ?? this.value,
+    name: name ?? this.name,
+    displayName: displayName ?? this.displayName,
+    color: color ?? this.color,
   );
 }
 

@@ -19,6 +19,7 @@ class TransferTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -127,266 +128,272 @@ class TransferTask extends StatelessWidget {
                   );
               }
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 620,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            margin: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xff0c4377),
-                                  Color(0xff114c81),
-                                  Color(0xff134777),
-                                  Color(0xff1960a1),
-                                ],
+                    height: h*0.35,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              margin: const EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xff0c4377),
+                                    Color(0xff114c81),
+                                    Color(0xff134777),
+                                    Color(0xff1960a1),
+                                  ],
+                                ),
                               ),
-                            ),
-                            height: taskController.isExpanded.value ? 340 : 250,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Theme(
-                                  data: ThemeData().copyWith(
-                                      dividerColor: Colors.transparent),
-                                  child: ExpansionTile(
-                                    onExpansionChanged: (value) {
-                                      taskController.isExpanded.value = value;
-                                    },
-                                    leading: const Icon(
-                                        Icons.add_chart_outlined,
-                                        size: 25,
-                                        color: Colors.white),
-                                    title: Text(
-                                      "${taskInfo?.typeObj?.displayName}",
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    trailing: const Icon(Icons.info,
-                                        color: AppColor.whiteColor),
-                                    expandedAlignment: Alignment.topLeft,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        height: 100,
-                                        child: SingleChildScrollView(
-                                          child: Text(
-                                            "${taskInfo?.description}",
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white,
+                              height: taskController.isExpanded.value ?  h*0.37 : h*0.3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Theme(
+                                    data: ThemeData().copyWith(
+                                        dividerColor: Colors.transparent),
+                                    child: ExpansionTile(
+                                      onExpansionChanged: (value) {
+                                        taskController.isExpanded.value = value;
+                                      },
+                                      leading: const Icon(
+                                          Icons.add_chart_outlined,
+                                          size: 25,
+                                          color: Colors.white),
+                                      title: Text(
+                                        "${taskInfo?.typeObj?.displayName}",
+                                        style: const TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      trailing: const Icon(Icons.info,
+                                          color: AppColor.whiteColor),
+                                      expandedAlignment: Alignment.topLeft,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          height: 55,
+                                          child: SingleChildScrollView(
+                                            child: Text(
+                                              "${taskInfo?.description}",
+                                              maxLines: 2,
+                                              overflow: TextOverflow.fade,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  height: 30,
-                                  child: ListTile(
-                                    leading: const Icon(Icons.room,
-                                        color: Colors.white, size: 25),
-                                    title: Text(
-                                      'Phòng: ${taskInfo?.toRoom?.roomCode}',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  height: 30,
-                                  child: ListTile(
-                                    leading: const Icon(Icons.event,
-                                        color: Colors.white, size: 25),
-                                    title: Text(
-                                      "Ngày yêu cầu: $formattedDate",
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  height: 30,
-                                  child: ListTile(
-                                    leading: Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(100)),
-                                          color: Colors.white),
-                                      child: Icon(statusIcon,
-                                          color: statusColor, size: 20),
-                                    ),
-                                    title: Text(
-                                      'Trạng thái: ${taskInfo?.statusObj?.displayName}',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                  child: ListTile(
-                                    leading: const Icon(Icons.key_rounded,
-                                        color: Colors.white, size: 25),
-                                    title: Text(
-                                      "Mã nhiệm vụ: ${taskInfo?.requestCode}",
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 15, bottom: 12),
-                            child: Text("Thông Tin Thiết Bị:",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20)),
-                          ),
-                          SingleChildScrollView(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: taskController
-                                      .taskDetail.value.data?.assets?.length ??
-                                  0,
-                              itemBuilder: (BuildContext context, int index) {
-                                final asset = taskController
-                                    .taskDetail.value.data?.assets?[index];
-                                if (asset != null) {
-                                  return Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    child: ExpansionTile(
-                                      expandedAlignment: Alignment.topLeft,
-                                      backgroundColor: const Color(0xff0c4377),
-                                      collapsedBackgroundColor: Colors.grey,
-                                      leading: const Icon(Icons.compare_rounded,
-                                          color: Colors.white),
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    height: 30,
+                                    child: ListTile(
+                                      leading: const Icon(Icons.room,
+                                          color: Colors.white, size: 25),
                                       title: Text(
-                                          '${asset.asset?.assetName}',
-                                          style: const TextStyle(
-                                              color: AppColor.whiteColor,
-                                              fontSize: 18)),
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      collapsedShape:
-                                          const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    child: Text(
-                                                        "Mã Thiết bị: ${asset.asset?.assetCode}",
-                                                        style: const TextStyle(
-                                                            color: AppColor
-                                                                .whiteColor,
-                                                            fontSize: 18)),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 230,
-                                                    child: Text(
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        "Mô tả: ${asset.asset?.description}",
-                                                        style: const TextStyle(
-                                                            color: AppColor
-                                                                .whiteColor,
-                                                            fontSize: 18)),
-                                                  ),
-                                                  SizedBox(
-                                                    child: Text(
-                                                        "Vị trí: Phòng ${taskInfo?.currentRoom?.roomCode}",
-                                                        style: const TextStyle(
-                                                            color: AppColor
-                                                                .whiteColor,
-                                                            fontSize: 18)),
-                                                  ),
-                                                ],
-                                              ),
-                                              const VerticalDivider(
-                                                  thickness: 10,
-                                                  color: AppColor.whiteColor,
-                                                  width: 2),
-                                              IconButton(
-                                                tooltip: "Scan QR Thiết Bị",
-                                                icon: const Icon(
-                                                    Icons
-                                                        .qr_code_scanner_outlined,
-                                                    size: 40,
-                                                    color: AppColor.whiteColor),
-                                                onPressed: () {
-                                                  Get.to(() => QRViewExample(
-                                                      taskInfoId: taskInfo
-                                                              ?.asset?.id ??
-                                                          "00000000-0000-0000-0000-000000000000"));
-                                                },
-                                              )
-                                            ],
-                                          ),
+                                        'Phòng: ${taskInfo?.toRoom?.roomCode}',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
                                         ),
-                                        const SizedBox(
-                                          height: 10,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    height: 30,
+                                    child: ListTile(
+                                      leading: const Icon(Icons.event,
+                                          color: Colors.white, size: 25),
+                                      title: Text(
+                                        "Ngày yêu cầu: $formattedDate",
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    height: 30,
+                                    child: ListTile(
+                                      leading: Container(
+                                        width: 25,
+                                        height: 25,
+                                        decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(100)),
+                                            color: Colors.white),
+                                        child: Icon(statusIcon,
+                                            color: statusColor, size: 20),
+                                      ),
+                                      title: Text(
+                                        'Trạng thái: ${taskInfo?.statusObj?.displayName}',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                    child: ListTile(
+                                      leading: const Icon(Icons.key_rounded,
+                                          color: Colors.white, size: 25),
+                                      title: Text(
+                                        "Mã nhiệm vụ: ${taskInfo?.requestCode}",
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 15, bottom: 12, top: 5),
+                    child: Text("Thông Tin Thiết Bị:",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                  ),
+                  SizedBox(
+                    height: h*0.4,
+                    child:
+                    ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: taskController
+                                .taskDetail.value.data?.assets?.length ??
+                            0,
+                        itemBuilder: (BuildContext context, int index) {
+                          final asset = taskController
+                              .taskDetail.value.data?.assets?[index];
+                          if (asset != null) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 5),
+                              child: ExpansionTile(
+                                expandedAlignment: Alignment.topLeft,
+                                backgroundColor: const Color(0xff0c4377),
+                                collapsedBackgroundColor: Colors.grey,
+                                leading: const Icon(Icons.compare_rounded,
+                                    color: Colors.white),
+                                title: Text(
+                                    '${asset.asset?.assetName}',
+                                    style: const TextStyle(
+                                        color: AppColor.whiteColor,
+                                        fontSize: 18)),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20))),
+                                collapsedShape:
+                                    const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              child: Text(
+                                                  "Mã Thiết bị: ${asset.asset?.assetCode}",
+                                                  style: const TextStyle(
+                                                      color: AppColor
+                                                          .whiteColor,
+                                                      fontSize: 18)),
+                                            ),
+                                            SizedBox(
+                                              width: 230,
+                                              child: Text(
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow
+                                                      .ellipsis,
+                                                  "Mô tả: ${asset.asset?.description}",
+                                                  style: const TextStyle(
+                                                      color: AppColor
+                                                          .whiteColor,
+                                                      fontSize: 18)),
+                                            ),
+                                            SizedBox(
+                                              child: Text(
+                                                  "Vị trí: Phòng ${asset.fromRoom?.roomCode}",
+                                                  style: const TextStyle(
+                                                      color: AppColor
+                                                          .whiteColor,
+                                                      fontSize: 18)),
+                                            ),
+                                          ],
+                                        ),
+                                        const VerticalDivider(
+                                            thickness: 10,
+                                            color: AppColor.whiteColor,
+                                            width: 2),
+                                        IconButton(
+                                          tooltip: "Scan QR Thiết Bị",
+                                          icon: const Icon(
+                                              Icons
+                                                  .qr_code_scanner_outlined,
+                                              size: 40,
+                                              color: AppColor.whiteColor),
+                                          onPressed: () {
+                                            Get.to(() => QRViewExample(
+                                                taskInfoId: taskInfo
+                                                        ?.asset?.id ??
+                                                    "00000000-0000-0000-0000-000000000000"));
+                                          },
                                         )
                                       ],
                                     ),
-                                  );
-                                } else {
-                                  return Container(
-                                    height: 300,
-                                    alignment: AlignmentDirectional.center,
-                                    child: const Text("Không Có Thiết Bị"),
-                                  );
-                                }
-                              },
-                            ),
-                          ),
-                        ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              ),
+                            );
+                          } else {
+                            return Container(
+                              height: 300,
+                              alignment: AlignmentDirectional.center,
+                              child: const Text("Không Có Thiết Bị"),
+                            );
+                          }
+                        },
                       ),
                     ),
-                  ),
                   GestureDetector(
                     onTap: () {
                       String nonID = taskInfo?.id ??
@@ -419,7 +426,7 @@ class TransferTask extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: submitColor,
                           borderRadius: BorderRadius.circular(15)),
-                      margin: const EdgeInsets.all(15),
+                      margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

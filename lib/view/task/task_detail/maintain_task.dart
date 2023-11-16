@@ -17,6 +17,7 @@ class MaintainTask extends StatelessWidget {
   MaintainTask({super.key, required this.taskId});
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -163,8 +164,7 @@ class MaintainTask extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              height:
-                                  taskController.isExpanded.value ? 340 : 250,
+                              height: taskController.isExpanded.value ?  h*0.38 : h*0.3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -194,12 +194,14 @@ class MaintainTask extends StatelessWidget {
                                         Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20),
-                                          height: 100,
+                                          height: 70,
                                           child: SingleChildScrollView(
                                             child: Text(
+                                              maxLines: 3,
+                                              overflow: TextOverflow.ellipsis,
                                               "${taskInfo?.description}",
                                               style: const TextStyle(
-                                                fontSize: 18,
+                                                fontSize: 16,
                                                 color: Colors.white,
                                               ),
                                             ),
@@ -249,8 +251,7 @@ class MaintainTask extends StatelessWidget {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(100)),
                                             color: Colors.white),
-                                        child: Icon(statusIcon,
-                                            color: statusColor, size: 20),
+                                        child: Icon(statusIcon, color: statusColor, size: 20),
                                       ),
                                       title: Text(
                                         'Trạng thái: ${taskInfo?.statusObj?.displayName}',

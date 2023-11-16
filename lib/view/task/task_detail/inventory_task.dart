@@ -19,6 +19,7 @@ class InventoryTask extends StatelessWidget {
   InventoryTask({super.key, required this.taskId});
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -151,7 +152,7 @@ class InventoryTask extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            height: taskController.isExpanded.value ? 300 : 200,
+                            height: taskController.isExpanded.value ?  h*0.34 : h*0.25,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -182,12 +183,14 @@ class InventoryTask extends StatelessWidget {
                                       Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 20),
-                                        height: 100,
+                                        height: 70,
                                         child: SingleChildScrollView(
                                           child: Text(
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
                                             "${taskInfo?.description}",
                                             style: const TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 16,
                                               color: Colors.white,
                                             ),
                                           ),

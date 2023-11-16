@@ -17,6 +17,7 @@ class CheckTask extends StatelessWidget {
   CheckTask({super.key, required this.taskId});
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -134,7 +135,7 @@ class CheckTask extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 230),
                             margin: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -147,7 +148,7 @@ class CheckTask extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            height: taskController.isExpanded.value ? 340 : 250,
+                            height: taskController.isExpanded.value ?  h*0.38 : h*0.3,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -177,12 +178,14 @@ class CheckTask extends StatelessWidget {
                                       Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 20),
-                                        height: 100,
+                                        height: 70,
                                         child: SingleChildScrollView(
                                           child: Text(
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
                                             "${taskInfo?.description}",
                                             style: const TextStyle(
-                                              fontSize: 18,
+                                              fontSize: 16,
                                               color: Colors.white,
                                             ),
                                           ),
