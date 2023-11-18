@@ -32,7 +32,10 @@ class AppUrl {
   //Room API
   static const String getInfoRoom = '$baseUrl/room';
   static const String getAssetInRoom = '$baseUrl/asset/room';
-  
+
+  //Statistic API
+  static const String getStatistic = '$baseUrl/dashboard/stastic-task';
+
   // Example
   static const String userListApi =
       'https://webhook.site/f00a7330-d81d-4622-913a-c2058fdaf076';

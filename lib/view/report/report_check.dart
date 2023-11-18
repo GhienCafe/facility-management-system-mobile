@@ -301,7 +301,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
   final ImagePicker _picker = ImagePicker();
   getMultiImage() async {
     final List<XFile> pickedImages =
-        await _picker.pickMultiImage(imageQuality: 50);
+        await _picker.pickMultiImage(imageQuality: 35);
     for (var e in pickedImages) {
       images.add(File(e.path));
     }
@@ -311,7 +311,7 @@ class MultiFileUploadScreenState extends State<MultiFileUploadScreen> {
   Future<void> takePicture() async {
     try {
       final XFile? image =
-          await _picker.pickImage(source: ImageSource.camera, imageQuality: 50);
+          await _picker.pickImage(source: ImageSource.camera, imageQuality: 35);
       if (image != null) {
         images.add(File(image.path));
         setState(() {});

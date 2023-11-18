@@ -21,6 +21,7 @@ class ReplaceTask extends StatelessWidget {
     final h = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -294,6 +295,7 @@ class ReplaceTask extends StatelessWidget {
                                         const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20))),
+                                    initiallyExpanded: true,
                                     children: [
                                       Align(
                                         alignment: Alignment.centerLeft,
@@ -394,6 +396,7 @@ class ReplaceTask extends StatelessWidget {
                                         const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20))),
+                                    initiallyExpanded: true,
                                     children: [
                                       Align(
                                         alignment: Alignment.centerLeft,

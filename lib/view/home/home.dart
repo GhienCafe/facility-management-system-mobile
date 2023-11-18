@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:FMS/res/color/colors.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../view_models/controller/home/statistics_controller.dart';
 import '../../view_models/controller/notification/notification_controller.dart';
 import '../qr_code/qr_room/qr_scan_room.dart';
 import '../widget/custom_card_info.dart';
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> {
   final RxInt currentIndex = 0.obs;
   RxInt numNotRead = 0.obs;
   final notificationController = Get.put(NotificationController());
+  final StatisticsController statisticsController = Get.put(StatisticsController());
   UserPreference userPreference = UserPreference();
   UsersModel? _user;
   @override
@@ -301,6 +303,7 @@ class _HomeState extends State<Home> {
                     children: [
                       InkWell(
                         onTap: () {
+                          statisticsController.getStatistics();
                           Get.to(() => const StatisticsPage());
                         },
                         borderRadius: BorderRadius.circular(15),

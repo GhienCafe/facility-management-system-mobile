@@ -3,17 +3,42 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class ReplaceChart extends StatefulWidget {
-  const ReplaceChart({super.key});
+  final int total;
+  final int process;
+  final int waiting;
+  final int complete;
+  final int reported;
+  const ReplaceChart(
+      {super.key,
+      required this.total,
+      required this.process,
+      required this.complete,
+      required this.reported,
+      required this.waiting});
 
   @override
   State<StatefulWidget> createState() => ReplaceChartState();
 }
 
-class ReplaceChartState extends State {
+class ReplaceChartState extends State<ReplaceChart> {
   int touchedIndex = -1;
+  double calculatePercentage(int a) {
+    if (widget.total != 0) {
+      double percentage = (a / widget.total) * 100;
+      // Round the percentage to two decimal places
+      return double.parse(percentage.toStringAsFixed(2));
+    } else {
+      // Trả về -1 khi b = 0 để tránh lỗi chia cho 0
+      return -1;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    double processPercentage = calculatePercentage(widget.process);
+    double waitingPercentage = calculatePercentage(widget.waiting);
+    double completePercentage = calculatePercentage(widget.complete);
+    double reportedPercentage = calculatePercentage(widget.reported);
     return AspectRatio(
       aspectRatio: 1.7,
       child: Row(
@@ -43,7 +68,11 @@ class ReplaceChartState extends State {
                   ),
                   sectionsSpace: 0,
                   centerSpaceRadius: 20,
-                  sections: showingSections(),
+                  sections: showingSections(
+                      processPercentage,
+                      waitingPercentage,
+                      reportedPercentage,
+                      completePercentage),
                 ),
               ),
             ),
@@ -53,16 +82,16 @@ class ReplaceChartState extends State {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Indicator(
-                color: Colors.blue,
-                text: 'Đã Báo Cáo',
+                color: Colors.deepOrangeAccent,
+                text: 'Đang Chờ Xử Lý',
                 isSquare: true,
               ),
               SizedBox(
                 height: 4,
               ),
               Indicator(
-                color: Colors.deepOrangeAccent,
-                text: 'Đang Xử Lí',
+                color: Colors.blue,
+                text: 'Đang Xử Lý',
                 isSquare: true,
               ),
               SizedBox(
@@ -70,7 +99,7 @@ class ReplaceChartState extends State {
               ),
               Indicator(
                 color: Colors.green,
-                text: 'Đã Hoàn Thành',
+                text: 'Đã Báo Cáo',
                 isSquare: true,
               ),
               SizedBox(
@@ -78,7 +107,7 @@ class ReplaceChartState extends State {
               ),
               Indicator(
                 color: Colors.purple,
-                text: 'Đã Báo Cáo',
+                text: 'Đã Hoàn Thành',
                 isSquare: true,
               ),
             ],
@@ -91,7 +120,12 @@ class ReplaceChartState extends State {
     );
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections(
+    double process,
+    double waiting,
+    double reported,
+    double complete,
+  ) {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
@@ -100,9 +134,9 @@ class ReplaceChartState extends State {
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: Colors.blue,
-            value: 40,
-            title: '40%',
+            color: Colors.deepOrangeAccent,
+            value: waiting,
+            title: '$waiting%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -113,9 +147,9 @@ class ReplaceChartState extends State {
           );
         case 1:
           return PieChartSectionData(
-            color: Colors.deepOrangeAccent,
-            value: 30,
-            title: '30%',
+            color: Colors.blue,
+            value: process,
+            title: '$process%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -126,9 +160,9 @@ class ReplaceChartState extends State {
           );
         case 2:
           return PieChartSectionData(
-            color: Colors.purple,
-            value: 15,
-            title: '15%',
+            color: Colors.green,
+            value: reported,
+            title: '$reported%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -139,9 +173,9 @@ class ReplaceChartState extends State {
           );
         case 3:
           return PieChartSectionData(
-            color: Colors.green,
-            value: 15,
-            title: '15%',
+            color: Colors.purple,
+            value: complete,
+            title: '$complete%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -190,7 +224,7 @@ class Indicator extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             color: textColor,
           ),
