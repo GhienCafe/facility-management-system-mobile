@@ -20,7 +20,7 @@ class SplashService {
       } else {
         saveFCMToken();
         Timer(
-            const Duration(seconds: 3),
+            const Duration(seconds: 2),
             () => {
                   Utils.snackBarSuccess("Xin chào", "Chúc Một Ngày Tốt Lành"),
                   Get.toNamed(RouteName.homeScreen)
@@ -52,6 +52,7 @@ class SplashService {
             .then((value) => {
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
                   Utils.snackBarSuccess("Xin chào", "Chúc Một Ngày Tốt Lành"),
+                  saveFCMToken(),
                 })
             .onError((error, stackTrace) => {});
       }
@@ -74,7 +75,6 @@ class SplashService {
   void isLogin() {
     userPreference.getUserInfo().then(
       (value) {
-        //print("check accessToken: ${value.data?.accessToken.toString()}");
         var token = value.data!.accessToken.toString();
         if (token.isEmpty || token == "null") {
           Timer(const Duration(seconds: 3),

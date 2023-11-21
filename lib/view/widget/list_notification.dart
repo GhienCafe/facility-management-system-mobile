@@ -71,8 +71,8 @@ class NotificationPopUp extends StatelessWidget {
                           DateFormat('dd-MM-yyyy').format(date);
                       return GestureDetector(
                         onTap: () {
-                          notRead.value--;
                           if (!notification.isRead!) {
+                            notRead.value--;
                             notificationController.readNotification(
                                 notification.id ??
                                     "00000000-0000-0000-0000-000000000000");

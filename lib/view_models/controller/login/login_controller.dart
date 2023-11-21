@@ -31,7 +31,7 @@ class LoginViewModel extends GetxController {
     } catch (error) {
       print("Error when save FCM Token!");
     }
-    }
+  }
 
   RxBool loading = false.obs;
   void loginApiMailPassword() {
@@ -47,9 +47,11 @@ class LoginViewModel extends GetxController {
     // );
     _api.loginApi(data).then((value) {
       loading.value = false;
-      //print(value);
-      if (value['status_code'] == 400 || value['status_code'] == 404 || value['data']['role'] !=3 ) {
-        Utils.snackBarError('Có lỗi xảy ra: ', "Vui lòng kiểm tra lại tài khoản mật khẩu");
+      if (value['status_code'] == 400 ||
+          value['status_code'] == 404 ||
+          value['data']['role'] != 3) {
+        Utils.snackBarError(
+            'Có lỗi xảy ra: ', "Vui lòng kiểm tra lại tài khoản mật khẩu");
       } else {
         UsersModel userModel = UsersModel.fromJson(value);
         // we will this model in sharedprefences
@@ -58,20 +60,23 @@ class LoginViewModel extends GetxController {
             .then((value) => {
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-                  Utils.snackBarSuccess("Chào mừng", "Chúc một ngày mới tốt lành"),
+                  Utils.snackBarSuccess(
+                      "Chào mừng", "Chúc một ngày mới tốt lành"),
                 })
             .onError((error, stackTrace) => {});
       }
     }).onError((error, stackTrace) {
       loading.value = false;
-      Utils.snackBarError('Có lỗi xảy ra: ', "Email hoặc mật khẩu không chính xác");
+      Utils.snackBarError(
+          'Có lỗi xảy ra: ', "Email hoặc mật khẩu không chính xác");
     });
   }
 
   Future<void> handleSignIn() async {
     try {
       googleSignIn.signOut();
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final String email = googleSignInAccount.email;
         if (email.endsWith("@fpt.edu.vn")) {
@@ -84,7 +89,6 @@ class LoginViewModel extends GetxController {
           FirebaseAuth.instance.signInWithCredential(credential);
           checkTokenGoogle(googleSignInAuthentication.idToken);
         } else {
-          // Show an error message or handle unauthorized domain here
           Utils.snackBarError("Bạn Không Có Quyền Truy Cập",
               "Email not valid (...@fpt.edu.vn)");
           await signOutGoogle();
@@ -96,24 +100,23 @@ class LoginViewModel extends GetxController {
   }
 
   checkTokenGoogle(String? token) async {
-    //loading.value = true;
     Map data = {
       'access_token': token,
     };
     _api.loginApiToken(data).then((value) {
       loading.value = false;
-      if (value['status_code'] != 200 || value['data']['role'] !=3) {
+      if (value['status_code'] != 200 || value['data']['role'] != 3) {
         Utils.snackBarError("Đăng nhập không hợp lệ", "Hãy thử lại");
         Get.toNamed(RouteName.loginScreen);
       } else {
         UsersModel userModel = UsersModel.fromJson(value);
-        // we will this model in sharedprefences
         userPrefrence
             .saveUserInfoPreferences(userModel)
             .then((value) => {
                   Get.delete<LoginViewModel>(),
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-                  Utils.snackBarSuccess("Chào mừng", "Chúc một ngày mới tốt lành"),
+                  Utils.snackBarSuccess(
+                      "Chào mừng", "Chúc một ngày mới tốt lành"),
                   saveFCMToken(),
                 })
             .onError((error, stackTrace) => {});
