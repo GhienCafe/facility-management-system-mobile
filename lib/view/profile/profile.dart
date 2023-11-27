@@ -69,7 +69,7 @@ class _ProfileState extends State<Profile> {
             )),
           ),
           title: const Text(
-            "Menu",
+            "Thêm",
             style: TextStyle(
               color: AppColor.whiteColor,
               letterSpacing: 1,

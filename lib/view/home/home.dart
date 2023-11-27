@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
                                   color: AppColor.primaryColor, size: 70),
                               SizedBox(width: 10),
                               Text(
-                                "Công Việc",
+                                "Nhiệm Vụ",
                                 style: TextStyle(
                                   color: AppColor.primaryColor,
                                   fontSize: 20,

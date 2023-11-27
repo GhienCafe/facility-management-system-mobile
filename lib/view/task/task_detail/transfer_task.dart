@@ -342,7 +342,7 @@ class TransferTask extends StatelessWidget {
                                                   maxLines: 2,
                                                   overflow: TextOverflow
                                                       .ellipsis,
-                                                  "Mô tả: ${asset.asset?.description}",
+                                                  "Số lượng: ${asset.quantity}",
                                                   style: const TextStyle(
                                                       color: AppColor
                                                           .whiteColor,
