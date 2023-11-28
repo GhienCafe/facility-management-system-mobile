@@ -114,8 +114,8 @@ class ReportController extends GetxController {
     };
     _api.reportTask(data).then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
-        Get.back();
         taskController.refreshAllList();
+        Get.back();
         Timer(const Duration(milliseconds: 300), () {
           Utils.snackBarSuccess("Thông báo", "Báo cáo thành công");
         });

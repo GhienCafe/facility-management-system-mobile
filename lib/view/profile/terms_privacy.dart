@@ -37,7 +37,7 @@ class AttentionPage extends StatelessWidget {
             )),
           ),
           title: const Text(
-            "Thông Tin Cá Nhân",
+            "Gợi Ý Trợ Giúp",
             style: TextStyle(
               color: AppColor.whiteColor,
               letterSpacing: 1,

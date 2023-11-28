@@ -138,7 +138,7 @@ class _ProfileState extends State<Profile> {
                   ListTile(
                     leading: const Icon(Icons.account_circle),
                     title: const Text(
-                      'Thông tin nhân viên',
+                      'Thông Tin Nhân Viên',
                       style: TextStyle(color: AppColor.primaryColor),
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
@@ -151,7 +151,7 @@ class _ProfileState extends State<Profile> {
                   ListTile(
                     leading: const Icon(Icons.help),
                     title: const Text(
-                      'Help & Support',
+                      'Gợi Ý Hệ Thống',
                       style: TextStyle(color: AppColor.primaryColor),
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),

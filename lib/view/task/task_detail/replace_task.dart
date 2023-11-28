@@ -27,6 +27,7 @@ class ReplaceTask extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             color: AppColor.whiteColor,
             onPressed: () {
+              taskController.refreshAllList();
               Get.back();
             },
           ),
@@ -43,7 +44,7 @@ class ReplaceTask extends StatelessWidget {
             )),
           ),
           title: const Text(
-            "Chi tiết nhiệm vụ",
+            "Chi Tiết Nhiệm Vụ",
             style: TextStyle(
               color: AppColor.whiteColor,
               letterSpacing: 1,
