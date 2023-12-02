@@ -124,7 +124,10 @@ class RepairTask extends StatelessWidget {
                   submitIcon = Icons.check;
                   submitText = const Text(
                     "Chấp Nhận Nhiệm Vụ",
-                    style: TextStyle(color: AppColor.whiteColor),
+                    style: TextStyle(
+                        color: AppColor.whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   );
                   break;
                 case 2:
@@ -134,47 +137,62 @@ class RepairTask extends StatelessWidget {
                   submitIcon = Icons.document_scanner_rounded;
                   submitText = const Text(
                     "Báo Cáo Nhiệm Vụ",
-                    style: TextStyle(color: AppColor.whiteColor),
+                    style: TextStyle(
+                        color: AppColor.whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   );
                   break;
                 case 3:
                   statusIcon = Icons.schedule_send;
                   statusColor = Colors.blue;
-                  submitColor = Colors.orange;
+                  submitColor = Colors.blueGrey;
                   submitIcon = Icons.schedule_send;
                   submitText = const Text(
                     " Đã Báo Cáo Nhiệm Vụ",
-                    style: TextStyle(color: AppColor.whiteColor),
+                    style: TextStyle(
+                        color: AppColor.whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   );
                   break;
                 case 4:
                   statusIcon = Icons.assignment_turned_in;
                   statusColor = Colors.green;
                   submitColor = Colors.grey;
-                  submitIcon = Icons.check;
+                  submitIcon = Icons.assignment_turned_in;
                   submitText = const Text(
                     "Đã Hoàn Thành",
-                    style: TextStyle(color: AppColor.whiteColor),
+                    style: TextStyle(
+                        color: AppColor.whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   );
                   break;
                 case 5:
                   statusIcon = Icons.highlight_off;
                   statusColor = Colors.grey;
                   submitColor = Colors.blue;
-                  submitIcon = Icons.check;
+                  submitIcon = Icons.highlight_off;
                   submitText = const Text(
                     "Chấp Nhận Nhiệm Vụ",
-                    style: TextStyle(color: AppColor.whiteColor),
+                    style: TextStyle(
+                        color: AppColor.whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   );
                   break;
                 default:
                   statusIcon = Icons.error;
                   statusColor = Colors.red;
-                  submitColor = Colors.blue;
-                  submitIcon = Icons.check;
+                  submitColor = Colors.grey;
+                  submitIcon = Icons.pending_actions;
                   submitText = const Text(
-                    "Chấp Nhận Nhiệm Vụ",
-                    style: TextStyle(color: AppColor.whiteColor),
+                    "Chờ Xử Lý",
+                    style: TextStyle(
+                        color: AppColor.whiteColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
                   );
               }
               return Column(
