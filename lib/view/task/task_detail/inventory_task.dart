@@ -68,6 +68,55 @@ class InventoryTask extends StatelessWidget {
               Color statusColor;
               Color submitColor;
               Text submitText;
+              Text priorityText;
+              Color priorityColor;
+              switch (taskInfo?.priority) {
+                case 1:
+                  priorityText = const Text("Cao nhất",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.red,
+                    ),);
+                  priorityColor = Colors.red;
+                  break;
+                case 2:
+                  priorityText = const Text("Cao",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.deepOrangeAccent,
+                    ),);
+                  priorityColor = Colors.deepOrangeAccent;
+                  break;
+                case 3:
+                  priorityText = const Text("Trung bình",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.orangeAccent,
+                    ),);
+                  priorityColor = Colors.orangeAccent;
+                  break;
+                case 4:
+                  priorityText = const Text("Thấp",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.green,
+                    ),);
+                  priorityColor = Colors.green;
+                  break;
+                case 5:
+                  priorityText = const Text(
+                    "Thấp nhất",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.lightBlue,
+                    ),
+                  );
+                  priorityColor = Colors.lightBlue;
+                  break;
+                default:
+                  priorityText = const Text("");
+                  priorityColor = Colors.grey;
+              }
               switch (taskInfo?.status) {
                 case 1:
                   statusIcon = Icons.insights;
@@ -152,7 +201,7 @@ class InventoryTask extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            height: taskController.isExpanded.value ?  h*0.34 : h*0.25,
+                            height: taskController.isExpanded.value ?  h*0.35 : h*0.26,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -237,19 +286,41 @@ class InventoryTask extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 30,
-                                  child: ListTile(
-                                    leading: const Icon(Icons.key_rounded,
-                                        color: Colors.white, size: 25),
-                                    title: Text(
-                                      "Mã nhiệm vụ: ${taskInfo?.requestCode}",
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 30,
+                                      width: 180,
+                                      child: ListTile(
+                                        leading: const Icon(Icons.key_rounded,
+                                            color: Colors.white, size: 25),
+                                        title: Text(
+                                          "Mã: ${taskInfo?.requestCode}",
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    Container(
+                                      height: 40,
+                                      width: 120,
+                                      margin: const EdgeInsets.only(top: 10, right: 10),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                        border: Border.all(
+                                          color: priorityColor,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: priorityText,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

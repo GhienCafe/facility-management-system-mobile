@@ -38,7 +38,7 @@ class _QRViewExampleState extends State<QRViewExample> {
             )),
           ),
           title: const Text(
-            'QR Code',
+            'Quét Mã QR',
             style: TextStyle(
               color: AppColor.whiteColor,
               letterSpacing: 1,
@@ -63,7 +63,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                       )
                     else
                       const Text(
-                        'Scan a code',
+                        'Quét Mã',
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),

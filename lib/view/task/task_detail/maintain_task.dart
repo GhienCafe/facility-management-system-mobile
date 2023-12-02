@@ -14,10 +14,12 @@ import '../../widget/loading_task_detail.dart';
 class MaintainTask extends StatelessWidget {
   final String? taskId;
   final taskController = Get.find<TaskController>();
+
   MaintainTask({super.key, required this.taskId});
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -67,6 +69,55 @@ class MaintainTask extends StatelessWidget {
                 Color statusColor;
                 Color submitColor;
                 Text submitText;
+                Text priorityText;
+                Color priorityColor;
+                switch (taskInfo?.priority) {
+                  case 1:
+                    priorityText = const Text("Cao nhất",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.red,
+                      ),);
+                    priorityColor = Colors.red;
+                    break;
+                  case 2:
+                    priorityText = const Text("Cao",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.deepOrangeAccent,
+                      ),);
+                    priorityColor = Colors.deepOrangeAccent;
+                    break;
+                  case 3:
+                    priorityText = const Text("Trung bình",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.orangeAccent,
+                      ),);
+                    priorityColor = Colors.orangeAccent;
+                    break;
+                  case 4:
+                    priorityText = const Text("Thấp",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.green,
+                      ),);
+                    priorityColor = Colors.green;
+                    break;
+                  case 5:
+                    priorityText = const Text(
+                      "Thấp nhất",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.lightBlue,
+                      ),
+                    );
+                    priorityColor = Colors.lightBlue;
+                    break;
+                  default:
+                    priorityText = const Text("");
+                    priorityColor = Colors.grey;
+                }
                 switch (taskInfo?.status) {
                   case 1:
                     statusIcon = Icons.insights;
@@ -75,7 +126,10 @@ class MaintainTask extends StatelessWidget {
                     submitIcon = Icons.check;
                     submitText = const Text(
                       "Chấp Nhận Nhiệm Vụ",
-                      style: TextStyle(color: AppColor.whiteColor),
+                      style: TextStyle(
+                          color: AppColor.whiteColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
                     );
                     break;
                   case 2:
@@ -133,10 +187,10 @@ class MaintainTask extends StatelessWidget {
                   default:
                     statusIcon = Icons.error;
                     statusColor = Colors.red;
-                    submitColor = Colors.blue;
-                    submitIcon = Icons.check;
+                    submitColor = Colors.grey;
+                    submitIcon = Icons.pending_actions;
                     submitText = const Text(
-                      "Chấp Nhận Nhiệm Vụ",
+                      "Chờ Xử Lý",
                       style: TextStyle(
                           color: AppColor.whiteColor,
                           fontSize: 18,
@@ -166,7 +220,9 @@ class MaintainTask extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              height: taskController.isExpanded.value ?  h*0.38 : h*0.3,
+                              height: taskController.isExpanded.value
+                                  ? h * 0.41
+                                  : h * 0.31,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -253,7 +309,8 @@ class MaintainTask extends StatelessWidget {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(100)),
                                             color: Colors.white),
-                                        child: Icon(statusIcon, color: statusColor, size: 20),
+                                        child: Icon(statusIcon,
+                                            color: statusColor, size: 20),
                                       ),
                                       title: Text(
                                         'Trạng thái: ${taskInfo?.statusObj?.displayName}',
@@ -264,19 +321,41 @@ class MaintainTask extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 30,
-                                    child: ListTile(
-                                      leading: const Icon(Icons.key_rounded,
-                                          color: Colors.white, size: 25),
-                                      title: Text(
-                                        "Mã nhiệm vụ: ${taskInfo?.requestCode}",
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 30,
+                                        width: 180,
+                                        child: ListTile(
+                                          leading: const Icon(Icons.key_rounded,
+                                              color: Colors.white, size: 25),
+                                          title: Text(
+                                            "Mã: ${taskInfo?.requestCode}",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      Container(
+                                        height: 40,
+                                        width: 120,
+                                        margin: const EdgeInsets.only(top: 10, right: 10),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                          border: Border.all(
+                                            color: priorityColor,
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: priorityText,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -331,12 +410,14 @@ class MaintainTask extends StatelessWidget {
                                             ),
                                             SizedBox(
                                               width: 230,
-                                              child: Text(maxLines: 2,
-                                                  overflow: TextOverflow.ellipsis,
+                                              child: Text(
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   "Mô tả: ${taskInfo?.asset?.description}",
                                                   style: const TextStyle(
-                                                      color: AppColor
-                                                          .whiteColor,
+                                                      color:
+                                                          AppColor.whiteColor,
                                                       fontSize: 18)),
                                             ),
                                             SizedBox(

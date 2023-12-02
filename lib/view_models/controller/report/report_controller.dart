@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:FMS/res/routes/routes_name.dart';
 import 'package:flutter/widgets.dart';
 import 'package:FMS/res/repository/report_repository/report_repository.dart';
 import 'package:get/get.dart';
@@ -114,8 +115,8 @@ class ReportController extends GetxController {
     };
     _api.reportTask(data).then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
+        Get.toNamed(RouteName.taskScreen);
         taskController.refreshAllList();
-        Get.back();
         Timer(const Duration(milliseconds: 300), () {
           Utils.snackBarSuccess("Thông báo", "Báo cáo thành công");
         });
