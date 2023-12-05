@@ -13,7 +13,7 @@ class NetworkApiServices extends BaseApiService {
   Future<dynamic> getApi(String url) async {
     dynamic responseJson;
     try {
-      final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      final response = await http.get(Uri.parse(url)).timeout(const Duration(minutes: 5));
       responseJson = jsonDecode(response.body);
     } on SocketException {
       throw InternetException('');
@@ -36,7 +36,7 @@ class NetworkApiServices extends BaseApiService {
           "accept": "application/json",
           'Authorization': 'Bearer $accessToken',
         },
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(minutes: 5));
       responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
@@ -61,7 +61,7 @@ class NetworkApiServices extends BaseApiService {
                 "accept": "application/json",
               },
               body: jsonEncode(data))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(minutes: 5));
       responseJson = returnResponse(response);
       //responseJson = jsonDecode(response.body);
     } on SocketException {
@@ -93,7 +93,7 @@ class NetworkApiServices extends BaseApiService {
                 'Authorization': 'Bearer $accessToken',
               },
               body: jsonEncode(data))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(minutes: 5));
       responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
@@ -114,7 +114,7 @@ class NetworkApiServices extends BaseApiService {
                 "accept": "application/json",
               },
               body: jsonEncode(data))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(minutes: 5));
       responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
@@ -138,7 +138,7 @@ class NetworkApiServices extends BaseApiService {
                 'Authorization': 'Bearer $accessToken',
               },
               body: jsonEncode(data))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(minutes: 5));
       responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
@@ -161,7 +161,7 @@ class NetworkApiServices extends BaseApiService {
             "accept": "application/json",
             'Authorization': 'Bearer $accessToken',
           },)
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(minutes: 5));
       responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
