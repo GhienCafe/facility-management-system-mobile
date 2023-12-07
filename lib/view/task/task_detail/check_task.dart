@@ -70,22 +70,20 @@ class CheckTask extends StatelessWidget {
               Color priorityColor;
               switch (taskInfo?.priority) {
                 case 1:
-                  priorityText = const Text(
-                    "Thấp nhất",
+                  priorityText = const Text("Cao nhất",
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.lightBlue,
-                    ),
-                  );
-                  priorityColor = Colors.lightBlue;
+                      color: Colors.red,
+                    ),);
+                  priorityColor = Colors.red;
                   break;
                 case 2:
-                  priorityText = const Text("Thấp",
+                  priorityText = const Text("Cao",
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.green,
+                      color: Colors.deepOrangeAccent,
                     ),);
-                  priorityColor = Colors.green;
+                  priorityColor = Colors.deepOrangeAccent;
                   break;
                 case 3:
                   priorityText = const Text("Trung bình",
@@ -96,20 +94,22 @@ class CheckTask extends StatelessWidget {
                   priorityColor = Colors.orangeAccent;
                   break;
                 case 4:
-                  priorityText = const Text("Cao",
+                  priorityText = const Text("Thấp",
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.deepOrangeAccent,
+                      color: Colors.green,
                     ),);
-                  priorityColor = Colors.deepOrangeAccent;
+                  priorityColor = Colors.green;
                   break;
                 case 5:
-                  priorityText = const Text("Cao nhất",
+                  priorityText = const Text(
+                    "Thấp nhất",
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.red,
-                    ),);
-                  priorityColor = Colors.red;
+                      color: Colors.lightBlue,
+                    ),
+                  );
+                  priorityColor = Colors.lightBlue;
                   break;
                 default:
                   priorityText = const Text("");

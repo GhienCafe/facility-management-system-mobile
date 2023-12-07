@@ -40,6 +40,40 @@ class ProcessListWidget extends StatelessWidget {
                   String formattedDate = DateFormat('dd-MM-yyyy').format(date);
                   IconData statusIcon;
                   Color statusColor;
+                  String priorityText;
+                  IconData priorityIcon;
+                  Color priorityColor;
+                  switch (task.priority) {
+                    case 1:
+                      priorityText = "Cao nhất";
+                      priorityIcon = Icons.keyboard_double_arrow_up;
+                      priorityColor = Colors.red;
+                      break;
+                    case 2:
+                      priorityText = "Cao";
+                      priorityIcon = Icons.keyboard_arrow_up;
+                      priorityColor = Colors.deepOrangeAccent;
+                      break;
+                    case 3:
+                      priorityText = "Trung bình";
+                      priorityIcon = Icons.drag_handle;
+                      priorityColor = Colors.orangeAccent;
+                      break;
+                    case 4:
+                      priorityText = "Thấp";
+                      priorityIcon = Icons.keyboard_arrow_down;
+                      priorityColor = Colors.green;
+                      break;
+                    case 5:
+                      priorityText = "Thấp nhất";
+                      priorityIcon = Icons.keyboard_double_arrow_down;
+                      priorityColor = Colors.lightBlue;
+                      break;
+                    default:
+                      priorityText = "";
+                      priorityIcon = Icons.graphic_eq;
+                      priorityColor = Colors.grey;
+                  }
                   switch (task.status) {
                     case 1:
                       statusIcon = Icons.insights;
@@ -165,24 +199,52 @@ class ProcessListWidget extends StatelessWidget {
                           ),
                           const VerticalDivider(
                               thickness: 1, color: AppColor.whiteColor),
-                          Stack(
-                            children: List.generate(
-                              1,
-                                  (index) => Container(
-                                margin: EdgeInsets.only(
-                                    left: (10 * index).toDouble()),
-                                height: 35,
-                                width: 35,
-                                decoration: const BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(100)),
-                                    color: AppColor.whiteColor),
-                                child: Icon(
-                                  statusIcon,
-                                  color: statusColor,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Stack(
+                                children: List.generate(
+                                  1,
+                                      (index) => Container(
+                                    margin: EdgeInsets.only(
+                                        left: (10 * index).toDouble()),
+                                    height: 35,
+                                    width: 35,
+                                    decoration: const BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(100)),
+                                        color: AppColor.whiteColor),
+                                    child: Icon(
+                                      statusIcon,
+                                      color: statusColor,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              Stack(
+                                children: List.generate(
+                                  1,
+                                      (index) => Container(
+                                    margin: EdgeInsets.only(
+                                        left: (10 * index).toDouble()),
+                                    height: 35,
+                                    width: 35,
+                                    decoration: const BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(100)),
+                                        color: AppColor.whiteColor),
+                                    child: Tooltip(
+                                      message: priorityText,
+                                      child: Icon(
+                                        priorityIcon,
+                                        color: priorityColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
