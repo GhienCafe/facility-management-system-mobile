@@ -1,18 +1,25 @@
 import 'package:FMS/data/response/status.dart';
 import 'package:FMS/res/color/colors.dart';
+import 'package:FMS/view/task/task_detail/check_task.dart';
+import 'package:FMS/view/task/task_detail/inventory_task.dart';
+import 'package:FMS/view/task/task_detail/maintain_task.dart';
+import 'package:FMS/view/task/task_detail/repair_task.dart';
+import 'package:FMS/view/task/task_detail/replace_task.dart';
+import 'package:FMS/view/task/task_detail/transfer_task.dart';
 import 'package:FMS/view_models/controller/notification/notification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../../view_models/controller/task/task_controller.dart';
 import 'loading_noti_list.dart';
 
 class NotificationPopUp extends StatelessWidget {
   final RxInt notRead;
   NotificationPopUp({super.key, required this.notRead});
   final notificationController = Get.find<NotificationController>();
-
+  final taskController = Get.put(TaskController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,11 +79,39 @@ class NotificationPopUp extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           if (!notification.isRead!) {
-                            notRead.value--;
+                            if(notRead.value > 0){
+                              notRead.value--;
+                            }
                             notificationController.readNotification(
                                 notification.id ??
                                     "00000000-0000-0000-0000-000000000000");
+
                           }
+                          taskController.getDetailFromNotification(notification.itemId);
+                          // taskController.taskDetailApi(notification.itemId);
+                          // print(taskController.taskDetail.value.data?.type);
+                          // switch(taskController.taskDetail.value.data?.type){
+                          //   case 1:
+                          //     Get.to(() => CheckTask(taskId: notification.itemId));
+                          //     break;
+                          //   case 2:
+                          //     Get.to(() => MaintainTask(taskId: notification.itemId));
+                          //     break;
+                          //   case 3:
+                          //     Get.to(() => RepairTask(taskId: notification.itemId));
+                          //     break;
+                          //   case 4:
+                          //     Get.to(() => ReplaceTask(taskId: notification.itemId));
+                          //     break;
+                          //   case 5:
+                          //     Get.to(() => TransferTask(taskId: notification.itemId));
+                          //     break;
+                          //   case 6:
+                          //     Get.to(() => InventoryTask(taskId: notification.itemId), arguments: notification.itemId);
+                          //     break;
+                          //   default:
+                          //     break;
+                          // }
                         },
                         child: Container(
                           height: 120,

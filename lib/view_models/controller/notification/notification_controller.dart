@@ -16,26 +16,35 @@ class NotificationController {
   final notificationList = NotificationListModel().obs;
   RxInt notRead = 0.obs;
   RxString error = ''.obs;
+  RxInt totalNotification = 0.obs;
   void setRexRequestStatus(StatusAPI _value) => rxRequestStatus.value = _value;
   void setNotificationList(NotificationListModel _value) =>
       notificationList.value = _value;
   void setError(String _value) => error.value = _value;
 
   void notificationListApi() {
+    bool isReadNotification;
+    notRead.value =0;
     _api
         .notificationListApi()
         .then((value) => {
               setRexRequestStatus(StatusAPI.COMPLETED),
               setNotificationList(value),
+              totalNotification.value = notificationList.value.data?.length ?? 0,
+              for (int i = 0; i < totalNotification.value; i++)
+                {
+                  isReadNotification =
+                      notificationList.value.data?[i].isRead ?? false,
+                  if (!isReadNotification) {notRead.value++}
+                }
             })
         .onError((error, stackTrace) => {
               setError(error.toString()),
               setRexRequestStatus(StatusAPI.ERROR),
             });
-
   }
 
-  void readNotification(String id){
+  void readNotification(String id) {
     _api.readNotificationApi(id).then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
         refreshApi();
@@ -47,10 +56,9 @@ class NotificationController {
     });
   }
 
-  void readAllNotification(){
+  void readAllNotification() {
     _api.readAllNotificationApi().then((value) {
       if (value['status_code'] == 200 || value['status_code'] == 201) {
-
         refreshApi();
       } else {
         //Utils.snackBarError("Thông báo", "Báo cáo không thành công");
@@ -103,10 +111,6 @@ class NotificationController {
         onFcmTokenHandle: NotificationController.myFcmTokenHandle,
         // Method này dùng để phát hiện khi nhận được native token mới.
         onNativeTokenHandle: NotificationController.myNativeTokenHandle,
-
-        // This license key is necessary only to remove the watermark for
-        // push notifications in release mode. To know more about it, please
-        // visit http://awesome-notifications.carda.me#prices
         licenseKeys: null,
         debug: debug);
   }

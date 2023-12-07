@@ -22,7 +22,6 @@ class _TaskState extends State<Task> {
   final RxInt currentIndex = 1.obs;
   int selectedTabIndex = 0;
 
-
   @override
   void initState() {
     super.initState();
@@ -30,7 +29,6 @@ class _TaskState extends State<Task> {
   }
 
   void refreshData() {
-
     taskController.refreshAllList();
   }
 

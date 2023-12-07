@@ -9,15 +9,19 @@ import 'package:get/get.dart';
 import 'package:FMS/res/routes/routes_name.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 
+import '../controller/notification/notification_controller.dart';
+
 class SplashService {
   final _api = LoginRepository();
   RxBool loading = false.obs;
   UserPreference userPreference = UserPreference();
+  final notificationController = Get.put(NotificationController());
   void checkTokenValid() async {
     _api.checkAccessToken().then((value) {
       if (value['status_code'] != 200) {
         refreshToken();
       } else {
+        notificationController.notificationList;
         saveFCMToken();
         Timer(
             const Duration(seconds: 2),
@@ -41,7 +45,8 @@ class SplashService {
         Timer(
             const Duration(seconds: 1),
             () => {
-                  Utils.snackBarError("Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
+                  Utils.snackBarError(
+                      "Đăng Nhập Không Hợp Lệ", "Hãy Đăng Nhập Lại"),
                   Get.toNamed(RouteName.loginScreen)
                 });
       } else {
@@ -50,9 +55,16 @@ class SplashService {
         userPreference
             .saveUserInfoPreferences(userModel)
             .then((value) => {
-                  Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
-                  Utils.snackBarSuccess("Xin chào", "Chúc Một Ngày Tốt Lành"),
-                  saveFCMToken(),
+                  notificationController.notificationList,
+                  Timer(
+                    const Duration(seconds: 2),
+                    () => {
+                      Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
+                      Utils.snackBarSuccess(
+                          "Xin chào", "Chúc Một Ngày Tốt Lành"),
+                      saveFCMToken(),
+                    },
+                  ),
                 })
             .onError((error, stackTrace) => {});
       }

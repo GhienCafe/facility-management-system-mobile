@@ -9,9 +9,11 @@ import 'package:FMS/utlis/utlis.dart';
 import 'package:FMS/view_models/controller/user_prefrence/user_prefrence_view_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../notification/notification_controller.dart';
+
 class LoginViewModel extends GetxController {
   final _api = LoginRepository();
-
+  final notificationController = Get.put(NotificationController());
   UserPreference userPrefrence = UserPreference();
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
@@ -59,6 +61,7 @@ class LoginViewModel extends GetxController {
             .saveUserInfoPreferences(userModel)
             .then((value) => {
                   Get.delete<LoginViewModel>(),
+                  notificationController.notificationList,
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
                   Utils.snackBarSuccess(
                       "Chào mừng", "Chúc một ngày mới tốt lành"),
@@ -114,6 +117,7 @@ class LoginViewModel extends GetxController {
             .saveUserInfoPreferences(userModel)
             .then((value) => {
                   Get.delete<LoginViewModel>(),
+                  notificationController.notificationList,
                   Get.toNamed(RouteName.homeScreen)!.then((value) => {}),
                   Utils.snackBarSuccess(
                       "Chào mừng", "Chúc một ngày mới tốt lành"),

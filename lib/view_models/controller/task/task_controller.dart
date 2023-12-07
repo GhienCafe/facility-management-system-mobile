@@ -2,10 +2,16 @@ import 'dart:async';
 
 import 'package:FMS/models/task/check_task_model.dart';
 import 'package:FMS/res/repository/task_repository/task_repository.dart';
+import 'package:FMS/view/task/task_detail/repair_task.dart';
+import 'package:FMS/view/task/task_detail/replace_task.dart';
 import 'package:get/get.dart';
 import '../../../data/response/status.dart';
 import '../../../models/task/tasks_list_model.dart';
 import '../../../utlis/utlis.dart';
+import '../../../view/task/task_detail/check_task.dart';
+import '../../../view/task/task_detail/inventory_task.dart';
+import '../../../view/task/task_detail/maintain_task.dart';
+import '../../../view/task/task_detail/transfer_task.dart';
 
 class TaskController extends GetxController {
   var isLoading = true.obs;
@@ -96,7 +102,7 @@ class TaskController extends GetxController {
             });
   }
 
-  void taskDetailApi(String? id) {
+  Future<void> taskDetailApi(String? id) async {
     rxRequestDetailStatus(StatusAPI.LOADING);
     final taskClean = TaskDetailModel();
     setTaskDetail(taskClean);
@@ -117,9 +123,7 @@ class TaskController extends GetxController {
       "file_name": "string",
       "key": "string",
       "raw_uri": "string",
-      "uris": [
-        "string"
-      ],
+      "uris": ["string"],
       "extensions": "string",
       "file_type": 1,
       "content": "string",
@@ -138,6 +142,43 @@ class TaskController extends GetxController {
       }
     }).onError((error, stackTrace) {
       Utils.snackBar('Có lỗi xảy ra: ', error.toString());
+    });
+  }
+
+  void getDetailFromNotification(String? id) async {
+    //await taskDetailApi(id).then((value) => print(taskDetail.value.data?.type)); // Wait for taskDetailApi to complete before continuing
+    final taskClean = TaskDetailModel();
+    setTaskDetail(taskClean);
+    _api.taskDetailApi(id!).then((value) {
+      setTaskDetail(value);
+      //print(taskDetail.value.data?.type);
+      switch (taskDetail.value.data?.type) {
+        case 0:
+          Utils.snackBar("Thông báo", "Không tìm thấy");
+        case 1:
+          Get.to(() => CheckTask(taskId: id));
+          break;
+        case 2:
+          Get.to(() => MaintainTask(taskId: id));
+          break;
+        case 3:
+          Get.to(() => RepairTask(taskId: id));
+          break;
+        case 4:
+          Get.to(() => ReplaceTask(taskId: id));
+          break;
+        case 5:
+          Get.to(() => TransferTask(taskId: id));
+          break;
+        case 6:
+          Get.to(() => InventoryTask(taskId: id), arguments: id);
+          break;
+        default:
+          break;
+      }
+    }).catchError((error) {
+      setError(error.toString());
+      rxRequestDetailStatus(StatusAPI.ERROR);
     });
   }
 
@@ -163,46 +204,45 @@ class TaskController extends GetxController {
     _api
         .taskListApi()
         .then((value) => {
-      setRexRequestStatus(StatusAPI.COMPLETED),
-      setTaskList(value),
-    })
+              setRexRequestStatus(StatusAPI.COMPLETED),
+              setTaskList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestStatus(StatusAPI.ERROR),
+            });
 
     _api
         .taskListWaitingApi()
         .then((value) => {
-      setRexRequestWaitingStatus(StatusAPI.COMPLETED),
-      setTaskWaitingList(value),
-    })
+              setRexRequestWaitingStatus(StatusAPI.COMPLETED),
+              setTaskWaitingList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestWaitingStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestWaitingStatus(StatusAPI.ERROR),
+            });
 
     _api
         .taskListCompleteApi()
         .then((value) => {
-      setRexRequestCompleteStatus(StatusAPI.COMPLETED),
-      setTaskCompleteList(value),
-    })
+              setRexRequestCompleteStatus(StatusAPI.COMPLETED),
+              setTaskCompleteList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestCompleteStatus(StatusAPI.ERROR),
-    });
+              setError(error.toString()),
+              setRexRequestCompleteStatus(StatusAPI.ERROR),
+            });
     _api
         .taskListProcessApi()
         .then((value) => {
-      setRexRequestProcessStatus(StatusAPI.COMPLETED),
-      setTaskProcessList(value),
-    })
+              setRexRequestProcessStatus(StatusAPI.COMPLETED),
+              setTaskProcessList(value),
+            })
         .onError((error, stackTrace) => {
-      setError(error.toString()),
-      setRexRequestProcessStatus(StatusAPI.ERROR),
-    });
-
+              setError(error.toString()),
+              setRexRequestProcessStatus(StatusAPI.ERROR),
+            });
   }
 
   void refreshDetailApi(String id) {

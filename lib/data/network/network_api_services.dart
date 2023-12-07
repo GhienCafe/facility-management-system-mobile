@@ -172,7 +172,7 @@ class NetworkApiServices extends BaseApiService {
   }
 
   dynamic returnResponse(http.Response response) {
-    print("Return status: ${response.statusCode}");
+    print("Return status: ${response.statusCode}, ${response.request}");
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
