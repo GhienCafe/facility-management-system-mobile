@@ -218,7 +218,7 @@ class ReplaceTask extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            height: taskController.isExpanded.value ?  h*0.39 : h*0.3,
+                            height: taskController.isExpanded.value ?  h*0.36 : h*0.27,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -261,21 +261,6 @@ class ReplaceTask extends StatelessWidget {
                                         ),
                                       ),
                                     ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  height: 30,
-                                  child: ListTile(
-                                    leading: const Icon(Icons.room,
-                                        color: Colors.white, size: 25),
-                                    title: Text(
-                                      'Phòng: ${taskInfo?.toRoom?.roomCode}',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
-                                    ),
                                   ),
                                 ),
                                 Container(

@@ -59,96 +59,213 @@ class StatisticsPage extends StatelessWidget {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const ListTile(
-                          leading: Icon(Icons.engineering),
-                          title: Text("Nhiệm Vụ Kiểm Tra",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey)),
-                        ),
-                      ),
-                      ReplaceChart(
-                          total: statistic?.assetCheckTask?.total ?? 1,
-                          process: statistic?.assetCheckTask?.process ?? 0,
-                          waiting: statistic?.assetCheckTask?.waiting ?? 0,
-                          complete: statistic?.assetCheckTask?.complete ?? 0,
-                          reported: statistic?.assetCheckTask?.reported ?? 0),
-                      const Divider(
-                        thickness: 2,
-                        color: Colors.grey,
-                        indent: 30,
-                        endIndent: 30,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const ListTile(
-                          leading: Icon(Icons.handyman),
-                          title: Text("Nhiệm Vụ Sửa Chữa",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey)),
-                        ),
-                      ),
-                      ReplaceChart(
-                          total: statistic?.repairTask?.total ?? 1,
-                          process: statistic?.repairTask?.process ?? 0,
-                          waiting: statistic?.repairTask?.waiting ?? 0,
-                          complete: statistic?.repairTask?.complete ?? 0,
-                          reported: statistic?.repairTask?.reported ?? 0
-                      ),
-                      const Divider(
-                        thickness: 2,
-                        color: Colors.grey,
-                        indent: 30,
-                        endIndent: 30,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const ListTile(
-                          leading: Icon(Icons.swap_horizontal_circle),
-                          title: Text("Nhiệm Vụ Thay Thế",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey)),
-                        ),
-                      ),
-                      ReplaceChart(
-                          total: statistic?.replaceTask?.total ?? 1,
-                          process: statistic?.replaceTask?.process ?? 0,
-                          waiting: statistic?.replaceTask?.waiting ?? 0,
-                          complete: statistic?.replaceTask?.complete ?? 0,
-                          reported: statistic?.replaceTask?.reported ?? 0
-                      ),
-                      const Divider(
-                        thickness: 2,
-                        color: Colors.grey,
-                        indent: 30,
-                        endIndent: 30,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const ListTile(
-                          leading: Icon(Icons.conveyor_belt),
-                          title: Text("Nhiệm Vụ Kiểm Kê",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey)),
-                        ),
-                      ),
-                      ReplaceChart(
-                          total: statistic?.inventoryCheckTask?.total ?? 1,
-                          process: statistic?.inventoryCheckTask?.process ?? 0,
-                          waiting: statistic?.inventoryCheckTask?.waiting ?? 0,
-                          complete: statistic?.inventoryCheckTask?.complete ?? 0,
-                          reported: statistic?.inventoryCheckTask?.reported ?? 0
-                      ),
-                      const SizedBox(height: 20)
+                      Visibility(
+                          visible: statistic?.assetCheckTask?.total != 0 &&
+                              statistic?.transportTask?.total != null,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: const ListTile(
+                                  leading: Icon(Icons.engineering),
+                                  title: Text("Nhiệm Vụ Kiểm Tra",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey)),
+                                ),
+                              ),
+                              ReplaceChart(
+                                  total: statistic?.assetCheckTask?.total ?? 1,
+                                  process:
+                                      statistic?.assetCheckTask?.process ?? 0,
+                                  waiting:
+                                      statistic?.assetCheckTask?.waiting ?? 0,
+                                  complete:
+                                      statistic?.assetCheckTask?.complete ?? 0,
+                                  reported:
+                                      statistic?.assetCheckTask?.reported ?? 0),
+                              const Divider(
+                                thickness: 2,
+                                color: Colors.grey,
+                                indent: 30,
+                                endIndent: 30,
+                              ),
+                            ],
+                          )),
+                      Visibility(
+                          visible: statistic?.repairTask?.total != 0 &&
+                              statistic?.transportTask?.total != null,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: const ListTile(
+                                  leading: Icon(Icons.handyman),
+                                  title: Text("Nhiệm Vụ Sửa Chữa",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey)),
+                                ),
+                              ),
+                              ReplaceChart(
+                                  total: statistic?.repairTask?.total ?? 1,
+                                  process: statistic?.repairTask?.process ?? 0,
+                                  waiting: statistic?.repairTask?.waiting ?? 0,
+                                  complete:
+                                      statistic?.repairTask?.complete ?? 0,
+                                  reported:
+                                      statistic?.repairTask?.reported ?? 0),
+                              const Divider(
+                                thickness: 2,
+                                color: Colors.grey,
+                                indent: 30,
+                                endIndent: 30,
+                              ),
+                            ],
+                          )),
+                      Visibility(
+                          visible: statistic?.maintenanceTask?.total != 0 &&
+                              statistic?.transportTask?.total != null,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: const ListTile(
+                                  leading: Icon(Icons.handyman),
+                                  title: Text("Nhiệm Vụ Bảo Trì",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey)),
+                                ),
+                              ),
+                              ReplaceChart(
+                                  total: statistic?.maintenanceTask?.total ?? 1,
+                                  process:
+                                      statistic?.maintenanceTask?.process ?? 0,
+                                  waiting:
+                                      statistic?.maintenanceTask?.waiting ?? 0,
+                                  complete:
+                                      statistic?.maintenanceTask?.complete ?? 0,
+                                  reported:
+                                      statistic?.maintenanceTask?.reported ??
+                                          0),
+                              const Divider(
+                                thickness: 2,
+                                color: Colors.grey,
+                                indent: 30,
+                                endIndent: 30,
+                              ),
+                            ],
+                          )),
+                      Visibility(
+                          visible: statistic?.replaceTask?.total != 0 &&
+                              statistic?.transportTask?.total != null,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: const ListTile(
+                                  leading: Icon(Icons.swap_horizontal_circle),
+                                  title: Text("Nhiệm Vụ Thay Thế",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey)),
+                                ),
+                              ),
+                              ReplaceChart(
+                                  total: statistic?.replaceTask?.total ?? 1,
+                                  process: statistic?.replaceTask?.process ?? 0,
+                                  waiting: statistic?.replaceTask?.waiting ?? 0,
+                                  complete:
+                                      statistic?.replaceTask?.complete ?? 0,
+                                  reported:
+                                      statistic?.replaceTask?.reported ?? 0),
+                              const Divider(
+                                thickness: 2,
+                                color: Colors.grey,
+                                indent: 30,
+                                endIndent: 30,
+                              ),
+                            ],
+                          )),
+                      Visibility(
+                          visible: statistic?.transportTask?.total != 0 &&
+                              statistic?.transportTask?.total != null,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: const ListTile(
+                                  leading: Icon(Icons.swap_horizontal_circle),
+                                  title: Text("Nhiệm Vụ Vận Chuyển",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey)),
+                                ),
+                              ),
+                              ReplaceChart(
+                                  total: statistic?.transportTask?.total ?? 1,
+                                  process:
+                                      statistic?.transportTask?.process ?? 0,
+                                  waiting:
+                                      statistic?.transportTask?.waiting ?? 0,
+                                  complete:
+                                      statistic?.transportTask?.complete ?? 0,
+                                  reported:
+                                      statistic?.transportTask?.reported ?? 0),
+                              const Divider(
+                                thickness: 2,
+                                color: Colors.grey,
+                                indent: 30,
+                                endIndent: 30,
+                              ),
+                            ],
+                          )),
+                      Visibility(
+                          visible: statistic?.inventoryCheckTask?.total != 0 &&
+                              statistic?.transportTask?.total != null,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: const ListTile(
+                                  leading: Icon(Icons.conveyor_belt),
+                                  title: Text("Nhiệm Vụ Kiểm Kê",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey)),
+                                ),
+                              ),
+                              ReplaceChart(
+                                  total:
+                                      statistic?.inventoryCheckTask?.total ?? 1,
+                                  process:
+                                      statistic?.inventoryCheckTask?.process ??
+                                          0,
+                                  waiting:
+                                      statistic?.inventoryCheckTask?.waiting ??
+                                          0,
+                                  complete:
+                                      statistic?.inventoryCheckTask?.complete ??
+                                          0,
+                                  reported:
+                                      statistic?.inventoryCheckTask?.reported ??
+                                          0),
+                              const SizedBox(height: 20)
+                            ],
+                          )),
                     ],
                   ),
                 );

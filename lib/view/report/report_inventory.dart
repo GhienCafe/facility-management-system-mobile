@@ -149,41 +149,6 @@ class _ReportInventoryState extends State<ReportInventory> {
                                           value: 8,
                                           child: Text('Hư hại'),
                                         ),
-                                        // DropdownMenuItem<int>(
-                                        //   enabled: false,
-                                        //   value: 3,
-                                        //   child: Text('Đang bảo dưỡng',
-                                        //       style:
-                                        //       TextStyle(color: Colors.grey)),
-                                        // ),
-                                        // DropdownMenuItem<int>(
-                                        //   enabled: false,
-                                        //   value: 4,
-                                        //   child: Text('Đang sửa chữa',
-                                        //       style:
-                                        //       TextStyle(color: Colors.grey)),
-                                        // ),
-                                        // DropdownMenuItem<int>(
-                                        //   enabled: false,
-                                        //   value: 5,
-                                        //   child: Text('Đang chờ kiểm tra',
-                                        //       style:
-                                        //       TextStyle(color: Colors.grey)),
-                                        // ),
-                                        // DropdownMenuItem<int>(
-                                        //   enabled: false,
-                                        //   value: 6,
-                                        //   child: Text('Đang chờ thay thế',
-                                        //       style:
-                                        //       TextStyle(color: Colors.grey)),
-                                        // ),
-                                        // DropdownMenuItem<int>(
-                                        //   enabled: false,
-                                        //   value: 7,
-                                        //   child: Text('Đang được điều chuyển',
-                                        //       style:
-                                        //       TextStyle(color: Colors.grey)),
-                                        // ),
                                       ],
                                       onChanged: (value) {
                                         setState(() {
