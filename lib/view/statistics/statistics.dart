@@ -60,8 +60,8 @@ class StatisticsPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Visibility(
-                          visible: statistic?.assetCheckTask?.total != 0 &&
-                              statistic?.transportTask?.total != null,
+                          visible: statistic?.assetCheckTask?.total != null &&
+                              statistic?.transportTask?.total != 0,
                           child: Column(
                             children: [
                               Container(
@@ -95,8 +95,8 @@ class StatisticsPage extends StatelessWidget {
                             ],
                           )),
                       Visibility(
-                          visible: statistic?.repairTask?.total != 0 &&
-                              statistic?.transportTask?.total != null,
+                          visible: statistic?.repairTask?.total != null &&
+                              statistic?.transportTask?.total != 0,
                           child: Column(
                             children: [
                               Container(
@@ -128,8 +128,8 @@ class StatisticsPage extends StatelessWidget {
                             ],
                           )),
                       Visibility(
-                          visible: statistic?.maintenanceTask?.total != 0 &&
-                              statistic?.transportTask?.total != null,
+                          visible: statistic?.maintenanceTask?.total != null &&
+                              statistic?.transportTask?.total != 0,
                           child: Column(
                             children: [
                               Container(
@@ -164,8 +164,8 @@ class StatisticsPage extends StatelessWidget {
                             ],
                           )),
                       Visibility(
-                          visible: statistic?.replaceTask?.total != 0 &&
-                              statistic?.transportTask?.total != null,
+                          visible: statistic?.replaceTask?.total != null &&
+                              statistic?.transportTask?.total != 0,
                           child: Column(
                             children: [
                               Container(
@@ -197,8 +197,8 @@ class StatisticsPage extends StatelessWidget {
                             ],
                           )),
                       Visibility(
-                          visible: statistic?.transportTask?.total != 0 &&
-                              statistic?.transportTask?.total != null,
+                          visible: statistic?.transportTask?.total != null &&
+                              statistic?.transportTask?.total != 0,
                           child: Column(
                             children: [
                               Container(
@@ -232,8 +232,8 @@ class StatisticsPage extends StatelessWidget {
                             ],
                           )),
                       Visibility(
-                          visible: statistic?.inventoryCheckTask?.total != 0 &&
-                              statistic?.transportTask?.total != null,
+                          visible: statistic?.inventoryCheckTask?.total != null &&
+                              statistic?.transportTask?.total != 0,
                           child: Column(
                             children: [
                               Container(

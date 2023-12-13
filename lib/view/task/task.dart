@@ -3,6 +3,7 @@ import 'package:FMS/view/task/list_complete_data.dart';
 import 'package:FMS/view/task/list_process_data.dart';
 import 'package:FMS/view/task/list_waiting_data.dart';
 import 'package:FMS/view/widget/bottom_navigation_bar.dart';
+import 'package:FMS/view_models/controller/notification/notification_controller.dart';
 import 'package:FMS/view_models/controller/task/task_controller.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class Task extends StatefulWidget {
 
 class _TaskState extends State<Task> {
   final TaskController taskController = Get.put(TaskController());
+  final NotificationController notificationController = Get.find<NotificationController>();
   final RxInt currentIndex = 1.obs;
   int selectedTabIndex = 0;
 
@@ -26,10 +28,12 @@ class _TaskState extends State<Task> {
   void initState() {
     super.initState();
     taskController.taskListApi();
+    notificationController.notificationListApi();
   }
 
   void refreshData() {
     taskController.refreshAllList();
+    notificationController.notificationListApi();
   }
 
   Widget buildLoadedPage() {
